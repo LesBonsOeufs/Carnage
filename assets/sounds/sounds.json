@@ -1,0 +1,15 @@
+{
+	"files" : {
+		"fxs" :{
+			"click"	: {"asset":"click", "volume":1}
+		},
+		"musics" :{
+			"world1" : {"asset":"DerpNugget", "volume":1}
+		}
+	},
+	"volumes" : {
+		"master" : 1,
+		"fxs" : 0.75,
+		"musics" : 0.75
+	}	
+}

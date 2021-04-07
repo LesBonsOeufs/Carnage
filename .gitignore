@@ -1,0 +1,7 @@
+bin
+assets/images/atlas
+assets/libraries
+assets/colliders.json
+*.swf
+*RECOVER_*.fla
+*RECUPERE_*.fla
