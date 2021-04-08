@@ -1,4 +1,6 @@
 package com.isartdigital.onebutton.game;
+import com.isartdigital.onebutton.game.layers.GameLayer;
+import com.isartdigital.onebutton.game.layers.ScrollingForest;
 import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.onebutton.ui.UIManager;
 import com.isartdigital.utils.Timer;
@@ -36,8 +38,10 @@ class GameManager
 		controller = new Controller(GameStage.getInstance().stage);
 		player = new Player(controller);
 		
-		gameLayer = new GameLayer(-10);
+		gameLayer = new GameLayer(-2.5);
 		gameLayer.start();
+		
+		ScrollingForest.start(gameLayer);
 		
 		UIManager.openHud();
 		
@@ -46,7 +50,7 @@ class GameManager
 		var lJson:Dynamic = Json.parse(GameLoader.getText("assets/settings/player.json"));
 		Monitor.setSettings(lJson, player);
 		
-		var fields : Array<MonitorField> = [{name:"smoothing", onChange:onChange}, {name:"gravity", step:0.01}, {name:"jumpImpulse", step:1}, {name:"x", step:1}, {name:"y", step:100}];
+		var fields : Array<MonitorField> = [{name:"smoothing", onChange:onChange}, {name:"x", step:1}, {name:"y", step:100}];
 		Monitor.start(player, fields, lJson);
 		
 		var fields : Array<MonitorField> = [{name:"speed", step:1}, {name:"x", step:1}, {name:"y", step:1}];
@@ -81,7 +85,10 @@ class GameManager
 	
 	private static function gameLoop(pEvent:Event) : Void {
 		timer.update();
+		
 		gameLayer.doAction();
+		ScrollingForest.doActions();
+		
 		player.doAction();
 	}
 }

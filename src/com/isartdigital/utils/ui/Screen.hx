@@ -11,7 +11,7 @@ import openfl.utils.Assets;
 class Screen extends UIComponent 
 {
 
-	private var content:MovieClip;
+	private var content: MovieClip;
 	private function new(?pLibrary:String="ui") 
 	{
 		super();

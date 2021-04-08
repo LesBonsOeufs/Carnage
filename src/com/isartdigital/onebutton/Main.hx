@@ -1,6 +1,6 @@
 package com.isartdigital.onebutton;
 
-import com.isartdigital.onebutton.game.GameLayer;
+import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.ui.GraphicLoader;
 import com.isartdigital.onebutton.ui.TitleCard;
 import com.isartdigital.onebutton.ui.UIManager;

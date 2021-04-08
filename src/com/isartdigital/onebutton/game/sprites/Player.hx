@@ -1,6 +1,7 @@
 package com.isartdigital.onebutton.game.sprites;
 
 import com.isartdigital.onebutton.game.Controller;
+import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.utils.game.stateObjects.StateMovieClip;
 import openfl.events.Event;
 
@@ -58,14 +59,10 @@ class Player extends TimeFlexibleStateMovieClip
 	
 	override function doActionNormal():Void 
 	{
-		//trace(state);
-		
 		timedAnim();
 		
 		//trace(controller.maintained);
 		
-		//yVelocity += gravity;
-		//y += yVelocity;
 		x -= cast (parent, GameLayer).speed;
 	}
 	

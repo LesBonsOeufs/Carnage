@@ -1,4 +1,4 @@
-package com.isartdigital.onebutton.game;
+package com.isartdigital.onebutton.game.layers;
 
 import com.isartdigital.utils.game.StateMachine;
 import openfl.Lib;

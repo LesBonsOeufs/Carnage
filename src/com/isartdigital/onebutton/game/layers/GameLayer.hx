@@ -1,8 +1,4 @@
-package com.isartdigital.onebutton.game;
-
-import com.isartdigital.utils.game.GameObject;
-import com.isartdigital.utils.game.StateMachine;
-import openfl.display.DisplayObject;
+package com.isartdigital.onebutton.game.layers;
 
 /**
  * ...
@@ -16,7 +12,7 @@ class GameLayer extends Layer
 	{
 		super();
 		
-		speed  = pSpeed;
+		speed = pSpeed;
 	}
 	
 	override function doActionNormal():Void 
