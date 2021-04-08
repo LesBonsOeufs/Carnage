@@ -7,7 +7,6 @@ import openfl.display.DisplayObject;
 import openfl.display.DisplayObjectContainer;
 import openfl.display.Shape;
 import openfl.geom.Point;
-import openfl.geom.Rectangle;
 
 /**
  * Classe de base des objets interactifs ayant plusieurs états graphiques

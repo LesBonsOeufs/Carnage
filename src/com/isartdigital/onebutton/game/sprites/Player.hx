@@ -9,15 +9,13 @@ import openfl.events.Event;
  * ...
  * @author Chadi Husser
  */
-class Player extends StateMovieClip 
+class Player extends TimeFlexibleStateMovieClip 
 {
 	private inline static var RUN_STATE: String = "run";
+	private inline static var BLOCK_STATE: String = "block";
 	private inline static var HEAVY_ATTACK_STATE: String = "attack1";
 	
 	private var controller:Controller;
-	private var gravity:Float = 0.89;
-	private var jumpImpulse:Float = -25;
-	private var yVelocity:Float = 0;
 	
 	public function new(pController:Controller) 
 	{
@@ -30,10 +28,24 @@ class Player extends StateMovieClip
 		setState(stateDefault, true);
 		super.start();
 		controller.addEventListener(Controller.INPUT_DOWN, onInputDown);
+		controller.addEventListener(Controller.INPUT_UP, onInputUp);
 	}
 	
 	private function onInputDown(pEvent:Event):Void 
 	{
+		if (state == HEAVY_ATTACK_STATE) return;
+		
+		var lCurrentFrame: UInt = renderer.currentFrame;
+		
+		setState(BLOCK_STATE);
+		
+		renderer.gotoAndStop(lCurrentFrame);
+	}
+	
+	private function onInputUp(pEvent:Event):Void 
+	{
+		if (state != BLOCK_STATE) return;
+		
 		//yVelocity = jumpImpulse;
 		setState(HEAVY_ATTACK_STATE);
 	}
@@ -46,11 +58,26 @@ class Player extends StateMovieClip
 	
 	override function doActionNormal():Void 
 	{
+		//trace(state);
+		
+		timedAnim();
+		
+		//trace(controller.maintained);
+		
 		//yVelocity += gravity;
 		//y += yVelocity;
 		x -= cast (parent, GameLayer).speed;
+	}
+	
+	override function timedAnim():Void 
+	{
+		var lNextCountTime: Float = countTime + TimeFlexibleStateMovieClip.timer.deltaTime;
 		
-		if (isAnimEnded) setState(RUN_STATE, true);
+		if (state == HEAVY_ATTACK_STATE)
+			if (lNextCountTime >= TimeFlexibleStateMovieClip.TIME_BETWEEN_ANIM_FRAME && isAnimEnded)
+				setState(RUN_STATE);
+		
+		super.timedAnim();
 	}
 	
 	/**
@@ -58,6 +85,7 @@ class Player extends StateMovieClip
 	 */
 	override public function destroy (): Void {
 		controller.removeEventListener(Controller.INPUT_DOWN, onInputDown);
+		controller.removeEventListener(Controller.INPUT_UP, onInputUp);
 		controller = null;
 	}
 

@@ -12,6 +12,9 @@ import openfl.events.TouchEvent;
 class Controller extends EventDispatcher
 {
 	public static inline var INPUT_DOWN:String = "INPUT_DOWN";
+	public static inline var INPUT_UP:String = "INPUT_UP";
+	
+	public var maintained: Bool = false;
 	
 	private var stage:Stage;
 	
@@ -20,26 +23,46 @@ class Controller extends EventDispatcher
 		super();
 		stage = pStage;
 		stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		stage.addEventListener(TouchEvent.TOUCH_BEGIN, onTouchBegin);
+		stage.addEventListener(TouchEvent.TOUCH_END, onTouchEnd);
 	}
 	
-	private function onTouchBegin(pEvent:TouchEvent):Void 
+	private function onTouchBegin(pEvent:TouchEvent): Void 
 	{
 		invokeInputDownEvent();
 	}
 	
-	private function onMouseDown(pEvent:MouseEvent):Void 
+	private function onTouchEnd(pEvent: TouchEvent): Void
+	{
+		invokeInputUpEvent();
+	}
+	
+	private function onMouseDown(pEvent:MouseEvent): Void 
 	{
 		invokeInputDownEvent();
+	}
+	
+	private function onMouseUp(pEvent: MouseEvent): Void
+	{
+		invokeInputUpEvent();
 	}
 	
 	private function invokeInputDownEvent():Void {
+		maintained = true;
 		dispatchEvent(new Event(INPUT_DOWN));
+	}
+	
+	private function invokeInputUpEvent():Void {
+		maintained = false;
+		dispatchEvent(new Event(INPUT_UP));
 	}
 	
 	public function destroy():Void {
 		stage.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+		stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		stage.removeEventListener(TouchEvent.TOUCH_BEGIN, onTouchBegin);
+		stage.removeEventListener(TouchEvent.TOUCH_END, onTouchEnd);
 		stage = null;
 	}
 }

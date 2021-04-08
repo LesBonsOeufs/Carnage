@@ -1,7 +1,7 @@
 package com.isartdigital.onebutton.game;
-import animateAtlasPlayer.assets.AssetFactory;
 import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.onebutton.ui.UIManager;
+import com.isartdigital.utils.Timer;
 import com.isartdigital.utils.debug.Debug;
 import com.isartdigital.utils.events.EventType;
 import com.isartdigital.utils.game.GameStage;
@@ -12,12 +12,8 @@ import com.isartdigital.utils.system.Monitor;
 import com.isartdigital.utils.system.MonitorField;
 import haxe.Json;
 import openfl.events.Event;
-import openfl.events.MouseEvent;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
-import org.zamedev.particles.ParticleSystem;
-import org.zamedev.particles.loaders.ParticleLoader;
-import org.zamedev.particles.renderers.DefaultParticleRenderer;
 
 
 /**
@@ -30,10 +26,13 @@ class GameManager
 	private static var player:Player;
 	private static var gameLayer:GameLayer;
 	
+	public static var timer: Timer;
+	
 	public static function start() : Void {
 		
 		UIManager.closeScreens();
 		
+		timer = new Timer();
 		controller = new Controller(GameStage.getInstance().stage);
 		player = new Player(controller);
 		
@@ -69,6 +68,7 @@ class GameManager
 	
 	public static function resumeGame() : Void {
 		SoundManager.getSound("world1").start();
+		timer.resume();
 	}
 	
 	private static function onChange(pValue:Bool) : Void {
@@ -76,10 +76,11 @@ class GameManager
 	}
 	
 	public static function pauseGame() : Void {
-		
+		timer.stop();
 	}
 	
 	private static function gameLoop(pEvent:Event) : Void {
+		timer.update();
 		gameLayer.doAction();
 		player.doAction();
 	}
