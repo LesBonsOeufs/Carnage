@@ -27,7 +27,7 @@ class StateObject<T:DisplayObjectContainer> extends StateMachine
 	/**
 	 * Nom par défaut de l'état par défaut
 	 */
-	public static var defaultStateDefault:String = "";
+	public static var defaultStateDefault:String = "default";
 	
 	/**
 	 * rendu de l'état courant
