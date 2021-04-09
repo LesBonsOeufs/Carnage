@@ -50,7 +50,7 @@ class GameManager
 		controller = new Controller(GameStage.getInstance().stage);
 		player = new Player(controller);
 		
-		gameLayer = new GameLayer(-2.5);
+		gameLayer = new GameLayer(-3);
 		gameLayer.x = lRect.left;
 		gameLayer.start();
 		
