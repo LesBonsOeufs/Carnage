@@ -63,7 +63,7 @@ class Player extends TimeFlexibleStateMovieClip
 		
 		//trace(controller.maintained);
 		
-		x -= cast (parent, GameLayer).speed;
+		x -= cast (parent, GameLayer).speed * GameManager.timeBasedCoeff;
 	}
 	
 	override function timedAnim():Void 

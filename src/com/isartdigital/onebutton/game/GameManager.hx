@@ -24,14 +24,26 @@ import openfl.geom.Rectangle;
  */
 class GameManager 
 {
+	private static inline var FPS: Int = 60;
+	
+	public static var timeBasedCoeff(get, never): Float;
+	
+	private static function get_timeBasedCoeff(): Float
+	{
+		return timer.deltaTime * FPS;
+	}
+	
+	public static var timer: Timer;
+	
 	private static var controller:Controller;
 	private static var player:Player;
 	private static var gameLayer:GameLayer;
 	
-	public static var timer: Timer;
-	
-	public static function start() : Void {
+	public static function start() : Void 
+	{
+		var lRect: Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		
+		Debug.init();
 		UIManager.closeScreens();
 		
 		timer = new Timer();
@@ -39,6 +51,7 @@ class GameManager
 		player = new Player(controller);
 		
 		gameLayer = new GameLayer(-2.5);
+		gameLayer.x = lRect.left;
 		gameLayer.start();
 		
 		ScrollingForest.start(gameLayer);

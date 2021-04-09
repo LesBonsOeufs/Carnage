@@ -17,7 +17,7 @@ class GameLayer extends Layer
 	
 	override function doActionNormal():Void 
 	{
-		x += speed;
+		x += speed * GameManager.timeBasedCoeff;
 		updateScreenLimits();
 	}
 }
