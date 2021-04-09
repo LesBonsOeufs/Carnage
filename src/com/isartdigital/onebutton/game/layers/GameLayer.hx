@@ -4,7 +4,7 @@ package com.isartdigital.onebutton.game.layers;
  * ...
  * @author Théo Sabattié
  */
-class GameLayer extends Layer 
+class GameLayer extends Layer
 {
 	public var speed(default, null):Float;
 	

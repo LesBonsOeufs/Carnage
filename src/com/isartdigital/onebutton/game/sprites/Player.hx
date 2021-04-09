@@ -2,7 +2,6 @@ package com.isartdigital.onebutton.game.sprites;
 
 import com.isartdigital.onebutton.game.Controller;
 import com.isartdigital.onebutton.game.layers.GameLayer;
-import com.isartdigital.utils.game.stateObjects.StateMovieClip;
 import openfl.events.Event;
 
 	
@@ -12,6 +11,8 @@ import openfl.events.Event;
  */
 class Player extends TimeFlexibleStateMovieClip 
 {
+	public inline static var INIT_X_OFFSET: Int = 250;
+	
 	private inline static var RUN_STATE: String = "run";
 	private inline static var BLOCK_STATE: String = "block";
 	private inline static var HEAVY_ATTACK_STATE: String = "attack1";
@@ -60,8 +61,6 @@ class Player extends TimeFlexibleStateMovieClip
 	override function doActionNormal():Void 
 	{
 		timedAnim();
-		
-		//trace(controller.maintained);
 		
 		x -= cast (parent, GameLayer).speed * GameManager.timeBasedCoeff;
 	}

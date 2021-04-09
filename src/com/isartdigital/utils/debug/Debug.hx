@@ -115,7 +115,7 @@ class Debug
 		var lPos:Point =  GameStage.getInstance().globalToLocal(new Point());
 		debugPanel.x = lPos.x;
 		debugPanel.y = lPos.y;
-
+		
 		debugPanel.scaleX = 1 / GameStage.getInstance().scaleX;
 		debugPanel.scaleY = 1 / GameStage.getInstance().scaleY;
 	}

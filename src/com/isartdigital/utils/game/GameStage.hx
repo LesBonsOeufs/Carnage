@@ -1,8 +1,10 @@
 package com.isartdigital.utils.game;
 
 import com.isartdigital.utils.system.DeviceCapabilities;
+import openfl.display.DisplayObjectContainer;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.geom.Point;
 import openfl.geom.Rectangle;
 
 /**
@@ -59,7 +61,7 @@ class GameStage extends Sprite
 	/**
 	 * Rectangle délimitant le contenu minimum visible
 	 */
-	public var safeZone (default, null):Rectangle = new Rectangle(0,0,SAFE_ZONE_WIDTH,SAFE_ZONE_HEIGHT);
+	public var safeZone (default, null):Rectangle = new Rectangle(0, 0, SAFE_ZONE_WIDTH, SAFE_ZONE_HEIGHT);
 	
 	/*
 	 * style d'alignement au sein de l'écran
@@ -216,6 +218,14 @@ class GameStage extends Sprite
 	 */
 	public function getPopinsSprite (): Sprite {
 		return popinsSprite;
+	}
+	
+	public function getLocalSafeZone(pContainer: DisplayObjectContainer): Rectangle
+	{
+		var lContainerSafeZonePos: Point = pContainer.globalToLocal(GameStage.getInstance().localToGlobal(new Point(safeZone.x, safeZone.y)));
+		var lContainerSafeZone: Rectangle = new Rectangle(lContainerSafeZonePos.x, lContainerSafeZonePos.y, SAFE_ZONE_WIDTH, SAFE_ZONE_HEIGHT);
+		
+		return lContainerSafeZone;
 	}
 	
 	/**

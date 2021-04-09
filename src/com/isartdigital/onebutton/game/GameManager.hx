@@ -1,6 +1,6 @@
 package com.isartdigital.onebutton.game;
 import com.isartdigital.onebutton.game.layers.GameLayer;
-import com.isartdigital.onebutton.game.layers.ScrollingForest;
+import com.isartdigital.onebutton.game.layers.scenes.ScrollingForest;
 import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.onebutton.ui.UIManager;
 import com.isartdigital.utils.Timer;
@@ -54,7 +54,7 @@ class GameManager
 		gameLayer.x = lRect.left;
 		gameLayer.start();
 		
-		ScrollingForest.start(gameLayer);
+		ScrollingForest.init(gameLayer);
 		
 		UIManager.openHud();
 		
@@ -69,16 +69,15 @@ class GameManager
 		var fields : Array<MonitorField> = [{name:"speed", step:1}, {name:"x", step:1}, {name:"y", step:1}];
 		Monitor.start(gameLayer, fields);
 		
-		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
-		
 		GameStage.getInstance().getGameContainer().addChild(gameLayer);
+		ScrollingForest.addBackgrounds(gameLayer);
 		gameLayer.addChild(player);
+		ScrollingForest.addForegrounds(gameLayer);
+		
 		player.start();
 		
-		var lPos:Point = new Point(lRect.x + lRect.width / 4, lRect.y + lRect.height / 2);
-		
-		player.x = lPos.x;
-		player.y = lPos.y;
+		player.x = GameStage.getInstance().getLocalSafeZone(gameLayer).x + Player.INIT_X_OFFSET;
+		player.y = ScrollingForest.groundY;
 		
 		resumeGame();
 	}

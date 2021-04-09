@@ -14,7 +14,8 @@ import openfl.events.Event;
  */
 class ParallaxLayer extends Layer 
 {
-	private static inline var PART_WIDTH: Int = 2000;
+	public static inline var GROUND_Y: Int = 850;
+	private static inline var PART_WIDTH: Int = 2500;
 	
 	private var target:DisplayObject;
 	private var offsetCoef:Float;
