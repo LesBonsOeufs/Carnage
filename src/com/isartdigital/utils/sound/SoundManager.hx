@@ -2,7 +2,6 @@ package com.isartdigital.utils.sound;
 
 import com.isartdigital.utils.sound.SoundFX;
 import openfl.events.Event;
-import openfl.events.EventDispatcher;
 /**
  * ...
  * @author Mathieu ANTHOINE
@@ -10,8 +9,6 @@ import openfl.events.EventDispatcher;
  */
 class SoundManager 
 {
-	
-	
 	/**
 	 * Volume principal
 	**/
@@ -22,6 +19,8 @@ class SoundManager
 	private static var soundType:String = ".ogg";
 	
 	private static var sounds :Map<String, SoundFX>;
+	
+	public static var mute: Bool = false;
 	
 	private static function set_mainVolume(pVolume:Float) :Float {
 		for (sound in sounds) {

@@ -16,14 +16,14 @@
 	<assets embed="true" path="assets/config.json"/>
 	<assets embed="true" path="assets/sounds/sounds.json"/>
 	
-	<assets rename="" embed="false" path="assets/images/atlas"/>
+	<assets rename="" embed="false" path="assets/images/atlas"/> 
 
 	<library preload="true" path="assets/libraries/loader.swf"/> 
 
 	<library preload="false" path="assets/libraries/ui.swf"/> 
 	<library preload="false" path="assets/libraries/assets.swf"/>
 	
-	<section if="html5">
+	<section if="html5"> 
 		<dependency path="assets/lib/dat.gui.min.js"/>
 	</section>
 	

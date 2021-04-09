@@ -1,5 +1,6 @@
 package com.isartdigital.utils.ui;
 
+import com.isartdigital.onebutton.FontAndLoca;
 import openfl.display.MovieClip;
 import openfl.events.Event;
 import openfl.utils.Assets;
@@ -17,6 +18,9 @@ class Screen extends UIComponent
 		super();
 		content = Assets.getMovieClip(pLibrary + ":" + Type.getClassName(Type.getClass(this)).split(".").pop());
 		addChild(content);
+		
+		FontAndLoca.setUpTextFields(content);
+		
 		addEventListener(Event.ADDED_TO_STAGE, init);
 	}
 	

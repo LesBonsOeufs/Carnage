@@ -83,8 +83,11 @@ class GameManager
 	}
 	
 	public static function resumeGame() : Void {
-		SoundManager.getSound("world1").start();
 		timer.resume();
+		
+		if (!SoundManager.getSound("ingame").isPlaying)
+			SoundManager.getSound("ingame").loop();
+		SoundManager.getSound("ui").stop();
 	}
 	
 	private static function onChange(pValue:Bool) : Void {
@@ -93,6 +96,10 @@ class GameManager
 	
 	public static function pauseGame() : Void {
 		timer.stop();
+		
+		if (!SoundManager.getSound("ui").isPlaying)
+			SoundManager.getSound("ui").loop();
+		SoundManager.getSound("ingame").stop();
 	}
 	
 	private static function gameLoop(pEvent:Event) : Void {

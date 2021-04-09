@@ -52,7 +52,7 @@ class SoundFX extends EventDispatcher
 	/**
 	 * Toggle pause / resume
 	 */
-	private var isPlaying:Bool = false;
+	public var isPlaying(default, null):Bool = false;
 	
 	/**
 	 * Loop, si 0 considère comme répétition infinie
@@ -104,11 +104,14 @@ class SoundFX extends EventDispatcher
 	 * @param	pStartTime position de départ en millisecondes
 	 * @param	pLoops nombre de répétitions, 0 = infinie
 	 */
-	public function start (pStartTime:Int = 0, pLoops:Int = 1):Void {
+	public function start (pStartTime:Int = 0, pLoops:Int = 1):Void 
+	{
+		if (SoundManager.mute) return;
+		
 		startTime = pStartTime;
 		loops 	  = pLoops;
 		isPlaying = true;
-		channel   = sound.play (pStartTime, pLoops);
+		channel   = sound.play (pStartTime, pLoops, new SoundTransform(volume));
 		
 		if (channel == null)
 			throw "you are trying to play too many time the same sound in a short time";

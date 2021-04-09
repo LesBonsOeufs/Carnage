@@ -75,6 +75,7 @@ class Main extends Sprite
 		
 		//Chargement des settings
 		lGameLoader.addText("assets/settings/player.json");
+		lGameLoader.addText("assets/localization.json");
 		
         //Chargement des particules
 		lGameLoader.addText("assets/particles/fire.plist");
@@ -86,7 +87,8 @@ class Main extends Sprite
 		//Chargement de l'ui
 		lGameLoader.addLibrary("ui");
 		
-		lGameLoader.addFont("assets/fonts/Unxgala.ttf");
+		//Chargement des fonts
+		lGameLoader.addFont("assets/fonts/OldLondon.ttf");
 		
 		//Chargement des colliders
 		lGameLoader.addText("assets/colliders.json");
@@ -108,10 +110,11 @@ class Main extends Sprite
 		lGameLoader.removeEventListener(AssetsLoaderEvent.COMPLETE, onLoadComplete);		
 		
 		SoundManager.initSounds();
+		FontAndLoca.initTranslationFile();
 	
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
-			
+		
 		UIManager.addScreen(TitleCard.getInstance());
 		
 		addEventListener(Event.ENTER_FRAME, gameLoop);

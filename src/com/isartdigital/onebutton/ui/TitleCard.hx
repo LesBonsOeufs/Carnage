@@ -25,6 +25,9 @@ class TitleCard extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:content.getChildByName("background"), align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
+		
+		if (!SoundManager.getSound("ui").isPlaying)
+			SoundManager.getSound("ui").loop();
 	}
 	
 	public static function getInstance() : TitleCard {
