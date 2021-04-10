@@ -13,6 +13,8 @@ import com.isartdigital.utils.system.DeviceCapabilities;
 import com.isartdigital.utils.system.Monitor;
 import com.isartdigital.utils.system.MonitorField;
 import haxe.Json;
+import openfl.display.DisplayObjectContainer;
+import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
@@ -43,6 +45,11 @@ class GameManager
 	{
 		var lRect: Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		
+		//Offset initial pour éviter que le scrolling ne laisse du vide au départ.
+		var lInitGameLayerX: Float = lRect.left - lRect.width;
+		
+		var lGameContainer: Sprite = GameStage.getInstance().getGameContainer();
+		
 		Debug.init();
 		UIManager.closeScreens();
 		
@@ -50,11 +57,12 @@ class GameManager
 		controller = new Controller(GameStage.getInstance().stage);
 		player = new Player(controller);
 		
-		gameLayer = new GameLayer(-3);
-		gameLayer.x = lRect.left;
+		gameLayer = new GameLayer(-6);
+		gameLayer.x = lInitGameLayerX;
 		gameLayer.start();
 		
 		ScrollingForest.init(gameLayer);
+		PatternManager.init(gameLayer);
 		
 		UIManager.openHud();
 		
@@ -69,10 +77,10 @@ class GameManager
 		var fields : Array<MonitorField> = [{name:"speed", step:1}, {name:"x", step:1}, {name:"y", step:1}];
 		Monitor.start(gameLayer, fields);
 		
-		GameStage.getInstance().getGameContainer().addChild(gameLayer);
-		ScrollingForest.addBackgrounds(gameLayer);
+		ScrollingForest.addBackgrounds(lGameContainer);
+		lGameContainer.addChild(gameLayer);
+		ScrollingForest.addForegrounds(lGameContainer);
 		gameLayer.addChild(player);
-		ScrollingForest.addForegrounds(gameLayer);
 		
 		player.start();
 		
@@ -106,7 +114,8 @@ class GameManager
 		timer.update();
 		
 		gameLayer.doAction();
-		ScrollingForest.doActions();
+		ScrollingForest.doAction();
+		PatternManager.doAction();
 		
 		player.doAction();
 	}

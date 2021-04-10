@@ -7,7 +7,7 @@ import com.isartdigital.utils.game.stateObjects.StateMovieClip;
  * ...
  * @author Gabriel Bernabeu
  */
-class TimeFlexibleStateMovieClip extends StateMovieClip 
+class TimeFlexibleObject extends StateMovieClip 
 {
 	private static inline var TIME_BETWEEN_ANIM_FRAME: Float = 0.05;
 	private static var timer (get, never): Timer;

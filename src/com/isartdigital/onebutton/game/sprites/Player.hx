@@ -9,7 +9,7 @@ import openfl.events.Event;
  * ...
  * @author Chadi Husser
  */
-class Player extends TimeFlexibleStateMovieClip 
+class Player extends TimeFlexibleObject 
 {
 	public inline static var INIT_X_OFFSET: Int = 250;
 	
@@ -17,9 +17,9 @@ class Player extends TimeFlexibleStateMovieClip
 	private inline static var BLOCK_STATE: String = "block";
 	private inline static var HEAVY_ATTACK_STATE: String = "attack1";
 	
-	private var controller:Controller;
+	private var controller: Controller;
 	
-	public function new(pController:Controller) 
+	public function new(pController: Controller) 
 	{
 		super();
 		controller = pController;
@@ -67,10 +67,10 @@ class Player extends TimeFlexibleStateMovieClip
 	
 	override function timedAnim():Void 
 	{
-		var lNextCountTime: Float = countTime + TimeFlexibleStateMovieClip.timer.deltaTime;
+		var lNextCountTime: Float = countTime + TimeFlexibleObject.timer.deltaTime;
 		
 		if (state == HEAVY_ATTACK_STATE)
-			if (lNextCountTime >= TimeFlexibleStateMovieClip.TIME_BETWEEN_ANIM_FRAME && isAnimEnded)
+			if (lNextCountTime >= TimeFlexibleObject.TIME_BETWEEN_ANIM_FRAME && isAnimEnded)
 				setState(RUN_STATE);
 		
 		super.timedAnim();

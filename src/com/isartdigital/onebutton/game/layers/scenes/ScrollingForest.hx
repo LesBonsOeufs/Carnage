@@ -1,8 +1,6 @@
 package com.isartdigital.onebutton.game.layers.scenes;
-import com.isartdigital.utils.debug.Debug;
-import com.isartdigital.utils.game.GameStage;
-import openfl.geom.Rectangle;
-import openfl.geom.Point;
+import com.isartdigital.onebutton.game.layers.ParallaxLayer;
+import com.isartdigital.utils.system.DeviceCapabilities;
 import openfl.Assets;
 import openfl.display.DisplayObject;
 import openfl.display.DisplayObjectContainer;
@@ -32,7 +30,7 @@ class ScrollingForest
 		foregrounds = new Array<ParallaxLayer>();
 		backgrounds = new Array<ParallaxLayer>();
 		
-		var lCoeffs: Array<Float> = [1.5, 1.2, 0.9, 0.8, 0.7, 0.6, 0.4, 0.2];
+		var lCoeffs: Array<Float> = [1.4, 1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.2];
 		
 		for (i in 0...NB_OF_FOREGROUNDS)
 		{
@@ -53,10 +51,13 @@ class ScrollingForest
 	{
 		var i: Int = foregrounds.length - 1;
 		
+		var lForeground: ParallaxLayer;
+		
 		while (i > -1)
 		{
-			foregrounds[i].start();
-			pContainer.addChild(foregrounds[i]);
+			lForeground = foregrounds[i];
+			lForeground.start();
+			pContainer.addChild(lForeground);
 			i--;
 		}
 	}
@@ -65,15 +66,18 @@ class ScrollingForest
 	{
 		var i: Int = backgrounds.length - 1;
 		
+		var lBackground: ParallaxLayer;
+		
 		while (i > -1)
 		{
-			backgrounds[i].start();
-			pContainer.addChild(backgrounds[i]);
+			lBackground = backgrounds[i];
+			lBackground.start();
+			pContainer.addChild(lBackground);
 			i--;
 		}
 	}
 	
-	public static function doActions(): Void
+	public static function doAction(): Void
 	{
 		for (layer in foregrounds)
 		{

@@ -55,7 +55,7 @@ class ParallaxLayer extends Layer
 		x = target.x * offsetCoef;
 		updateScreenLimits();
 		
-		if (childList[0].x + PART_WIDTH < screenLimits.left + 1)
+		if (childList[0].x + PART_WIDTH < screenLimits.left)
 		{
 			childList[0].x = childList[childList.length - 1].x + PART_WIDTH;
 			childList.push(childList.shift());
