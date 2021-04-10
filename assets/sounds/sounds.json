@@ -4,7 +4,7 @@
 			"click"	: {"asset":"click", "volume":1}
 		},
 		"musics" :{
-			"ui": {"asset": "es_engage-hampus-naeselius", "volume":0.60},
+			"ui": {"asset": "es_engage-hampus-naeselius", "volume":0.70},
 			"ingame" : {"asset":"DerpNugget", "volume":1}
 		}
 	},

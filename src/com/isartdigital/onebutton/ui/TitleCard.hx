@@ -23,8 +23,8 @@ class TitleCard extends Screen
 		
 		var lPositionnable:UIPositionable = { item:content.getChildByName("btnPlay"), align:AlignType.BOTTOM, offsetY:450};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:content.getChildByName("background"), align:AlignType.FIT_SCREEN};
-		positionables.push(lPositionnable);
+		//lPositionnable = { item:content.getChildByName("background"), align:AlignType.FIT_SCREEN};
+		//positionables.push(lPositionnable);
 		
 		if (!SoundManager.getSound("ui").isPlaying)
 			SoundManager.getSound("ui").loop();
