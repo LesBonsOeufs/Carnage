@@ -22,9 +22,8 @@ enum PatternBrick {
 
 class PatternManager 
 {
-	private static inline var X_BETWEEN_PATTERN: Float = 500;
+	private static inline var X_BETWEEN_PATTERN: Float = 1200;
 	
-	private static inline var INIT_X_OFFSET: Int = 50;
 	private static inline var BRICK_X_OFFSET: Int = 20;
 	private static inline var BRICK_Y_OFFSET: Int = 20;
 	
@@ -32,7 +31,9 @@ class PatternManager
 	private static var container: Layer;
 	
 	private static var countXShifting: Float = 0;
-	private static var lastContainerX: Float = 0;
+	
+	//Fausse valeur de départ donnée à lastContainerX afin de faire apparaitre + vite le 1er pattern
+	private static var lastContainerX: Float = X_BETWEEN_PATTERN / 2;
 
 	private function new() {}
 	
@@ -44,7 +45,7 @@ class PatternManager
 		trace(file);
 		
 		container = pLayer;
-		lastContainerX = container.x;
+		lastContainerX += container.x;
 	}
 	
 	public static function doAction(): Void
@@ -53,7 +54,6 @@ class PatternManager
 		
 		if (Math.abs(countXShifting) >= X_BETWEEN_PATTERN)
 		{
-			trace("ok");
 			countXShifting = 0;
 			pickRandomPattern();
 		}
@@ -66,8 +66,9 @@ class PatternManager
 		var lRandomIndex: Int = Math.floor(Math.random() * file.length);
 		var lPattern: Array<String> = file[lRandomIndex];
 		
-		var lInitPos: Point = new Point(container.screenLimits.right + INIT_X_OFFSET, ScrollingForest.groundY);
+		var lInitPos: Point = new Point(container.screenLimits.right, ScrollingForest.groundY);
 		
+		var lAddedBricks: Array<TimeFlexibleObject> = new Array<TimeFlexibleObject>();
 		var lCurrentBrick: TimeFlexibleObject = null;
 		
 		var i: Int = 0;
@@ -85,11 +86,13 @@ class PatternManager
 				
 				if (lCurrentBrick == null) continue;
 				
-				lCurrentBrick.x = lInitPos.x + BRICK_X_OFFSET * j;
+				lCurrentBrick.x = lInitPos.x + lCurrentBrick.width / 2 +  BRICK_X_OFFSET * j;
 				lCurrentBrick.y = lInitPos.y + BRICK_Y_OFFSET * i;
 				
 				container.addChild(lCurrentBrick);
 				lCurrentBrick.start();
+				
+				lAddedBricks.push(lCurrentBrick);
 				
 				lCurrentBrick = null;
 				j++;
@@ -98,6 +101,11 @@ class PatternManager
 			j = 0;
 			i++;
 		}
+		
+		for (brick in lAddedBricks) {
+			countXShifting -= brick.width;
+		}
+		
+		trace(lAddedBricks.length);
 	}
-	
 }

@@ -57,7 +57,7 @@ class GameManager
 		controller = new Controller(GameStage.getInstance().stage);
 		player = new Player(controller);
 		
-		gameLayer = new GameLayer(-6);
+		gameLayer = new GameLayer(-8);
 		gameLayer.x = lInitGameLayerX;
 		gameLayer.start();
 		
@@ -94,7 +94,7 @@ class GameManager
 		timer.resume();
 		
 		if (!SoundManager.getSound("ingame").isPlaying)
-			SoundManager.getSound("ingame").loop();
+			SoundManager.getSound("ingame").fadeIn();
 		SoundManager.getSound("ui").stop();
 	}
 	
@@ -106,7 +106,7 @@ class GameManager
 		timer.stop();
 		
 		if (!SoundManager.getSound("ui").isPlaying)
-			SoundManager.getSound("ui").loop();
+			SoundManager.getSound("ui").fadeIn();
 		SoundManager.getSound("ingame").stop();
 	}
 	

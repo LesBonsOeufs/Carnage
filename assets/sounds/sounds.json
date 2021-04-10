@@ -5,7 +5,7 @@
 		},
 		"musics" :{
 			"ui": {"asset": "es_engage-hampus-naeselius", "volume":0.70},
-			"ingame" : {"asset":"DerpNugget", "volume":1}
+			"ingame" : {"asset":"es_honor_the_brave-hampus-naeselius", "volume":0.60}
 		}
 	},
 	"volumes" : {

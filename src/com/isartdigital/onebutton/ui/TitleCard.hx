@@ -27,7 +27,7 @@ class TitleCard extends Screen
 		//positionables.push(lPositionnable);
 		
 		if (!SoundManager.getSound("ui").isPlaying)
-			SoundManager.getSound("ui").loop();
+			SoundManager.getSound("ui").fadeIn();
 	}
 	
 	public static function getInstance() : TitleCard {
