@@ -88,11 +88,14 @@ class Main extends Sprite
 		lGameLoader.addLibrary("ui");
 		
 		//Chargement des fonts
-		lGameLoader.addFont("assets/fonts/OldLondon.ttf");
+		lGameLoader.addFont("assets/fonts/alagard_by_pix3m.ttf");
 		
 		//Chargement des colliders
 		lGameLoader.addText("assets/colliders.json");
-			
+		
+		//Chargement des patterns
+		lGameLoader.addText("assets/levels/leveldesign.json");
+		
 		lGameLoader.load();
 	}
 

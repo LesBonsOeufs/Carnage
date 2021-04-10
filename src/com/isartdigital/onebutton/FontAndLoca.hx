@@ -48,7 +48,7 @@ class FontAndLoca
 		var lTextFields: Array<TextField> = findTextFields(pParent);
 		var lContent: String;
 		
-		var lTextFormat: TextFormat = new TextFormat(GameLoader.getFont("assets/fonts/OldLondon.ttf").fontName);
+		var lTextFormat: TextFormat = new TextFormat(GameLoader.getFont("assets/fonts/alagard_by_pix3m.ttf").fontName);
 		
 		for (textField in lTextFields)
 		{
