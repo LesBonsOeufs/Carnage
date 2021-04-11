@@ -21,8 +21,8 @@ class TitleCard extends Screen
 		content.getChildByName("btnPlay").addEventListener(MouseEvent.CLICK, onClick);
 		
 		
-		var lPositionnable:UIPositionable = { item:content.getChildByName("btnPlay"), align:AlignType.BOTTOM, offsetY:450};
-		positionables.push(lPositionnable);
+		//var lPositionnable:UIPositionable = { item:content.getChildByName("btnPlay"), align:AlignType.BOTTOM, offsetY:450};
+		//positionables.push(lPositionnable);
 		//lPositionnable = { item:content.getChildByName("background"), align:AlignType.FIT_SCREEN};
 		//positionables.push(lPositionnable);
 		

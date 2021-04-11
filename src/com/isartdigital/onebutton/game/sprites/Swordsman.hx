@@ -7,6 +7,10 @@ package com.isartdigital.onebutton.game.sprites;
 class Swordsman extends MeleeObject 
 {
 	public static var list(default, null): Array<Swordsman> = new Array<Swordsman>();
+	
+	override function get_animStrikingFrame():Int {
+		return 3;
+	}
 
 	public function new() 
 	{
