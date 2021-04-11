@@ -23,8 +23,8 @@ class PatternManager
 {
 	private static inline var X_BETWEEN_PATTERN: Float = 1200;
 	
-	private static inline var BRICK_X_OFFSET: Int = 20;
-	private static inline var BRICK_Y_OFFSET: Int = 20;
+	private static inline var BRICK_X_OFFSET: Int = 200;
+	private static inline var BRICK_Y_OFFSET: Int = 200;
 	
 	private static var file: Array<Array<String>>;
 	private static var container: Layer;
