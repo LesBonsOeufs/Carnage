@@ -78,6 +78,12 @@ class Player extends MeleeObject
 			if (CollisionManager.hasCollision(obstacle.hitBox, hurtBox, obstacle.hitBoxes, hurtBoxes))
 				obstacle.destroy();
 		}
+		
+		for (swordsman in Swordsman.list)
+		{
+			if (CollisionManager.hasCollision(swordsman.hitBox, hurtBox, swordsman.hitBoxes, hurtBoxes))
+				swordsman.destroy();
+		}
 	}
 	
 	override function timedAnim():Void 
