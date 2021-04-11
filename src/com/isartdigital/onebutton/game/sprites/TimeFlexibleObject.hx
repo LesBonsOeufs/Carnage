@@ -30,6 +30,13 @@ class TimeFlexibleObject extends StateMovieClip
 		renderer.stop();
 	}
 	
+	override function doActionNormal():Void 
+	{
+		super.doActionNormal();
+		
+		timedAnim();
+	}
+	
 	private function timedAnim():Void 
 	{
 		countTime += timer.deltaTime;

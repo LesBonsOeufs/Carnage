@@ -1,6 +1,7 @@
 package com.isartdigital.onebutton.game;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.game.layers.scenes.ScrollingForest;
+import com.isartdigital.onebutton.game.sprites.Obstacle;
 import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.onebutton.ui.UIManager;
 import com.isartdigital.utils.Timer;
@@ -38,7 +39,7 @@ class GameManager
 	public static var timer: Timer;
 	
 	private static var controller:Controller;
-	private static var player:Player;
+	public static var player(default, null):Player;
 	private static var gameLayer:GameLayer;
 	
 	public static function start() : Void 
@@ -118,5 +119,15 @@ class GameManager
 		PatternManager.doAction();
 		
 		player.doAction();
+		Obstacle.doActions();
+	}
+	
+	public static function destroy(): Void
+	{
+		ScrollingForest.destroy();
+		Obstacle.reset();
+		player.destroy();
+		gameLayer.destroy();
+		controller.destroy();
 	}
 }

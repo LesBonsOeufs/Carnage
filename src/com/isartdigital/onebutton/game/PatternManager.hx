@@ -42,8 +42,6 @@ class PatternManager
 		var lFullFile: Dynamic = Json.parse(GameLoader.getText("assets/levels/leveldesign.json"));
 		file = Reflect.field(lFullFile, "levelDesign");
 		
-		trace(file);
-		
 		container = pLayer;
 		lastContainerX += container.x;
 	}
@@ -65,6 +63,8 @@ class PatternManager
 	{
 		var lRandomIndex: Int = Math.floor(Math.random() * file.length);
 		var lPattern: Array<String> = file[lRandomIndex];
+		
+		trace(lPattern);
 		
 		var lInitPos: Point = new Point(container.screenLimits.right, ScrollingForest.groundY);
 		
@@ -106,6 +106,6 @@ class PatternManager
 			countXShifting -= brick.width;
 		}
 		
-		trace(lAddedBricks.length);
+		//trace(lAddedBricks.length);
 	}
 }

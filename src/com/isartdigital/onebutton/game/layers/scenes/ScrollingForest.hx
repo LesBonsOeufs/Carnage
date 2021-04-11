@@ -90,7 +90,7 @@ class ScrollingForest
 		}
 	}
 	
-	public static function stop(): Void
+	public static function destroy(): Void
 	{
 		for (layer in foregrounds)
 		{

@@ -83,6 +83,31 @@ class StateObject<T:DisplayObjectContainer> extends StateMachine
 		setState(stateDefault, true);
 	}
 	
+	private function initColliderArrays(): Void 
+	{
+		hitBoxes = new Array<DisplayObject>();
+		hitPoints = new Array<Point>();
+		
+		var lBox: DisplayObject;
+		var lHitPoint: DisplayObject;
+		
+		for (i in 0...collider.numChildren)
+		{
+			lBox = collider.getChildByName("mcComplementaryBox" + i);
+			if (lBox == null) continue;
+			
+			hitBoxes.push(lBox);
+		}
+		
+		for (j in 0...collider.numChildren)
+		{
+			lHitPoint = collider.getChildByName("mcHitPoint" + j);
+			if (lHitPoint == null) continue;
+			
+			hitPoints.push(new Point(lHitPoint.x, lHitPoint.y));
+		}
+	}
+	
 	/**
 	 * défini l'état courant du StateObject
 	 * @param	pState nom de l'état (run, walk...)
@@ -212,7 +237,9 @@ class StateObject<T:DisplayObjectContainer> extends StateMachine
 		#else
 		collider.alpha = 0;
 		#end
-	}		
+		
+		initColliderArrays();
+	}
 	
 	/**
 	 * retourne l'identifiant complet de l'animation
@@ -238,23 +265,34 @@ class StateObject<T:DisplayObjectContainer> extends StateMachine
 	}
 	
 	/**
-	 * retourne la zone de hit de l'objet
+	 * retourne un tableau de zones de hits de l'objet
 	 */
-	public var hitBox (get, null):DisplayObject;
-	 
-	private function get_hitBox (): DisplayObject {
-		return collider;
-		// Si on veut cibler une zone plus précise: return collider.getChildByName("nom d'instance du AnimatedSprite de type Rectangle ou Circle dans Animate");
-	}
+	public var hitBoxes (default, null): Array<DisplayObject>;
 
 	/**
-	 * retourne un tableau de points de collision dont les coordonnées sont exprimées dans le systeme global
+	 * retourne un tableau de points de collision
 	 */
-	public var hitPoints (get, null): Array<Point>;
-	 
-	private function get_hitPoints (): Array<Point> {
-		return null;
-		// liste de Points : return [collider.toGlobal(collider.getChildByName("nom d'instance du AnimatedSprite de type Point dans Animate").position,collider.toGlobal(collider.getChildByName("nom d'instance du AnimatedSprite de type Point dans Animate").position];
+	private var hitPoints: Array<Point>;
+	
+	/**
+	 * retourne hitPoints avec des coordonnées exprimées dans le systeme global
+	 * @return
+	 */
+	public function getGlobalHitPoints (): Array<Point> 
+	{
+		var lPoints: Array<Point> = new Array<Point>();
+		var lGlobalHitPoint: Point;
+		
+		if (collider != null)
+		{
+			for (point in hitPoints)
+			{
+				lGlobalHitPoint = collider.localToGlobal(point);
+				lPoints.push(lGlobalHitPoint);
+			}
+		}
+		
+		return lPoints;
 	}
 	
 	/**

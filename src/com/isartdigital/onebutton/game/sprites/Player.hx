@@ -9,9 +9,9 @@ import openfl.events.Event;
  * ...
  * @author Chadi Husser
  */
-class Player extends TimeFlexibleObject 
+class Player extends MeleeObject 
 {
-	public inline static var INIT_X_OFFSET: Int = 250;
+	public inline static var INIT_X_OFFSET: Int = 300;
 	
 	private inline static var RUN_STATE: String = "run";
 	private inline static var BLOCK_STATE: String = "block";
@@ -48,7 +48,6 @@ class Player extends TimeFlexibleObject
 	{
 		if (state != BLOCK_STATE) return;
 		
-		//yVelocity = jumpImpulse;
 		setState(HEAVY_ATTACK_STATE);
 	}
 	
@@ -60,9 +59,9 @@ class Player extends TimeFlexibleObject
 	
 	override function doActionNormal():Void 
 	{
-		timedAnim();
+		super.doActionNormal();
 		
-		x -= cast (parent, GameLayer).speed * GameManager.timeBasedCoeff;
+		x -= cast(parent, GameLayer).speed * GameManager.timeBasedCoeff;
 	}
 	
 	override function timedAnim():Void 
