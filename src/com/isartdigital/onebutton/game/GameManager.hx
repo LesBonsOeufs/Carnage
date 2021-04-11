@@ -3,6 +3,7 @@ import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.game.layers.scenes.ScrollingForest;
 import com.isartdigital.onebutton.game.sprites.Obstacle;
 import com.isartdigital.onebutton.game.sprites.Player;
+import com.isartdigital.onebutton.game.sprites.Swordsman;
 import com.isartdigital.onebutton.ui.UIManager;
 import com.isartdigital.utils.Timer;
 import com.isartdigital.utils.debug.Debug;
@@ -120,6 +121,7 @@ class GameManager
 		
 		player.doAction();
 		Obstacle.doActions();
+		Swordsman.doActions();
 	}
 	
 	public static function destroy(): Void

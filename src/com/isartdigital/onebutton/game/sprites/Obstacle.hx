@@ -31,8 +31,8 @@ class Obstacle extends TimeFlexibleObject
 		
 		var lPlayer: Player = GameManager.player;
 		
-		if (CollisionManager.hasCollision(hitBox, lPlayer.hitBox, hitBoxes, lPlayer.getGlobalHitPoints()))
-			trace("ok");
+		//if (CollisionManager.hasCollision(hitBox, lPlayer.hitBox, hitBoxes, lPlayer.getGlobalHitPoints()))
+			//trace("ok");
 		
 		if (x + width / 2 < cast(parent, GameLayer).screenLimits.left)
 			destroy();

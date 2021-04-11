@@ -32,7 +32,6 @@ class Player extends MeleeObject
 	
 	override public function start():Void 
 	{
-		setState(stateDefault, true);
 		super.start();
 		controller.addEventListener(Controller.INPUT_DOWN, onInputDown);
 		controller.addEventListener(Controller.INPUT_UP, onInputUp);
@@ -77,7 +76,7 @@ class Player extends MeleeObject
 		for (obstacle in Obstacle.list)
 		{
 			if (CollisionManager.hasCollision(obstacle.hitBox, hurtBox, obstacle.hitBoxes, hurtBoxes))
-				trace("BOOOOOOOOOOOOOOOOM");
+				obstacle.destroy();
 		}
 	}
 	
@@ -86,8 +85,14 @@ class Player extends MeleeObject
 		var lNextCountTime: Float = countTime + TimeFlexibleObject.timer.deltaTime;
 		
 		if (state == HEAVY_ATTACK_STATE)
+		{
 			if (lNextCountTime >= TimeFlexibleObject.TIME_BETWEEN_ANIM_FRAME && isAnimEnded)
+			{
+				countTime = 0;
 				setState(RUN_STATE);
+				return;
+			}
+		}
 		
 		super.timedAnim();
 	}

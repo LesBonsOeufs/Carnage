@@ -22,6 +22,7 @@ class TimeFlexibleObject extends StateMovieClip
 	{
 		super(pAssetName);
 		
+		setState(stateDefault);
 	}
 	
 	override function setState(pState:String, ?pLoop:Bool = false, ?pAutoPlay:Bool = true, ?pStart:UInt = 0):Void 

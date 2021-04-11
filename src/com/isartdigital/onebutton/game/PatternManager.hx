@@ -2,12 +2,11 @@ package com.isartdigital.onebutton.game;
 import com.isartdigital.onebutton.game.layers.Layer;
 import com.isartdigital.onebutton.game.layers.scenes.ScrollingForest;
 import com.isartdigital.onebutton.game.sprites.Obstacle;
+import com.isartdigital.onebutton.game.sprites.Swordsman;
 import com.isartdigital.onebutton.game.sprites.TimeFlexibleObject;
-import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.loader.GameLoader;
 import haxe.Json;
 import openfl.geom.Point;
-import openfl.display.DisplayObjectContainer;
 
 /**
  * ...
@@ -48,9 +47,9 @@ class PatternManager
 	
 	public static function doAction(): Void
 	{
-		countXShifting += container.x - lastContainerX;
+		countXShifting += Math.abs(container.x - lastContainerX);
 		
-		if (Math.abs(countXShifting) >= X_BETWEEN_PATTERN)
+		if (countXShifting >= X_BETWEEN_PATTERN)
 		{
 			countXShifting = 0;
 			pickRandomPattern();
@@ -80,7 +79,7 @@ class PatternManager
 			{
 				switch char {
 					case "#": lCurrentBrick = new Obstacle();
-					//case "@": lCurrentBrick = SWORDSMAN;
+					case "@": lCurrentBrick = new Swordsman();
 					//case "^": lCurrentBrick = HOUSE;
 				}
 				
