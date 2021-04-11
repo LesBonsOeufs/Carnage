@@ -2,6 +2,7 @@ package com.isartdigital.onebutton.game.sprites;
 
 import com.isartdigital.onebutton.game.Controller;
 import com.isartdigital.onebutton.game.layers.GameLayer;
+import com.isartdigital.utils.game.CollisionManager;
 import openfl.events.Event;
 
 	
@@ -18,6 +19,10 @@ class Player extends MeleeObject
 	private inline static var HEAVY_ATTACK_STATE: String = "attack1";
 	
 	private var controller: Controller;
+	
+	override function get_animStrikingFrame():Int {
+		return 3;
+	}
 	
 	public function new(pController: Controller) 
 	{
@@ -61,7 +66,19 @@ class Player extends MeleeObject
 	{
 		super.doActionNormal();
 		
+		if (state == HEAVY_ATTACK_STATE && renderer.currentFrame == animStrikingFrame)
+			collision();
+		
 		x -= cast(parent, GameLayer).speed * GameManager.timeBasedCoeff;
+	}
+	
+	private function collision(): Void
+	{
+		for (obstacle in Obstacle.list)
+		{
+			if (CollisionManager.hasCollision(obstacle.hitBox, hurtBox, obstacle.hitBoxes, hurtBoxes))
+				trace("BOOOOOOOOOOOOOOOOM");
+		}
 	}
 	
 	override function timedAnim():Void 

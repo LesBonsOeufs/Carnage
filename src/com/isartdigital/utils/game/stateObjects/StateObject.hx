@@ -265,6 +265,16 @@ class StateObject<T:DisplayObjectContainer> extends StateMachine
 	}
 	
 	/**
+	 * retourne la zone de hit de l'objet
+	 * fonction getter: est utilisé comme une propriété ( questionner hitBox et non hitBox() )
+	 */
+	public var hitBox(get, never):DisplayObject;
+	
+	private function get_hitBox(): DisplayObject {
+		return collider;
+	}
+	
+	/**
 	 * retourne un tableau de zones de hits de l'objet
 	 */
 	public var hitBoxes (default, null): Array<DisplayObject>;

@@ -8,7 +8,7 @@ import com.isartdigital.utils.game.CollisionManager;
  */
 class Obstacle extends TimeFlexibleObject 
 {
-	private static var list: Array<Obstacle> = new Array<Obstacle>();
+	public static var list(default, null): Array<Obstacle> = new Array<Obstacle>();
 
 	public function new() 
 	{
@@ -31,7 +31,7 @@ class Obstacle extends TimeFlexibleObject
 		
 		var lPlayer: Player = GameManager.player;
 		
-		if (CollisionManager.hasCollision(collider, lPlayer.collider, hitBoxes, lPlayer.getGlobalHitPoints()))
+		if (CollisionManager.hasCollision(hitBox, lPlayer.hitBox, hitBoxes, lPlayer.getGlobalHitPoints()))
 			trace("ok");
 		
 		if (x + width / 2 < cast(parent, GameLayer).screenLimits.left)
