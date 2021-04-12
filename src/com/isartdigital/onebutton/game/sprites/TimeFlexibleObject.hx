@@ -49,7 +49,11 @@ class TimeFlexibleObject extends StateMovieClip
 			if (isAnimEnded)
 				renderer.gotoAndStop(1);
 			else
+			{
+				if (Type.getClass(this) == Swordsman) trace(renderer.currentFrame);
+				
 				renderer.nextFrame();
+			}
 		}
 	}
 	

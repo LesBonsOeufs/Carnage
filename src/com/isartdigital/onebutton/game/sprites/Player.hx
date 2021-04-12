@@ -14,9 +14,7 @@ class Player extends MeleeObject
 {
 	public inline static var INIT_X_OFFSET: Int = 300;
 	
-	private inline static var RUN_STATE: String = "run";
 	private inline static var BLOCK_STATE: String = "block";
-	private inline static var HEAVY_ATTACK_STATE: String = "attack1";
 	
 	private var controller: Controller;
 	
@@ -39,7 +37,7 @@ class Player extends MeleeObject
 	
 	private function onInputDown(pEvent:Event):Void 
 	{
-		if (state == HEAVY_ATTACK_STATE) return;
+		if (state == MeleeObject.HEAVY_ATTACK_STATE) return;
 		
 		var lCurrentFrame: UInt = renderer.currentFrame;
 		
@@ -52,20 +50,20 @@ class Player extends MeleeObject
 	{
 		if (state != BLOCK_STATE) return;
 		
-		setState(HEAVY_ATTACK_STATE);
+		setState(MeleeObject.HEAVY_ATTACK_STATE);
 	}
 	
 	override function setModeNormal():Void 
 	{
 		super.setModeNormal();
-		setState(RUN_STATE);
+		setState(MeleeObject.RUN_STATE);
 	}
 	
 	override function doActionNormal():Void 
 	{
 		super.doActionNormal();
 		
-		if (state == HEAVY_ATTACK_STATE && renderer.currentFrame == animStrikingFrame)
+		if (state == MeleeObject.HEAVY_ATTACK_STATE && renderer.currentFrame == animStrikingFrame)
 			collision();
 		
 		x -= cast(parent, GameLayer).speed * GameManager.timeBasedCoeff;
@@ -90,12 +88,12 @@ class Player extends MeleeObject
 	{
 		var lNextCountTime: Float = countTime + TimeFlexibleObject.timer.deltaTime;
 		
-		if (state == HEAVY_ATTACK_STATE)
+		if (state == MeleeObject.HEAVY_ATTACK_STATE)
 		{
 			if (lNextCountTime >= TimeFlexibleObject.TIME_BETWEEN_ANIM_FRAME && isAnimEnded)
 			{
 				countTime = 0;
-				setState(RUN_STATE);
+				setState(MeleeObject.RUN_STATE);
 				return;
 			}
 		}

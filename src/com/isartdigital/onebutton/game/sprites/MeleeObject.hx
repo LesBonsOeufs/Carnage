@@ -5,8 +5,11 @@ import openfl.display.DisplayObject;
  * ...
  * @author Gabriel Bernabeu
  */
-class MeleeObject extends TimeFlexibleObject 
+class MeleeObject extends MovingObject 
 {
+	private inline static var HEAVY_ATTACK_STATE: String = "attack1";
+	private inline static var RUN_STATE: String = "run";
+	
 	/**
 	 * retourne la zone englobante d'attaque
 	 */
@@ -24,9 +27,9 @@ class MeleeObject extends TimeFlexibleObject
 		return null;
 	}
 
-	public function new(pAssetName:String=null) 
+	public function new() 
 	{
-		super(pAssetName);
+		super();
 		
 	}
 	

@@ -15,10 +15,8 @@ import com.isartdigital.utils.system.DeviceCapabilities;
 import com.isartdigital.utils.system.Monitor;
 import com.isartdigital.utils.system.MonitorField;
 import haxe.Json;
-import openfl.display.DisplayObjectContainer;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import openfl.geom.Point;
 import openfl.geom.Rectangle;
 
 
@@ -28,7 +26,7 @@ import openfl.geom.Rectangle;
  */
 class GameManager 
 {
-	private static inline var FPS: Int = 60;
+	public static inline var FPS: Int = 60;
 	
 	public static var timeBasedCoeff(get, never): Float;
 	
@@ -37,7 +35,7 @@ class GameManager
 		return timer.deltaTime * FPS;
 	}
 	
-	public static var timer: Timer;
+	public static var timer(default, null): Timer;
 	
 	private static var controller:Controller;
 	public static var player(default, null):Player;
