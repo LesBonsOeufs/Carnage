@@ -1,4 +1,6 @@
 package com.isartdigital.onebutton.game.sprites;
+import com.isartdigital.onebutton.game.layers.GameLayer;
+import openfl.display.DisplayObject;
 
 /**
  * ...
@@ -6,36 +8,54 @@ package com.isartdigital.onebutton.game.sprites;
  */
 class Swordsman extends MeleeObject 
 {
-	private inline static var WALK_STATE: String = "walk";
-	private inline static var RUN_TRIGGER_VALUE: Float = 3;
+	private inline static var LIGHT_ATTACK: String = "attack2";
+	private inline static var RETREAT: String = "walkBack";
+	private inline static var WALK: String = "walk";
+	
+	private inline static var RUN_TRIGGER_VALUE: Float = 4.5;
+	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
+	
+	private inline static var MIN_MAX_VELOCITY: Float = 4;
+	private inline static var MAX_MAX_VELOCITY: Float = 8;
+	
+	private var _maxVelocity: Float;
 	
 	public static var list(default, null): Array<Swordsman> = new Array<Swordsman>();
 	
+	private var target: DisplayObject;
+	
 	override function get_accelerationValue():Float {
-		return -1 / GameManager.FPS;
+		return -2 / GameManager.FPS;
 	}
 	
 	override function get_maxVelocity():Float {
-		return 4;
+		return _maxVelocity;
 	}
 	
 	override function get_animStrikingFrame():Int {
 		return 3;
 	}
 
-	public function new() 
+	public function new(?pTarget: DisplayObject = null) 
 	{
 		super();
 		
 		list.push(this);
 		scaleX = -1;
+		
+		if (pTarget == null)
+			target = GameManager.player;
+		
+		_maxVelocity = MIN_MAX_VELOCITY + Math.random() * (MAX_MAX_VELOCITY - MIN_MAX_VELOCITY);
 	}
 	
 	static public function doActions(): Void
 	{
-		for (element in list)
+		var i: Int = list.length - 1;
+		while (i > -1)
 		{
-			element.doAction();
+			list[i].doAction();
+			i--;
 		}
 	}
 	
@@ -43,13 +63,55 @@ class Swordsman extends MeleeObject
 	{
 		super.doActionNormal();
 		
-		xAcceleration = accelerationValue;
+		var targetToX: Float = x - target.x;
 		
-		if (xVelocity != 0)
-			if (xVelocity < RUN_TRIGGER_VALUE)
-				setState(WALK_STATE);
+		if (targetToX <= 1500)
+		{
+			if (targetToX >= 0)
+				xAcceleration = RETREAT_ACCELERATION;
 			else
-				setState(MeleeObject.RUN_STATE);
+				xAcceleration = accelerationValue;
+		}
+		else if (state != RETREAT)
+		{
+			xAcceleration = accelerationValue;
+		}
+		
+		//if (scaleX == -1 && targetToX < 0 && (state == WALK || state == MeleeObject.RUN))
+		//{
+			//trace("DEVIANT!!!!" + ">>> xVelocity: " + xVelocity);
+			//destroy();
+			//return;
+		//}
+		
+		if (x + width / 2 < cast(parent, GameLayer).screenLimits.left)
+			destroy();		
+	}
+	
+	override function timedAnim():Void 
+	{
+		if (xVelocity != 0)
+		{
+			if (absVelocity() < RUN_TRIGGER_VALUE)
+			{
+				if (scaleX != -1)
+					scaleX = -1;
+				
+				if (xVelocity > 0)
+					setState(RETREAT);
+				else
+					setState(WALK);
+			}
+			else 
+			{
+				if (xVelocity > 0 && scaleX != 1)
+					scaleX = 1;
+				
+				setState(MeleeObject.RUN);
+			}
+		}
+		
+		super.timedAnim();
 	}
 	
 	static public function reset(): Void

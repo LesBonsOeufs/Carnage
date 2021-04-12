@@ -28,6 +28,10 @@ class GameManager
 {
 	public static inline var FPS: Int = 60;
 	
+	/**
+	 * A multiplier avec des valeurs pensées par frame pour les utiliser
+	 * par seconde
+	 */
 	public static var timeBasedCoeff(get, never): Float;
 	
 	private static function get_timeBasedCoeff(): Float

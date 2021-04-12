@@ -19,9 +19,11 @@ class Obstacle extends TimeFlexibleObject
 	
 	static public function doActions(): Void
 	{
-		for (element in list)
+		var i: Int = list.length - 1;
+		while (i > -1)
 		{
-			element.doAction();
+			list[i].doAction();
+			i--;
 		}
 	}
 	

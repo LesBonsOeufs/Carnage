@@ -3,6 +3,7 @@ package com.isartdigital.onebutton.game.sprites;
 import com.isartdigital.onebutton.game.Controller;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.utils.game.CollisionManager;
+import com.isartdigital.utils.game.stateObjects.StateObject;
 import openfl.events.Event;
 
 	
@@ -12,9 +13,9 @@ import openfl.events.Event;
  */
 class Player extends MeleeObject 
 {
-	public inline static var INIT_X_OFFSET: Int = 300;
+	private inline static var BLOCK: String = "block";
 	
-	private inline static var BLOCK_STATE: String = "block";
+	public inline static var INIT_X_OFFSET: Int = 300;
 	
 	private var controller: Controller;
 	
@@ -37,33 +38,33 @@ class Player extends MeleeObject
 	
 	private function onInputDown(pEvent:Event):Void 
 	{
-		if (state == MeleeObject.HEAVY_ATTACK_STATE) return;
+		if (state == MeleeObject.HEAVY_ATTACK) return;
 		
 		var lCurrentFrame: UInt = renderer.currentFrame;
 		
-		setState(BLOCK_STATE);
+		setState(BLOCK);
 		
 		renderer.gotoAndStop(lCurrentFrame);
 	}
 	
 	private function onInputUp(pEvent:Event):Void 
 	{
-		if (state != BLOCK_STATE) return;
+		if (state != BLOCK) return;
 		
-		setState(MeleeObject.HEAVY_ATTACK_STATE);
+		setState(MeleeObject.HEAVY_ATTACK);
 	}
 	
 	override function setModeNormal():Void 
 	{
 		super.setModeNormal();
-		setState(MeleeObject.RUN_STATE);
+		setState(MeleeObject.RUN);
 	}
 	
 	override function doActionNormal():Void 
 	{
 		super.doActionNormal();
 		
-		if (state == MeleeObject.HEAVY_ATTACK_STATE && renderer.currentFrame == animStrikingFrame)
+		if (state == MeleeObject.HEAVY_ATTACK && renderer.currentFrame == animStrikingFrame)
 			collision();
 		
 		x -= cast(parent, GameLayer).speed * GameManager.timeBasedCoeff;
@@ -71,16 +72,30 @@ class Player extends MeleeObject
 	
 	private function collision(): Void
 	{
-		for (obstacle in Obstacle.list)
+		var lObstacle: Obstacle;
+		var lSwordsman: Swordsman;
+		var i: Int;
+		
+		i = Obstacle.list.length - 1;
+		while (i > -1)
 		{
-			if (CollisionManager.hasCollision(obstacle.hitBox, hurtBox, obstacle.hitBoxes, hurtBoxes))
-				obstacle.destroy();
+			lObstacle = Obstacle.list[i];
+			
+			if (CollisionManager.hasCollision(lObstacle.hitBox, hurtBox, lObstacle.hitBoxes, hurtBoxes))
+				lObstacle.destroy();
+			
+			i--;
 		}
 		
-		for (swordsman in Swordsman.list)
+		i = Swordsman.list.length - 1;
+		while (i > -1)
 		{
-			if (CollisionManager.hasCollision(swordsman.hitBox, hurtBox, swordsman.hitBoxes, hurtBoxes))
-				swordsman.destroy();
+			lSwordsman = Swordsman.list[i];
+			
+			if (CollisionManager.hasCollision(lSwordsman.hitBox, hurtBox, lSwordsman.hitBoxes, hurtBoxes))
+				lSwordsman.destroy();
+			
+			i--;
 		}
 	}
 	
@@ -88,12 +103,12 @@ class Player extends MeleeObject
 	{
 		var lNextCountTime: Float = countTime + TimeFlexibleObject.timer.deltaTime;
 		
-		if (state == MeleeObject.HEAVY_ATTACK_STATE)
+		if (state == MeleeObject.HEAVY_ATTACK)
 		{
 			if (lNextCountTime >= TimeFlexibleObject.TIME_BETWEEN_ANIM_FRAME && isAnimEnded)
 			{
 				countTime = 0;
-				setState(MeleeObject.RUN_STATE);
+				setState(MeleeObject.RUN);
 				return;
 			}
 		}

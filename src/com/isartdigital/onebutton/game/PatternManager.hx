@@ -101,9 +101,8 @@ class PatternManager
 			i++;
 		}
 		
-		for (brick in lAddedBricks) {
-			countXShifting -= brick.width;
-		}
+		countXShifting -= 113 * lAddedBricks.length;
+		countXShifting -= BRICK_Y_OFFSET * lAddedBricks.length - 1;
 		
 		//trace(lAddedBricks.length);
 	}

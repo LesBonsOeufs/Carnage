@@ -25,7 +25,10 @@ class MovingObject extends TimeFlexibleObject
 	public function new() 
 	{
 		super();
-		
+	}
+	
+	private function absVelocity(): Float {
+		return Math.abs(xVelocity);
 	}
 	
 	override function doActionNormal():Void 
@@ -33,12 +36,10 @@ class MovingObject extends TimeFlexibleObject
 		super.doActionNormal();
 		
 		x += xVelocity * GameManager.timeBasedCoeff;
-	
-		var lXVelocityAbsValue: Float = Math.abs(xVelocity);
 		
-		if (lXVelocityAbsValue < maxVelocity)
-			xVelocity += xAcceleration;
-		else if (lXVelocityAbsValue > maxVelocity)
+		if (absVelocity() < maxVelocity)
+			xVelocity += xAcceleration * GameManager.timeBasedCoeff;
+		else// if (absVelocity() > maxVelocity)
 		{
 			if (xVelocity < 0)
 				xVelocity = -maxVelocity;

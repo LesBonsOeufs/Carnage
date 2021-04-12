@@ -21,12 +21,14 @@ class TimeFlexibleObject extends StateMovieClip
 	private function new(pAssetName:String=null) 
 	{
 		super(pAssetName);
-		
 		setState(stateDefault);
 	}
 	
 	override function setState(pState:String, ?pLoop:Bool = false, ?pAutoPlay:Bool = true, ?pStart:UInt = 0):Void 
 	{
+		if (state == pState)
+		return;
+		
 		super.setState(pState, pLoop, pAutoPlay, pStart);
 		renderer.stop();
 	}
@@ -34,7 +36,6 @@ class TimeFlexibleObject extends StateMovieClip
 	override function doActionNormal():Void 
 	{
 		super.doActionNormal();
-		
 		timedAnim();
 	}
 	
@@ -49,11 +50,7 @@ class TimeFlexibleObject extends StateMovieClip
 			if (isAnimEnded)
 				renderer.gotoAndStop(1);
 			else
-			{
-				if (Type.getClass(this) == Swordsman) trace(renderer.currentFrame);
-				
 				renderer.nextFrame();
-			}
 		}
 	}
 	

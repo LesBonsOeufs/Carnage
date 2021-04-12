@@ -7,8 +7,8 @@ import openfl.display.DisplayObject;
  */
 class MeleeObject extends MovingObject 
 {
-	private inline static var HEAVY_ATTACK_STATE: String = "attack1";
-	private inline static var RUN_STATE: String = "run";
+	private inline static var HEAVY_ATTACK: String = "attack1";
+	private inline static var RUN: String = "run";
 	
 	/**
 	 * retourne la zone englobante d'attaque
