@@ -35,16 +35,16 @@ class MovingObject extends TimeFlexibleObject
 	{
 		super.doActionNormal();
 		
-		x += xVelocity * GameManager.timeBasedCoeff;
+		xVelocity += xAcceleration * GameManager.timeBasedCoeff;
 		
-		if (absVelocity() < maxVelocity)
-			xVelocity += xAcceleration * GameManager.timeBasedCoeff;
-		else// if (absVelocity() > maxVelocity)
+		if (absVelocity() > maxVelocity)
 		{
 			if (xVelocity < 0)
 				xVelocity = -maxVelocity;
 			else if (xVelocity > 0)
 				xVelocity = maxVelocity;
 		}
+		
+		x += xVelocity * GameManager.timeBasedCoeff;
 	}
 }

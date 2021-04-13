@@ -43,6 +43,7 @@ class TitleCard extends Screen
 	override public function destroy():Void 
 	{
 		content.getChildByName("btnPlay").removeEventListener(MouseEvent.CLICK, onClick);
+		instance = null;
 		super.destroy();
 	}
 }

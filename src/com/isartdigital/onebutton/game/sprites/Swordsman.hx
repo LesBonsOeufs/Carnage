@@ -12,7 +12,7 @@ class Swordsman extends MeleeObject
 	private inline static var RETREAT: String = "walkBack";
 	private inline static var WALK: String = "walk";
 	
-	private inline static var RUN_TRIGGER_VALUE: Float = 4.5;
+	private inline static var RUN_TRIGGER_VALUE: Float = 3;
 	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
 	
 	private inline static var MIN_MAX_VELOCITY: Float = 4;
@@ -25,7 +25,7 @@ class Swordsman extends MeleeObject
 	private var target: DisplayObject;
 	
 	override function get_accelerationValue():Float {
-		return -2 / GameManager.FPS;
+		return -3 / GameManager.FPS;
 	}
 	
 	override function get_maxVelocity():Float {
@@ -67,25 +67,37 @@ class Swordsman extends MeleeObject
 		
 		if (targetToX <= 1500)
 		{
-			if (targetToX >= 0)
-				xAcceleration = RETREAT_ACCELERATION;
-			else
-				xAcceleration = accelerationValue;
-		}
-		else if (state != RETREAT)
-		{
-			xAcceleration = accelerationValue;
+			setModeRetreat();
+			return;
 		}
 		
-		//if (scaleX == -1 && targetToX < 0 && (state == WALK || state == MeleeObject.RUN))
-		//{
-			//trace("DEVIANT!!!!" + ">>> xVelocity: " + xVelocity);
-			//destroy();
-			//return;
-		//}
+		xAcceleration = accelerationValue;
 		
+		testOutOfBounds();
+	}
+	
+	private function setModeRetreat(): Void
+	{
+		doAction = doActionRetreat;
+		xAcceleration = RETREAT_ACCELERATION;
+	}
+	
+	private function doActionRetreat(): Void
+	{
+		super.doActionNormal();
+		
+		var targetToX: Float = x - target.x;
+		
+		if (targetToX < 0)
+			xAcceleration = -RETREAT_ACCELERATION;
+		
+		testOutOfBounds();
+	}
+	
+	private function testOutOfBounds(): Void
+	{
 		if (x + width / 2 < cast(parent, GameLayer).screenLimits.left)
-			destroy();		
+			destroy();
 	}
 	
 	override function timedAnim():Void 

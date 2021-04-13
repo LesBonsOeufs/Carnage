@@ -21,7 +21,7 @@ enum PatternBrick {
 
 class PatternManager 
 {
-	private static inline var X_BETWEEN_PATTERN: Float = 1200;
+	private static inline var X_BETWEEN_PATTERN: Float = 900;
 	
 	private static inline var BRICK_X_OFFSET: Int = 200;
 	private static inline var BRICK_Y_OFFSET: Int = 200;
@@ -103,7 +103,5 @@ class PatternManager
 		
 		countXShifting -= 113 * lAddedBricks.length;
 		countXShifting -= BRICK_Y_OFFSET * lAddedBricks.length - 1;
-		
-		//trace(lAddedBricks.length);
 	}
 }
