@@ -20,6 +20,7 @@ class MeleeObject extends MovingObject
 	 */
 	public var hurtBoxes (default, null): Array<DisplayObject>;
 	
+	private var strikeDone: Bool = false;
 	private var animStrikingFrame(get, never): Int;
 	
 	//à override avec les valeurs correctes dans les classes filles

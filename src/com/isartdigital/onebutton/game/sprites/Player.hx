@@ -64,8 +64,11 @@ class Player extends MeleeObject
 	{
 		super.doActionNormal();
 		
-		if (state == MeleeObject.HEAVY_ATTACK && renderer.currentFrame == animStrikingFrame)
+		if (state == MeleeObject.HEAVY_ATTACK && renderer.currentFrame == animStrikingFrame && !strikeDone)
+		{
+			strikeDone = true;
 			weaponCollision();
+		}
 		
 		x -= cast(parent, GameLayer).speed * GameManager.timeBasedCoeff;
 	}
@@ -108,6 +111,7 @@ class Player extends MeleeObject
 			if (lNextCountTime >= TimeFlexibleObject.TIME_BETWEEN_ANIM_FRAME && isAnimEnded)
 			{
 				countTime = 0;
+				strikeDone = false;
 				setState(MeleeObject.RUN);
 				return;
 			}

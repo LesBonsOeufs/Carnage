@@ -16,7 +16,6 @@ class Swordsman extends MeleeObject
 	
 	private inline static var MAX_BONUS_REACH: Float = 170;
 	private inline static var MIN_BONUS_REACH: Float = 145;
-	private inline static var ATTACK_COOLDOWN: Float = 1;
 	private inline static var RUN_TRIGGER_VALUE: Float = 3.5;
 	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
 	private inline static var REPOSITION_ACCELERATION: Float = 15 / GameManager.FPS;
@@ -33,8 +32,6 @@ class Swordsman extends MeleeObject
 	private var normalMaxVelocity: Float;
 	private var repositionMaxVelocity: Float;
 	private var bonusReach: Float;
-	
-	private var countAttackCooldown: Float = 0;
 	
 	private var randomReposition: Float;
 	
@@ -106,14 +103,7 @@ class Swordsman extends MeleeObject
 		
 		if (lTargetToX <= getReach() && lTargetToX > 0)
 		{
-			if (countAttackCooldown >= ATTACK_COOLDOWN)
-			{
-				scaleX = -1;
-				setModeAttack();
-			}
-			else
-				setModeReposition();
-			
+			setModeAttack();
 			return;
 		}
 		
@@ -155,12 +145,15 @@ class Swordsman extends MeleeObject
 	{
 		super.timedAnim();
 		
-		if (renderer.currentFrame == animStrikingFrame)
+		if (renderer.currentFrame == animStrikingFrame && !strikeDone)
+		{
+			strikeDone = true;
 			weaponCollision();
+		}
 		
 		if (isAnimEnded)
 		{
-			countAttackCooldown = 0;
+			strikeDone = false;
 			xVelocity = 0;
 			
 			if (Math.floor(Math.random() * 11) >= 9)
@@ -200,12 +193,14 @@ class Swordsman extends MeleeObject
 	private function setModeDie(): Void
 	{
 		doAction = doActionDie;
-		collider = null;
 		
 		if (scaleX < 0)
 			setState("death_back");
 		else if (scaleX > 0)
 			setState("death_belly");
+		
+		collider.parent.removeChild(collider);
+		collider = null;
 	}
 	
 	private function doActionDie(): Void
@@ -231,9 +226,7 @@ class Swordsman extends MeleeObject
 	}
 	
 	override function timedAnim():Void 
-	{
-		countAttackCooldown += GameManager.timer.deltaTime;
-		
+	{	
 		if (xVelocity != 0)
 		{
 			if (absVelocity() < RUN_TRIGGER_VALUE)
