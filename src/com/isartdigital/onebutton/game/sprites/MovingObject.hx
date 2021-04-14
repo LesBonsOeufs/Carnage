@@ -14,12 +14,12 @@ class MovingObject extends TimeFlexibleObject
 	
 	//à override avec les valeurs correctes dans les classes filles
 	private function get_accelerationValue(): Float {
-		return null;
+		return 0;
 	}
 	
 	//à override avec les valeurs correctes dans les classes filles
 	private function get_maxVelocity(): Float {
-		return null;
+		return 0;
 	}
 	
 	private var unlimitVelocity: Bool = false;

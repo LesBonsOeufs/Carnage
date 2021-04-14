@@ -201,7 +201,11 @@ class Swordsman extends MeleeObject
 	{
 		doAction = doActionDie;
 		collider = null;
-		setState("death");
+		
+		if (scaleX < 0)
+			setState("death_back");
+		else if (scaleX > 0)
+			setState("death_belly");
 	}
 	
 	private function doActionDie(): Void

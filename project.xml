@@ -11,6 +11,7 @@
 	<haxelib name="dat.GUI"/>
 	<haxelib name="OpenFl-Animate-Atlas-Player"/>
 	
+	<certificate path="bin/key.jks" password="${ANDROID_KEY_PASSWORD}" alias="${ANDROID_KEY_ALIAS}" alias-password="${ANDROID_KEY_ALIAS_PASSWORD}" />
 	
 	<assets embed="false" path="assets"/>
 	<assets embed="true" path="assets/config.json"/>

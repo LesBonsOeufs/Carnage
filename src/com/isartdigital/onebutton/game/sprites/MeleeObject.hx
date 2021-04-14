@@ -24,7 +24,7 @@ class MeleeObject extends MovingObject
 	
 	//à override avec les valeurs correctes dans les classes filles
 	private function get_animStrikingFrame(): Int {
-		return null;
+		return 0;
 	}
 
 	public function new() 

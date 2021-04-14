@@ -104,7 +104,7 @@ class ScrollingForest
 		
 		foregrounds = null;
 		backgrounds = null;
-		groundY = null;
+		groundY = 0;
 	}
 	
 }
