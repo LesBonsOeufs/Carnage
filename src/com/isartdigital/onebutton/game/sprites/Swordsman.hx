@@ -73,8 +73,7 @@ class Swordsman extends MeleeObject
 	
 	override public function start():Void 
 	{
-		super.start();
-		
+		super.start();	
 		if (Math.floor(Math.random() * 11) == 10) setModeRetreat();
 	}
 	
@@ -190,6 +189,25 @@ class Swordsman extends MeleeObject
 			unlimitVelocity = true;
 			setModeNormal();
 		}
+		
+		testOutOfBounds();
+	}
+	
+	public function die(): Void {
+		setModeDie();
+	}
+	
+	private function setModeDie(): Void
+	{
+		doAction = doActionDie;
+		collider = null;
+		setState("death");
+	}
+	
+	private function doActionDie(): Void
+	{
+		if (!isAnimEnded)
+			super.timedAnim();
 		
 		testOutOfBounds();
 	}

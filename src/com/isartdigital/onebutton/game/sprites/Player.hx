@@ -93,7 +93,7 @@ class Player extends MeleeObject
 			lSwordsman = Swordsman.list[i];
 			
 			if (CollisionManager.hasCollision(lSwordsman.hitBox, hurtBox, lSwordsman.hitBoxes, hurtBoxes))
-				lSwordsman.destroy();
+				lSwordsman.die();
 			
 			i--;
 		}
