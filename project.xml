@@ -19,7 +19,7 @@
 	
 	<assets rename="" embed="false" path="assets/images/atlas"/> 
 
-	<library preload="true" path="assets/libraries/loader.swf"/> 
+	<library preload="true" path="assets/libraries/loader.swf"/>
 
 	<library preload="false" path="assets/libraries/ui.swf"/> 
 	<library preload="false" path="assets/libraries/assets.swf"/> 
@@ -30,6 +30,6 @@
 	
 	
 	<window orientation="landscape" background="#90908e" fps="60"/>
-	<window hardware="true" anti-aliasing="0" vsync="false" stencil-buffer="true" allow-shaders="true" require-shaders="true" depth-buffer="false"/>
+	<window hardware="true" anti-aliasing="0" vsync="false" stencil-buffer="true" allow-shaders="true" require-shaders="true" depth-buffer="false"/> 
 	
 </project>

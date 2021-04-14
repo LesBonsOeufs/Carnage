@@ -48,7 +48,7 @@ class Timer
 	 */
 	public function update() : Void {
 		
-		deltaTimeInMilisecond = isRunning ? cast(timeScale * (Lib.getTimer() - lastDateInSecond), Int) : 0;
+		deltaTimeInMilisecond = isRunning ? Math.floor(timeScale * (Lib.getTimer() - lastDateInSecond)) : 0;
 		
 		deltaTime = deltaTimeInMilisecond / 1000;
 		

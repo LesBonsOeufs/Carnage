@@ -15,9 +15,16 @@ import com.isartdigital.utils.system.DeviceCapabilities;
 import com.isartdigital.utils.system.Monitor;
 import com.isartdigital.utils.system.MonitorField;
 import haxe.Json;
+import haxe.ds.Vector;
+import openfl.display.DisplayObject;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.events.MouseEvent;
 import openfl.geom.Rectangle;
+import org.zamedev.particles.ParticleSystem;
+import org.zamedev.particles.loaders.ParticleLoader;
+import org.zamedev.particles.renderers.DefaultParticleRenderer;
+import org.zamedev.particles.renderers.ParticleSystemRenderer;
 
 
 /**
@@ -28,18 +35,23 @@ class GameManager
 {
 	public static inline var FPS: Int = 60;
 	
+	private static inline var BLOOD_PARTICLE_DURATION: Float = 0.15;
+	private static inline var NB_OF_PARTICLE_SYSTEMS: Int = 8;
+	
 	/**
 	 * A multiplier avec des valeurs pensées par frame pour les utiliser
 	 * par seconde
 	 */
 	public static var timeBasedCoeff(get, never): Float;
 	
-	private static function get_timeBasedCoeff(): Float
-	{
+	private static function get_timeBasedCoeff(): Float {
 		return timer.deltaTime * FPS;
 	}
 	
 	public static var timer(default, null): Timer;
+	
+	private static var particleRenderer: ParticleSystemRenderer;
+	private static var bloodParticles: Vector<ParticleSystem>;
 	
 	private static var controller:Controller;
 	public static var player(default, null):Player;
@@ -65,6 +77,7 @@ class GameManager
 		gameLayer.x = lInitGameLayerX;
 		gameLayer.start();
 		
+		initParticles();
 		ScrollingForest.init(gameLayer);
 		PatternManager.init(gameLayer);
 		
@@ -92,6 +105,39 @@ class GameManager
 		player.y = ScrollingForest.groundY;
 		
 		resumeGame();
+	}
+	
+	private static function initParticles(): Void
+	{
+		particleRenderer = DefaultParticleRenderer.createInstance();
+		bloodParticles = new Vector<ParticleSystem>(NB_OF_PARTICLE_SYSTEMS);
+		gameLayer.addChild(cast particleRenderer);
+		
+		var lParticle: ParticleSystem;
+		
+		for (i in 0...bloodParticles.length)
+		{
+			lParticle = ParticleLoader.load("assets/particles/bloodParticle.pex");
+			particleRenderer.addParticleSystem(lParticle);
+			lParticle.duration = BLOOD_PARTICLE_DURATION;
+			
+			bloodParticles[i] = lParticle;
+		}
+		
+		
+	}
+	
+	public static function getAvailableParticle(): ParticleSystem
+	{
+		for (particle in bloodParticles)
+		{
+			if (particle.active) continue;
+			
+			cast(particleRenderer, DisplayObject).parent.addChild(cast particleRenderer);
+			return particle;
+		}
+		
+		return null;
 	}
 	
 	public static function resumeGame() : Void {

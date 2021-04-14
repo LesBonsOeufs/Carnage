@@ -1,8 +1,11 @@
 package com.isartdigital.onebutton.game.sprites;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.utils.game.CollisionManager;
+import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.stateObjects.StateMovieClip;
 import openfl.display.DisplayObject;
+import openfl.geom.Point;
+import org.zamedev.particles.ParticleSystem;
 
 /**
  * ...
@@ -186,7 +189,13 @@ class Swordsman extends MeleeObject
 		testOutOfBounds();
 	}
 	
-	public function die(): Void {
+	public function die(): Void 
+	{
+		var lBloodParticle: ParticleSystem = GameManager.getAvailableParticle();
+		
+		if (lBloodParticle != null)
+			lBloodParticle.emit(x, y - collider.height / 2);
+		
 		setModeDie();
 	}
 	

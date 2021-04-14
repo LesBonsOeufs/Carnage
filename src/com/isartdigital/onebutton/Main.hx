@@ -78,8 +78,8 @@ class Main extends Sprite
 		lGameLoader.addText("assets/localization.json");
 		
         //Chargement des particules
-		lGameLoader.addText("assets/particles/fire.plist");
-		lGameLoader.addBitmapData("assets/particles/fire.png");
+        lGameLoader.addText("assets/particles/bloodParticle.pex");
+        lGameLoader.addBitmapData("assets/particles/texture.png");
 		
 		//Chargement des swf
 		lGameLoader.addLibrary("assets");
