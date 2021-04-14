@@ -21,6 +21,8 @@ class MovingObject extends TimeFlexibleObject
 	private function get_maxVelocity(): Float {
 		return null;
 	}
+	
+	private var unlimitVelocity: Bool = false;
 
 	public function new() 
 	{
@@ -37,6 +39,14 @@ class MovingObject extends TimeFlexibleObject
 		
 		xVelocity += xAcceleration * GameManager.timeBasedCoeff;
 		
+		if (!unlimitVelocity)
+			clampVelocity();
+		
+		x += xVelocity * GameManager.timeBasedCoeff;
+	}
+	
+	private function clampVelocity(): Void
+	{
 		if (absVelocity() > maxVelocity)
 		{
 			if (xVelocity < 0)
@@ -44,7 +54,5 @@ class MovingObject extends TimeFlexibleObject
 			else if (xVelocity > 0)
 				xVelocity = maxVelocity;
 		}
-		
-		x += xVelocity * GameManager.timeBasedCoeff;
 	}
 }

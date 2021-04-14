@@ -51,4 +51,6 @@ class MeleeObject extends MovingObject
 		hurtBox = collider.getChildByName("mcMainHurtBox");
 	}
 	
+	private function weaponCollision(): Void {}
+	
 }

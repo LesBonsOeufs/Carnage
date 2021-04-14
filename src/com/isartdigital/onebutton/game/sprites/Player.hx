@@ -65,12 +65,12 @@ class Player extends MeleeObject
 		super.doActionNormal();
 		
 		if (state == MeleeObject.HEAVY_ATTACK && renderer.currentFrame == animStrikingFrame)
-			collision();
+			weaponCollision();
 		
 		x -= cast(parent, GameLayer).speed * GameManager.timeBasedCoeff;
 	}
 	
-	private function collision(): Void
+	override function weaponCollision():Void
 	{
 		var lObstacle: Obstacle;
 		var lSwordsman: Swordsman;
