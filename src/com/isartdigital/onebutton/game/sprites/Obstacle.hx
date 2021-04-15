@@ -1,6 +1,7 @@
 package com.isartdigital.onebutton.game.sprites;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.utils.game.CollisionManager;
+import org.zamedev.particles.ParticleSystem;
 
 /**
  * ...
@@ -53,6 +54,11 @@ class Obstacle extends TimeFlexibleObject
 	
 	override public function destroy():Void 
 	{
+		var lWoodParticle: ParticleSystem = GameManager.getAvailableWoodParticle();
+		
+		if (lWoodParticle != null)
+			lWoodParticle.emit(x, y - collider.height / 2);
+		
 		list.remove(this);
 		super.destroy();
 	}

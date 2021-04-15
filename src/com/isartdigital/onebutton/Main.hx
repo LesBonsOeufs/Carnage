@@ -79,6 +79,7 @@ class Main extends Sprite
 		
         //Chargement des particules
         lGameLoader.addText("assets/particles/bloodParticle.pex");
+		lGameLoader.addText("assets/particles/woodParticle.pex");
         lGameLoader.addBitmapData("assets/particles/texture.png");
 		
 		//Chargement des swf

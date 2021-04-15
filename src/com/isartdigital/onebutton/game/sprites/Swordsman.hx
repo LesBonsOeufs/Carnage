@@ -191,7 +191,7 @@ class Swordsman extends MeleeObject
 	
 	public function die(): Void 
 	{
-		var lBloodParticle: ParticleSystem = GameManager.getAvailableParticle();
+		var lBloodParticle: ParticleSystem = GameManager.getAvailableBloodParticle();
 		
 		if (lBloodParticle != null)
 			lBloodParticle.emit(x, y - collider.height / 2);

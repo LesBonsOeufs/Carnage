@@ -19,7 +19,7 @@
 	
 	<assets rename="" embed="false" path="assets/images/atlas"/> 
 
-	<library preload="true" path="assets/libraries/loader.swf"/>
+	<library preload="true" path="assets/libraries/loader.swf"/> 
 
 	<library preload="false" path="assets/libraries/ui.swf"/> 
 	<library preload="false" path="assets/libraries/assets.swf"/> 

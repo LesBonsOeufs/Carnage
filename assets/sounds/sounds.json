@@ -9,7 +9,7 @@
 		}
 	},
 	"volumes" : {
-		"master" : 1,
+		"master" : 0.60,
 		"fxs" : 0.75,
 		"musics" : 1
 	}

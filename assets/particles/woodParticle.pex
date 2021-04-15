@@ -1,26 +1,26 @@
 <particleEmitterConfig>
   <texture name="texture.png"/>
   <sourcePosition x="300.00" y="300.00"/>
-  <sourcePositionVariance x="25" y="25"/>
+  <sourcePositionVariance x="60" y="60"/>
   <speed value="700"/>
   <speedVariance value="91.67"/>
-  <particleLifeSpan value="0.7"/>
-  <particleLifespanVariance value="0"/>
+  <particleLifeSpan value="0.6"/>
+  <particleLifespanVariance value="0.2"/>
   <angle value="0"/>
   <angleVariance value="360"/>
-  <gravity x="0" y="1400"/>
+  <gravity x="0" y="2200"/>
   <radialAcceleration value="-311.76"/>
   <tangentialAcceleration value="5.88"/>
   <radialAccelVariance value="7.81"/>
   <tangentialAccelVariance value="0"/>
-  <startColor red="0.54" green="0.1" blue="0.1" alpha="1"/>
+  <startColor red="0.300" green="0.225" blue="0.230" alpha="1"/>
   <startColorVariance red="0" green="0" blue="0" alpha="0"/>
-  <finishColor red="0.54" green="0.1" blue="0.1" alpha="0"/>
+  <finishColor red="0.300" green="0.225" blue="0.230" alpha="0.7"/>
   <finishColorVariance red="0" green="0" blue="0" alpha="0"/>
-  <maxParticles value="618.03"/>
-  <startParticleSize value="15.94"/>
+  <maxParticles value="450"/>
+  <startParticleSize value="40"/>
   <startParticleSizeVariance value="3.91"/>
-  <finishParticleSize value="5.12"/>
+  <finishParticleSize value="20"/>
   <FinishParticleSizeVariance value="5"/>
   <duration value="-1.00"/>
   <emitterType value="0"/>

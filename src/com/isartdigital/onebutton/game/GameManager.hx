@@ -52,6 +52,7 @@ class GameManager
 	
 	private static var particleRenderer: ParticleSystemRenderer;
 	private static var bloodParticles: Vector<ParticleSystem>;
+	private static var woodParticles: Vector<ParticleSystem>;
 	
 	private static var controller:Controller;
 	public static var player(default, null):Player;
@@ -111,25 +112,41 @@ class GameManager
 	{
 		particleRenderer = DefaultParticleRenderer.createInstance();
 		bloodParticles = new Vector<ParticleSystem>(NB_OF_PARTICLE_SYSTEMS);
+		woodParticles = new Vector<ParticleSystem>(NB_OF_PARTICLE_SYSTEMS);
 		gameLayer.addChild(cast particleRenderer);
 		
 		var lParticle: ParticleSystem;
 		
-		for (i in 0...bloodParticles.length)
+		for (i in 0...NB_OF_PARTICLE_SYSTEMS)
 		{
 			lParticle = ParticleLoader.load("assets/particles/bloodParticle.pex");
 			particleRenderer.addParticleSystem(lParticle);
 			lParticle.duration = BLOOD_PARTICLE_DURATION;
-			
 			bloodParticles[i] = lParticle;
+			
+			lParticle = ParticleLoader.load("assets/particles/woodParticle.pex");
+			particleRenderer.addParticleSystem(lParticle);
+			lParticle.duration = BLOOD_PARTICLE_DURATION;
+			woodParticles[i] = lParticle;
 		}
-		
-		
 	}
 	
-	public static function getAvailableParticle(): ParticleSystem
+	public static function getAvailableBloodParticle(): ParticleSystem
 	{
 		for (particle in bloodParticles)
+		{
+			if (particle.active) continue;
+			
+			cast(particleRenderer, DisplayObject).parent.addChild(cast particleRenderer);
+			return particle;
+		}
+		
+		return null;
+	}
+	
+	public static function getAvailableWoodParticle(): ParticleSystem
+	{
+		for (particle in woodParticles)
 		{
 			if (particle.active) continue;
 			
