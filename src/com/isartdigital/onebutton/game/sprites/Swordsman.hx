@@ -22,7 +22,10 @@ class Swordsman extends MeleeObject
 	private inline static var MIN_BONUS_REACH: Float = 145;
 	private inline static var RUN_TRIGGER_VALUE: Float = 3.5;
 	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
+	
 	private inline static var REPOSITION_ACCELERATION: Float = 15 / GameManager.FPS;
+	private inline static var REPOSITION_MAX_VELOCITY_COEFF: Float = 2.65;
+	private inline static var REPOSITION_INSTANT_VELOCITY_FRACTION: Float = 4;
 	
 	private inline static var MIN_MAX_VELOCITY: Float = 4;
 	private inline static var MAX_MAX_VELOCITY: Float = 7;
@@ -66,7 +69,7 @@ class Swordsman extends MeleeObject
 			target = GameManager.player;
 		
 		normalMaxVelocity = MIN_MAX_VELOCITY + Math.random() * (MAX_MAX_VELOCITY - MIN_MAX_VELOCITY);
-		repositionMaxVelocity = normalMaxVelocity * 2.65;
+		repositionMaxVelocity = normalMaxVelocity * REPOSITION_MAX_VELOCITY_COEFF;
 		maxReposition = getReach() + MAX_ADDED_REPOSITION;
 		minReposition = getReach() + MIN_ADDED_REPOSITION;
 		bonusReach = MIN_BONUS_REACH + Math.random() * (MAX_BONUS_REACH - MIN_BONUS_REACH);
@@ -172,6 +175,7 @@ class Swordsman extends MeleeObject
 		doAction = doActionReposition;
 		xAcceleration = REPOSITION_ACCELERATION;
 		_maxVelocity = repositionMaxVelocity;
+		xVelocity = maxVelocity / REPOSITION_INSTANT_VELOCITY_FRACTION;
 		randomReposition = minReposition + Math.random() * (maxReposition - minReposition);
 	}
 	
