@@ -1,7 +1,14 @@
 {
 	"files" : {
 		"fxs" :{
-			"click"	: {"asset":"click", "volume":1}
+			"click"	: {"asset":"click", "volume":1},
+			"swordsman_miss" : {"asset":"es_sword_whip_court_sword_3-sfx_producer", "volume":0.75},
+			"player_miss0" : {"asset":"es_whip_whoosh_swoosh_4-sfx_producer", "volume":0.7},
+			"player_miss1" : {"asset":"es_whip_whoosh_swoosh_5-sfx_producer", "volume":0.7},
+			"player_hit_armor0" : {"asset":"es_battle_axe_strike_2-sfx_producer", "volume":0.8},
+			"player_hit_armor1" : {"asset":"es_battle_axe_strike_3-sfx_producer", "volume":0.8},
+			"player_hit_wood0" : {"asset":"es_impact_axe_hit_wood_1-sfx_producer", "volume":0.8},
+			"player_hit_wood1" : {"asset":"es_impact_axe_hit_wood_5-sfx_producer", "volume":0.8}
 		},
 		"musics" :{
 			"ui": {"asset": "es_engage-hampus-naeselius", "volume":0.60},

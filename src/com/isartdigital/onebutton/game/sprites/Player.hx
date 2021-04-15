@@ -4,6 +4,7 @@ import com.isartdigital.onebutton.game.Controller;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.utils.game.CollisionManager;
 import com.isartdigital.utils.game.stateObjects.StateObject;
+import com.isartdigital.utils.sound.SoundManager;
 import openfl.events.Event;
 
 	
@@ -77,6 +78,9 @@ class Player extends MeleeObject
 	{
 		var lObstacle: Obstacle;
 		var lSwordsman: Swordsman;
+		var lMissed: Bool = true;
+		var lRandomSoundIndex: Int;
+		
 		var i: Int;
 		
 		i = Obstacle.list.length - 1;
@@ -85,7 +89,12 @@ class Player extends MeleeObject
 			lObstacle = Obstacle.list[i];
 			
 			if (CollisionManager.hasCollision(lObstacle.hitBox, hurtBox, lObstacle.hitBoxes, hurtBoxes))
+			{
+				lRandomSoundIndex = Math.floor(Math.random() * 2);
+				lMissed = false;
+				SoundManager.getSound("player_hit_wood" + lRandomSoundIndex).start();
 				lObstacle.destroy();
+			}
 			
 			i--;
 		}
@@ -96,9 +105,20 @@ class Player extends MeleeObject
 			lSwordsman = Swordsman.list[i];
 			
 			if (CollisionManager.hasCollision(lSwordsman.hitBox, hurtBox, lSwordsman.hitBoxes, hurtBoxes))
+			{
+				lRandomSoundIndex = Math.floor(Math.random() * 2);
+				lMissed = false;
+				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
 				lSwordsman.die();
+			}
 			
 			i--;
+		}
+		
+		if (lMissed == true)
+		{
+			lRandomSoundIndex = Math.floor(Math.random() * 2);
+			SoundManager.getSound("player_miss" + lRandomSoundIndex).start();
 		}
 	}
 	

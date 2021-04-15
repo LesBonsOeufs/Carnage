@@ -3,6 +3,7 @@ import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.utils.game.CollisionManager;
 import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.stateObjects.StateMovieClip;
+import com.isartdigital.utils.sound.SoundManager;
 import openfl.display.DisplayObject;
 import openfl.geom.Point;
 import org.zamedev.particles.ParticleSystem;
@@ -225,6 +226,7 @@ class Swordsman extends MeleeObject
 		if (CollisionManager.hasCollision(hurtBox, target.hitBox, hurtBoxes, target.hitBoxes))
 		{
 			trace("boum");
+			SoundManager.getSound("swordsman_miss").start();
 		}
 	}
 	
