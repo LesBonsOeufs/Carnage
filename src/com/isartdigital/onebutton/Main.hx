@@ -2,7 +2,7 @@ package com.isartdigital.onebutton;
 
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.ui.GraphicLoader;
-import com.isartdigital.onebutton.ui.TitleCard;
+import com.isartdigital.onebutton.ui.Menu;
 import com.isartdigital.onebutton.ui.UIManager;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.debug.Debug;
@@ -119,7 +119,7 @@ class Main extends Sprite
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
 		
-		UIManager.addScreen(TitleCard.getInstance());
+		UIManager.addScreen(Menu.getInstance());
 		
 		addEventListener(Event.ENTER_FRAME, gameLoop);
 	}

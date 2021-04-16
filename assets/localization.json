@@ -32,8 +32,8 @@
 		"fr": "CLASSEMENT"
 	},
 	"LANGUAGE": {
-		"en": "EN",
-		"fr": "FR"
+		"en": "Eng",
+		"fr": "Fr"
 	},
 	"LOGIN_TITLE": {
 		"en": "LOGIN",
@@ -72,8 +72,8 @@
 		"fr": "ENTREZ VOTRE IDENTIFIANT ICI"
 	},
 	"CREDITS": {
-		"en": "CREDITS",
-		"fr": "CRÉDITS"
+		"en": "Credits",
+		"fr": "Credits"
 	},
 	"TOTAL_SCORE": {
 		"en": "TOTAL SCORE",
@@ -96,7 +96,11 @@
 		"fr": "CONTRÔLES"
 	},
 	"SOUND": {
-		"en": "SOUND",
-		"fr": "SON"
+		"en": "Sound",
+		"fr": "Son"
+	},
+	"AUTHOR": {
+		"en": "Gabriel Bernabeu",
+		"fr": "Gabriel Bernabeu"
 	}
 }

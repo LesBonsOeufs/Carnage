@@ -17,6 +17,11 @@ class UIManager
 		GameStage.getInstance().getScreensSprite().addChild(pScreen);
 	}
 	
+	public static function reloadScreen (pGetInstanceFunction: Void->Dynamic): Void {
+		closeScreens();
+		GameStage.getInstance().getScreensSprite().addChild(pGetInstanceFunction());
+	}
+	
 	/**
 	 * Supprimer les écrans dans le conteneur de Screens
 	 * @param	pScreen

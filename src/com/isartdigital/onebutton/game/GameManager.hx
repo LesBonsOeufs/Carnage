@@ -35,8 +35,8 @@ class GameManager
 {
 	public static inline var FPS: Int = 60;
 	
-	private static inline var BLOOD_PARTICLE_DURATION: Float = 0.15;
-	private static inline var NB_OF_PARTICLE_SYSTEMS: Int = 8;
+	private static inline var PARTICLE_DURATION: Float = 0.15;
+	private static inline var PARTICLES_VECTORS_LENGTH: Int = 5;
 	
 	/**
 	 * A multiplier avec des valeurs pensées par frame pour les utiliser
@@ -111,22 +111,22 @@ class GameManager
 	private static function initParticles(): Void
 	{
 		particleRenderer = DefaultParticleRenderer.createInstance();
-		bloodParticles = new Vector<ParticleSystem>(NB_OF_PARTICLE_SYSTEMS);
-		woodParticles = new Vector<ParticleSystem>(NB_OF_PARTICLE_SYSTEMS);
+		bloodParticles = new Vector<ParticleSystem>(PARTICLES_VECTORS_LENGTH);
+		woodParticles = new Vector<ParticleSystem>(PARTICLES_VECTORS_LENGTH);
 		gameLayer.addChild(cast particleRenderer);
 		
 		var lParticle: ParticleSystem;
 		
-		for (i in 0...NB_OF_PARTICLE_SYSTEMS)
+		for (i in 0...PARTICLES_VECTORS_LENGTH)
 		{
 			lParticle = ParticleLoader.load("assets/particles/bloodParticle.pex");
 			particleRenderer.addParticleSystem(lParticle);
-			lParticle.duration = BLOOD_PARTICLE_DURATION;
+			lParticle.duration = PARTICLE_DURATION;
 			bloodParticles[i] = lParticle;
 			
 			lParticle = ParticleLoader.load("assets/particles/woodParticle.pex");
 			particleRenderer.addParticleSystem(lParticle);
-			lParticle.duration = BLOOD_PARTICLE_DURATION;
+			lParticle.duration = PARTICLE_DURATION;
 			woodParticles[i] = lParticle;
 		}
 	}
