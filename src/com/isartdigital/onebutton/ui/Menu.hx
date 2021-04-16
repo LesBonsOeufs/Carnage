@@ -5,9 +5,10 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
-import js.html.svg.Point;
+import openfl.geom.Point;
 import motion.Actuate;
 import motion.easing.Cubic;
+import motion.easing.Elastic;
 import openfl.display.DisplayObject;
 import openfl.display.DisplayObjectContainer;
 import openfl.display.SimpleButton;
@@ -21,11 +22,16 @@ class Menu extends AnimatedScreen
 {
 	private static var instance : Menu;
 	
+	private var topLeft: DisplayObjectContainer;
+	private var bottomCenter: DisplayObjectContainer;
+	
 	private var btnPlay: SimpleButton;
 	private var btnCredits: SimpleButton;
 	private var btnSound: SimpleButton;
 	private var btnLanguage: SimpleButton;
 	private var btnBack: SimpleButton;
+	
+	private var btnBackOffset: Point = new Point(400, 300);
 	
 	private var titleCardIndicator: DisplayObject;
 	private var creditsIndicator: DisplayObject;
@@ -33,14 +39,6 @@ class Menu extends AnimatedScreen
 	private function new() 
 	{
 		super();
-		
-		var lBottomCenter: DisplayObject = content.getChildByName("mcBottomCenter");
-		var lTopLeft: DisplayObject = content.getChildByName("mcTopLeft");
-		
-		var lPositionnable:UIPositionable = {item:lBottomCenter, align:AlignType.BOTTOM};
-		positionables.push(lPositionnable);
-		lPositionnable = {item:lTopLeft, align:AlignType.TOP_LEFT};
-		positionables.push(lPositionnable);
 		
 		if (!SoundManager.getSound("ui").isPlaying)
 			SoundManager.getSound("ui").fadeIn();
@@ -51,13 +49,17 @@ class Menu extends AnimatedScreen
 		creditsIndicator = content.getChildByName("mcCreditsIndicator");
 		creditsIndicator.alpha = 0;
 		
-		btnPlay = cast(cast(lBottomCenter, DisplayObjectContainer).getChildByName("btnPlay"), SimpleButton);
-		btnCredits = cast(cast(lBottomCenter, DisplayObjectContainer).getChildByName("btnCredits"), SimpleButton);
-		btnSound = cast(cast(lTopLeft, DisplayObjectContainer).getChildByName("btnSound"), SimpleButton);
-		btnLanguage = cast(cast(lTopLeft, DisplayObjectContainer).getChildByName("btnLanguage"), SimpleButton);
+		topLeft = cast(content.getChildByName("mcTopLeft"), DisplayObjectContainer);
+		bottomCenter = cast(content.getChildByName("mcBottomCenter"), DisplayObjectContainer);
+		
+		btnPlay = cast(bottomCenter.getChildByName("btnPlay"), SimpleButton);
+		btnCredits = cast(bottomCenter.getChildByName("btnCredits"), SimpleButton);
+		btnSound = cast(topLeft.getChildByName("btnSound"), SimpleButton);
+		btnLanguage = cast(topLeft.getChildByName("btnLanguage"), SimpleButton);
 		btnBack = cast(content.getChildByName("btnBack"), SimpleButton);
 		
-		goToTitleCard();
+		updatePositionablesForTitleCard();
+		goToTitleCard(true);
 	}
 	
 	public static function getInstance() : Menu {
@@ -135,26 +137,55 @@ class Menu extends AnimatedScreen
 		}
 	}
 	
-	public function goToTitleCard(): Void
-	{
+	private function goToTitleCard(pFirst: Bool = false): Void
+	{	
 		btnBackActivation(false);
 		btnPlayActivation(true);
 		btnCreditsActivation(true);
 		btnSoundActivation(true);
 		btnLanguageActivation(true);
 		
-		Actuate.tween(content, 2, {x: -titleCardIndicator.x, y: -titleCardIndicator.y}).ease(Cubic.easeInOut);
+		if (pFirst) return;
+		
+		Actuate.tween(btnBack, 0.7, {x: btnBack.x + btnBackOffset.x + btnBack.width * 1.5}).ease(Cubic.easeOut).onComplete(function(){btnBack.visible = false;});
+		Actuate.timer(0.1).onComplete(function() {
+			Actuate.tween(content, 2, {x: -titleCardIndicator.x, y: -titleCardIndicator.y}).ease(Cubic.easeInOut).onComplete(updatePositionablesForTitleCard, []);
+		});
 	}
 	
-	public function goToCredits(): Void
+	private function updatePositionablesForTitleCard(): Void
 	{
+		positionables = new Array<UIPositionable>();
+		var lPositionnable:UIPositionable = {item:bottomCenter, align:AlignType.BOTTOM};
+		positionables.push(lPositionnable);
+		lPositionnable = {item:topLeft, align:AlignType.TOP_LEFT};
+		positionables.push(lPositionnable);
+		onResize();
+	}
+	
+	private function goToCredits(): Void
+	{	
 		btnPlayActivation(false);
 		btnCreditsActivation(false);
 		btnSoundActivation(false);
 		btnLanguageActivation(false);
 		btnBackActivation(true);
 		
-		Actuate.tween(content, 2, {x: -creditsIndicator.x, y: -creditsIndicator.y}).ease(Cubic.easeInOut);
+		btnBack.visible = false;
+		Actuate.tween(content, 2, {x: -creditsIndicator.x, y: -creditsIndicator.y}).ease(Cubic.easeInOut).onComplete(updatePositionablesForCredits, []);
+	}
+	
+	private function updatePositionablesForCredits(): Void
+	{
+		positionables = new Array<UIPositionable>();
+		var lPositionnable:UIPositionable = {item:btnBack, align:AlignType.BOTTOM_RIGHT, offsetX: btnBackOffset.x, offsetY: btnBackOffset.y};
+		positionables.push(lPositionnable);
+		
+		btnBack.visible = false;
+		onResize();
+		
+		Actuate.tween(btnBack, 0.7, {x: btnBack.x + btnBackOffset.x + btnBack.width * 1.5}).ease(Cubic.easeIn).reverse();
+		Actuate.timer(0.00001).onComplete(function() {btnBack.visible = true;});
 	}
 	
 	private function onDown(pEvent:MouseEvent) : Void {
