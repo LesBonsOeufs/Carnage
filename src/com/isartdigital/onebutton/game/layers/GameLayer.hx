@@ -6,18 +6,14 @@ package com.isartdigital.onebutton.game.layers;
  */
 class GameLayer extends Layer
 {
-	public var speed(default, null):Float;
-	
-	public function new(pSpeed:Float)
+	public function new()
 	{
 		super();
-		
-		speed = pSpeed;
 	}
 	
 	override function doActionNormal():Void 
 	{
-		x += speed * GameManager.timeBasedCoeff;
+		x -= GameManager.player.xVelocity * GameManager.timeBasedCoeff;
 		updateScreenLimits();
 	}
 }

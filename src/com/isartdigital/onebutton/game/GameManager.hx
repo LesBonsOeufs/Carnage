@@ -74,7 +74,7 @@ class GameManager
 		controller = new Controller(GameStage.getInstance().stage);
 		player = new Player(controller);
 		
-		gameLayer = new GameLayer(-8);
+		gameLayer = new GameLayer();
 		gameLayer.x = lInitGameLayerX;
 		gameLayer.start();
 		
@@ -89,11 +89,8 @@ class GameManager
 		var lJson:Dynamic = Json.parse(GameLoader.getText("assets/settings/player.json"));
 		Monitor.setSettings(lJson, player);
 		
-		var fields : Array<MonitorField> = [{name:"smoothing", onChange:onChange}, {name:"x", step:1}, {name:"y", step:100}];
+		var fields : Array<MonitorField> = [{name:"smoothing", onChange:onChange}, {name:"x", step:1}, {name:"y", step:100}, {name:"xVelocity", step:1}];
 		Monitor.start(player, fields, lJson);
-		
-		var fields : Array<MonitorField> = [{name:"speed", step:1}, {name:"x", step:1}, {name:"y", step:1}];
-		Monitor.start(gameLayer, fields);
 		
 		ScrollingForest.addBackgrounds(lGameContainer);
 		lGameContainer.addChild(gameLayer);

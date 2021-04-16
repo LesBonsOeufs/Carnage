@@ -7,7 +7,7 @@ package com.isartdigital.onebutton.game.sprites;
 class MovingObject extends TimeFlexibleObject 
 {
 	private var xAcceleration: Float = 0;
-	private var xVelocity: Float = 0;
+	public var xVelocity(default, null): Float = 0;
 	
 	private var accelerationValue(get, never): Float;
 	private var maxVelocity(get, never): Float;

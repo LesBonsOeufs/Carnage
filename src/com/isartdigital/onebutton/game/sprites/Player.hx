@@ -16,9 +16,14 @@ class Player extends MeleeObject
 {
 	private inline static var BLOCK: String = "block";
 	
+	public inline static var INIT_X_VELOCITY: Int = 8;
 	public inline static var INIT_X_OFFSET: Int = 300;
 	
 	private var controller: Controller;
+	
+	override function get_maxVelocity():Float {
+		return 18;
+	}
 	
 	override function get_animStrikingFrame():Int {
 		return 3;
@@ -28,6 +33,8 @@ class Player extends MeleeObject
 	{
 		super();
 		controller = pController;
+		
+		xVelocity = INIT_X_VELOCITY;
 	}
 	
 	override public function start():Void 
@@ -74,8 +81,6 @@ class Player extends MeleeObject
 			strikeDone = true;
 			weaponCollision();
 		}
-		
-		x -= cast(parent, GameLayer).speed * GameManager.timeBasedCoeff;
 	}
 	
 	override function weaponCollision():Void
@@ -114,6 +119,7 @@ class Player extends MeleeObject
 				lMissed = false;
 				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
 				lSwordsman.die();
+				xVelocity++;
 			}
 			
 			i--;
