@@ -18,6 +18,7 @@ class TitleCard extends Screen
 	private function new() 
 	{
 		super();
+		content.getChildByName("btnPlay").addEventListener(MouseEvent.MOUSE_DOWN, onDown);
 		content.getChildByName("btnPlay").addEventListener(MouseEvent.CLICK, onClick);
 		
 		
@@ -35,13 +36,19 @@ class TitleCard extends Screen
 		return instance;
 	}
 	
+	private function onDown(pEvent:MouseEvent) : Void {
+		SoundManager.getSound("press").start();
+	}
+	
 	private function onClick(pEvent:MouseEvent) : Void {
 		GameManager.start();
+		SoundManager.getSound("press").stop();
 		SoundManager.getSound("click").start();
 	}
 	
 	override public function destroy():Void 
 	{
+		content.getChildByName("btnPlay").removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
 		content.getChildByName("btnPlay").removeEventListener(MouseEvent.CLICK, onClick);
 		instance = null;
 		super.destroy();
