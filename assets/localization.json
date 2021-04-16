@@ -8,16 +8,16 @@
 		"fr": "Jouer"
 	},
 	"MENU": {
-		"en": "MENU",
-		"fr": "MENU"
+		"en": "Menu",
+		"fr": "Menu"
 	},
 	"RETRY": {
-		"en": "RETRY",
-		"fr": "RÉESSAYER"
+		"en": "Retry",
+		"fr": "Réessayer"
 	},
 	"BACK": {
-		"en": "BACK",
-		"fr": "RETOUR"
+		"en": "Back",
+		"fr": "Retour"
 	},
 	"NEXT": {
 		"en": "NEXT",

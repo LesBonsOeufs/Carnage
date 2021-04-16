@@ -55,6 +55,10 @@ class Player extends MeleeObject
 		setState(MeleeObject.HEAVY_ATTACK);
 	}
 	
+	public function isBlocking(): Bool {
+		return state == BLOCK;
+	}
+	
 	override function setModeNormal():Void 
 	{
 		super.setModeNormal();

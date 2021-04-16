@@ -52,7 +52,7 @@ class AnimatedScreen extends Screen
 			lExistingObjects.push(lTopLeft);
 			lTopLeft.visible = false;
 			
-			Actuate.tween(lTopLeft, ANIMATION_DURATION, {x: lTopLeft.x - lTopLeft.width * 1.5}, false)
+			Actuate.tween(lTopLeft, ANIMATION_DURATION, {x: lTopLeft.x - lTopLeft.width * 2}, false)
 				   .ease(Quad.easeIn)
 				   .reverse();
 		}
@@ -62,7 +62,7 @@ class AnimatedScreen extends Screen
 			lExistingObjects.push(lTopRight);
 			lTopRight.visible = false;
 			
-			Actuate.tween(lTopRight, ANIMATION_DURATION, {x: lTopRight.x + lTopRight.width * 1.5}, false)
+			Actuate.tween(lTopRight, ANIMATION_DURATION, {x: lTopRight.x + lTopRight.width * 2}, false)
 				   .ease(Quad.easeIn)
 				   .reverse();
 		}
@@ -72,7 +72,7 @@ class AnimatedScreen extends Screen
 			lExistingObjects.push(lTopCenter);
 			lTopCenter.visible = false;
 			
-			Actuate.tween(lTopCenter, ANIMATION_DURATION, {y: lTopCenter.y - lTopCenter.height * 1.5}, false)
+			Actuate.tween(lTopCenter, ANIMATION_DURATION, {y: lTopCenter.y - lTopCenter.height * 2}, false)
 				   .ease(Quad.easeIn)
 				   .reverse();
 		}
@@ -92,7 +92,7 @@ class AnimatedScreen extends Screen
 			lExistingObjects.push(lBottomLeft);
 			lBottomLeft.visible = false;
 			
-			Actuate.tween(lBottomLeft, ANIMATION_DURATION, {x: lBottomLeft.x - lBottomLeft.width * 1.5}, false)
+			Actuate.tween(lBottomLeft, ANIMATION_DURATION, {x: lBottomLeft.x - lBottomLeft.width * 2}, false)
 				   .ease(Quad.easeIn)
 				   .reverse();
 		}
@@ -102,7 +102,7 @@ class AnimatedScreen extends Screen
 			lExistingObjects.push(lBottomRight);
 			lBottomRight.visible = false;
 			
-			Actuate.tween(lBottomRight, ANIMATION_DURATION, {x: lBottomRight.x + lBottomRight.width * 1.5}, false)
+			Actuate.tween(lBottomRight, ANIMATION_DURATION, {x: lBottomRight.x + lBottomRight.width * 2}, false)
 				   .ease(Quad.easeIn)
 				   .reverse();
 		}
@@ -112,7 +112,7 @@ class AnimatedScreen extends Screen
 			lExistingObjects.push(lBottomCenter);
 			lBottomCenter.visible = false;
 			
-			Actuate.tween(lBottomCenter, ANIMATION_DURATION, {y: lBottomCenter.y + lBottomCenter.height * 1.5}, false)
+			Actuate.tween(lBottomCenter, ANIMATION_DURATION, {y: lBottomCenter.y + lBottomCenter.height * 2}, false)
 				   .ease(Quad.easeIn)
 				   .reverse();
 		}
@@ -141,15 +141,15 @@ class AnimatedScreen extends Screen
 		//var lBg: DisplayObject = content.getChildByName("background");
 		
 		if (lTopLeft != null)
-			Actuate.tween(lTopLeft, ANIMATION_DURATION, {x: lTopLeft.x - lTopLeft.width * 1.5}, false)
+			Actuate.tween(lTopLeft, ANIMATION_DURATION, {x: lTopLeft.x - lTopLeft.width * 2}, false)
 				   .ease(Quad.easeIn);
 		
 		if (lTopRight != null)
-			Actuate.tween(lTopRight, ANIMATION_DURATION, {x: lTopRight.x + lTopRight.width * 1.5}, false)
+			Actuate.tween(lTopRight, ANIMATION_DURATION, {x: lTopRight.x + lTopRight.width * 2}, false)
 				   .ease(Quad.easeIn);
 		
 		if (lTopCenter != null)
-			Actuate.tween(lTopCenter, ANIMATION_DURATION, {y: lTopCenter.y - lTopCenter.height * 1.5}, false)
+			Actuate.tween(lTopCenter, ANIMATION_DURATION, {y: lTopCenter.y - lTopCenter.height * 2}, false)
 				   .ease(Quad.easeIn);
 		
 		if (lCenter != null)
@@ -157,15 +157,15 @@ class AnimatedScreen extends Screen
 				   .ease(Quad.easeIn);
 		
 		if (lBottomLeft != null)
-			Actuate.tween(lBottomLeft, ANIMATION_DURATION, {x: lBottomLeft.x - lBottomLeft.width * 1.5}, false)
+			Actuate.tween(lBottomLeft, ANIMATION_DURATION, {x: lBottomLeft.x - lBottomLeft.width * 2}, false)
 				   .ease(Quad.easeIn);
 		
 		if (lBottomRight != null)
-			Actuate.tween(lBottomRight, ANIMATION_DURATION, {x: lBottomRight.x + lBottomRight.width * 1.5}, false)
+			Actuate.tween(lBottomRight, ANIMATION_DURATION, {x: lBottomRight.x + lBottomRight.width * 2}, false)
 				   .ease(Quad.easeIn);
 		
 		if (lBottomCenter != null)
-			Actuate.tween(lBottomCenter, ANIMATION_DURATION, {y: lBottomCenter.y + lBottomCenter.height * 1.5}, false)
+			Actuate.tween(lBottomCenter, ANIMATION_DURATION, {y: lBottomCenter.y + lBottomCenter.height * 2}, false)
 				   .ease(Quad.easeIn);
 		
 		//if (lBg != null)

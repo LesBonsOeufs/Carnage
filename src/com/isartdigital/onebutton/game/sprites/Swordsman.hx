@@ -18,8 +18,7 @@ class Swordsman extends MeleeObject
 	private inline static var RETREAT: String = "walkBack";
 	private inline static var WALK: String = "walk";
 	
-	private inline static var MAX_BONUS_REACH: Float = 170;
-	private inline static var MIN_BONUS_REACH: Float = 145;
+	private inline static var BONUS_REACH: Float = 250;
 	private inline static var RUN_TRIGGER_VALUE: Float = 3.5;
 	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
 	
@@ -38,7 +37,6 @@ class Swordsman extends MeleeObject
 	private var _maxVelocity: Float;
 	private var normalMaxVelocity: Float;
 	private var repositionMaxVelocity: Float;
-	private var bonusReach: Float;
 	
 	private var randomReposition: Float;
 	
@@ -72,7 +70,6 @@ class Swordsman extends MeleeObject
 		repositionMaxVelocity = normalMaxVelocity * REPOSITION_MAX_VELOCITY_COEFF;
 		maxReposition = getReach() + MAX_ADDED_REPOSITION;
 		minReposition = getReach() + MIN_ADDED_REPOSITION;
-		bonusReach = MIN_BONUS_REACH + Math.random() * (MAX_BONUS_REACH - MIN_BONUS_REACH);
 	}
 	
 	override public function start():Void 
@@ -92,7 +89,7 @@ class Swordsman extends MeleeObject
 	}
 	
 	private function getReach(): Float {
-		return hurtBox.width + bonusReach;
+		return hurtBox.width + BONUS_REACH;
 	}
 	
 	/**
@@ -240,9 +237,15 @@ class Swordsman extends MeleeObject
 	{
 		if (CollisionManager.hasCollision(hurtBox, target.hitBox, hurtBoxes, target.hitBoxes))
 		{
-			trace("boum");
-			SoundManager.getSound("swordsman_miss").start();
+			var lRandomSoundIndex: Int = Math.floor(Math.random() * 2);
+			
+			if (cast(target, Player).isBlocking())
+				SoundManager.getSound("player_block" + lRandomSoundIndex).start();
+			else
+				SoundManager.getSound("swordsman_hit" + lRandomSoundIndex).start();
 		}
+		else
+			SoundManager.getSound("swordsman_miss").start();
 	}
 	
 	private function testOutOfBounds(): Void
