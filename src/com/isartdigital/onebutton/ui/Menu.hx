@@ -147,7 +147,7 @@ class Menu extends AnimatedScreen
 		
 		if (pFirst) return;
 		
-		Actuate.tween(btnBack, 0.7, {x: btnBack.x + btnBackOffset.x + btnBack.width * 1.5}).ease(Cubic.easeOut).onComplete(function(){btnBack.visible = false;});
+		Actuate.tween(btnBack, 0.6, {x: btnBack.x + btnBackOffset.x + btnBack.width * 1.5}).ease(Cubic.easeOut).onComplete(function(){btnBack.visible = false;});
 		Actuate.timer(0.1).onComplete(function() {
 			Actuate.tween(content, 2, {x: -titleCardIndicator.x, y: -titleCardIndicator.y}).ease(Cubic.easeInOut).onComplete(updatePositionablesForTitleCard, []);
 		});
