@@ -55,7 +55,7 @@ class Swordsman extends MeleeObject
 	}
 	
 	override function get_animStrikingFrame():Int {
-		return 7;
+		return 8;
 	}
 
 	public function new(?pTarget: DisplayObject = null) 
@@ -78,7 +78,7 @@ class Swordsman extends MeleeObject
 	override public function start():Void 
 	{
 		super.start();	
-		if (Math.floor(Math.random() * 11) == 10) setModeRetreat();
+		fearChance();
 	}
 	
 	static public function doActions(): Void
@@ -91,9 +91,23 @@ class Swordsman extends MeleeObject
 		}
 	}
 	
-	private function getReach(): Float
-	{
+	private function getReach(): Float {
 		return hurtBox.width + bonusReach;
+	}
+	
+	/**
+	 * Renvoie true si l'objet se met à fuir.
+	 * @return
+	 */
+	public function fearChance(): Bool
+	{
+		if (Math.floor(Math.random() * 21) >= 18)
+		{
+			setModeRetreat();
+			return true;
+		}
+		
+		return false;
 	}
 	
 	override function setModeNormal():Void 
@@ -163,10 +177,7 @@ class Swordsman extends MeleeObject
 			strikeDone = false;
 			xVelocity = 0;
 			
-			if (Math.floor(Math.random() * 11) >= 9)
-				setModeRetreat();
-			else
-				setModeReposition();
+			if(!fearChance()) setModeReposition();
 		}
 	}
 	
