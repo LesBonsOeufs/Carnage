@@ -22,7 +22,7 @@ class Swordsman extends MeleeObject
 	private inline static var RUN_TRIGGER_VALUE: Float = 3.5;
 	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
 	
-	private inline static var REPOSITION_ACCELERATION: Float = 15 / GameManager.FPS;
+	private inline static var REPOSITION_ACCELERATION: Float = 10 / GameManager.FPS;
 	private inline static var REPOSITION_MAX_VELOCITY_COEFF: Float = 2.65;
 	private inline static var REPOSITION_INSTANT_VELOCITY_FRACTION: Float = 4;
 	

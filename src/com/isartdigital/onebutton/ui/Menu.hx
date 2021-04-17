@@ -145,7 +145,13 @@ class Menu extends AnimatedScreen
 		btnSoundActivation(true);
 		btnLanguageActivation(true);
 		
-		if (pFirst) return;
+		if (pFirst)
+		{
+			btnBack.visible = false;
+			return;
+		}
+		
+		positionables = new Array<UIPositionable>();
 		
 		Actuate.tween(btnBack, 0.6, {x: btnBack.x + btnBackOffset.x + btnBack.width * 1.5}).ease(Cubic.easeOut).onComplete(function(){btnBack.visible = false;});
 		Actuate.timer(0.1).onComplete(function() {
@@ -155,7 +161,6 @@ class Menu extends AnimatedScreen
 	
 	private function updatePositionablesForTitleCard(): Void
 	{
-		positionables = new Array<UIPositionable>();
 		var lPositionnable:UIPositionable = {item:bottomCenter, align:AlignType.BOTTOM};
 		positionables.push(lPositionnable);
 		lPositionnable = {item:topLeft, align:AlignType.TOP_LEFT};
@@ -172,12 +177,13 @@ class Menu extends AnimatedScreen
 		btnBackActivation(true);
 		
 		btnBack.visible = false;
+		positionables = new Array<UIPositionable>();
+		
 		Actuate.tween(content, 2, {x: -creditsIndicator.x, y: -creditsIndicator.y}).ease(Cubic.easeInOut).onComplete(updatePositionablesForCredits, []);
 	}
 	
 	private function updatePositionablesForCredits(): Void
 	{
-		positionables = new Array<UIPositionable>();
 		var lPositionnable:UIPositionable = {item:btnBack, align:AlignType.BOTTOM_RIGHT, offsetX: btnBackOffset.x, offsetY: btnBackOffset.y};
 		positionables.push(lPositionnable);
 		
