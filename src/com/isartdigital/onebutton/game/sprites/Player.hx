@@ -30,15 +30,19 @@ class Player extends MeleeObject
 	private inline static var INIT_DEGREE: UInt = 1;
 	private inline static var DEGREE_0_ANIM_SPEED: Float = 0.08;
 	
-	private var NB_KILLS_FOR_DEGREE_UP: Int = 5;
-	private var killsCounter: Int = 0;
+	private inline static var DEGREE_BAR_MAX_VALUE: Int = 5;
+	private var _degreeBar: Int = 0;
+	public var degreeBar(get, set): Int;
+	
+	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.5;
+	private var blockingTimeCounter: Float = 0;
 	
 	private var controller: Controller;
 	
 	private var _maxVelocity: Float;
 	
 	private var _degree: Int;
-	public var degree(get, set): Int;
+	private var degree(get, set): Int;
 	
 	override function get_maxVelocity():Float {
 		return _maxVelocity;
@@ -137,6 +141,28 @@ class Player extends MeleeObject
 		return _degree;
 	}
 	
+	private function get_degreeBar(): Int {
+		return _degreeBar;
+	}
+	
+	private function set_degreeBar(pValue: Int): Int
+	{
+		_degreeBar = pValue;
+		
+		if (degreeBar >= DEGREE_BAR_MAX_VALUE)
+		{
+			_degreeBar = 0;
+			degree++;
+		}
+		else if (degreeBar < 0)
+		{
+			_degreeBar = DEGREE_BAR_MAX_VALUE + pValue;
+			degree--;
+		}
+		
+		return degreeBar;
+	}
+	
 	public function isBlocking(): Bool {
 		return state == BLOCK;
 	}
@@ -158,6 +184,19 @@ class Player extends MeleeObject
 		}
 		
 		xAcceleration = accelerationValue;
+		
+		if (state == BLOCK)
+		{
+			blockingTimeCounter += GameManager.timer.deltaTime;
+			
+			if (blockingTimeCounter >= BLOCKING_PENALTY_TIME_TRIGGER)
+			{
+				blockingTimeCounter = 0;
+				degreeBar--;
+			}
+		}
+		else
+			blockingTimeCounter = 0;
 	}
 	
 	override function weaponCollision():Void
@@ -196,12 +235,7 @@ class Player extends MeleeObject
 				lMissed = false;
 				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
 				lSwordsman.die();
-				
-				if (++killsCounter >= NB_KILLS_FOR_DEGREE_UP)
-				{
-					killsCounter = 0;
-					degree++;
-				}
+				degreeBar++;
 			}
 			
 			i--;

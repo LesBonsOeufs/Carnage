@@ -19,6 +19,8 @@ class Swordsman extends MeleeObject
 	private inline static var RETREAT: String = "walkBack";
 	private inline static var WALK: String = "walk";
 	
+	private inline static var DAMAGE: Int = 2;
+	
 	private inline static var BONUS_REACH: Float = 0;
 	private inline static var RUN_TRIGGER_VALUE: Float = 3.5;
 	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
@@ -54,7 +56,7 @@ class Swordsman extends MeleeObject
 	}
 	
 	override function get_animStrikingFrame():Int {
-		return 9;
+		return 8;
 	}
 
 	public function new(?pTarget: DisplayObject = null) 
@@ -244,7 +246,7 @@ class Swordsman extends MeleeObject
 				SoundManager.getSound("player_block" + lRandomSoundIndex).start();
 			else
 			{
-				cast(target, Player).degree--;
+				cast(target, Player).degreeBar -= DAMAGE;
 				SoundManager.getSound("swordsman_hit" + lRandomSoundIndex).start();
 			}
 		}
