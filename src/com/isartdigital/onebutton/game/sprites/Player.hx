@@ -5,6 +5,7 @@ import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.utils.game.CollisionManager;
 import com.isartdigital.utils.game.stateObjects.StateObject;
 import com.isartdigital.utils.sound.SoundManager;
+import com.isartdigital.onebutton.ui.Hud;
 import openfl.events.Event;
 
 	
@@ -21,20 +22,25 @@ class Player extends MeleeObject
 	
 	public inline static var MAX_DEGREE: Float = 4;
 	
-	private inline static var DEGREE_0_MAX_VELOCITY: UInt = 8;
-	private inline static var DEGREE_1_MAX_VELOCITY: UInt = 9;
-	private inline static var DEGREE_2_MAX_VELOCITY: UInt = 12;
-	private inline static var DEGREE_3_MAX_VELOCITY: UInt = 14;
-	private inline static var DEGREE_4_MAX_VELOCITY: UInt = 18;
+	private inline static var DEGREE_0_MAX_VELOCITY: Float = 8;
+	private inline static var DEGREE_1_MAX_VELOCITY: Float = 9;
+	private inline static var DEGREE_2_MAX_VELOCITY: Float = 12;
+	private inline static var DEGREE_3_MAX_VELOCITY: Float = 14;
+	private inline static var DEGREE_4_MAX_VELOCITY: Float = 18;
 	
 	private inline static var INIT_DEGREE: UInt = 1;
 	private inline static var DEGREE_0_ANIM_SPEED: Float = 0.08;
 	
+	private inline static var DEGREE_MAX_VALUE: Int = 4;
 	private inline static var DEGREE_BAR_MAX_VALUE: Int = 5;
+	
+	private var maxVelocitiesPerDegree: Array<Float>;
+	public var scalesPerDegree(default, null): Array<Float>;
+	
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
 	
-	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.5;
+	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.4;
 	private var blockingTimeCounter: Float = 0;
 	
 	private var controller: Controller;
@@ -61,6 +67,9 @@ class Player extends MeleeObject
 	{
 		super();
 		controller = pController;
+		
+		maxVelocitiesPerDegree = [DEGREE_0_MAX_VELOCITY, DEGREE_1_MAX_VELOCITY, DEGREE_2_MAX_VELOCITY, DEGREE_3_MAX_VELOCITY, DEGREE_4_MAX_VELOCITY];
+		scalesPerDegree = [0.9, 1, 1.1, 1.2, 1.4];
 		
 		xVelocity = INIT_X_VELOCITY;
 		degree = INIT_DEGREE;
@@ -102,41 +111,18 @@ class Player extends MeleeObject
 			GameManager.pauseGame();
 		}
 		
-		if (pValue > 4 || pValue < 0) return _degree;
+		if (pValue > DEGREE_MAX_VALUE || pValue < 0) return _degree;
 		
 		_degree = pValue;
 		
 		if (degree == 0)
-		{
-			_maxVelocity = DEGREE_0_MAX_VELOCITY;
 			timeBetweenAnimFrame = DEGREE_0_ANIM_SPEED;
-			scaleX = 0.9; scaleY = 0.9;
-		}
 		else
-		{
 			timeBetweenAnimFrame = TimeFlexibleObject.BASE_TIME_BETWEEN_ANIM_FRAME;
-			
-			if (_degree == 1)
-			{
-				_maxVelocity = DEGREE_1_MAX_VELOCITY;
-				scaleX = 1; scaleY = 1;
-			}
-			else if (_degree == 2)
-			{
-				_maxVelocity = DEGREE_2_MAX_VELOCITY;
-				scaleX = 1.1; scaleY = 1.1;
-			}
-			else if (_degree == 3)
-			{
-				_maxVelocity = DEGREE_3_MAX_VELOCITY;
-				scaleX = 1.2; scaleY = 1.2;
-			}
-			else if (_degree == 4)
-			{
-				_maxVelocity = DEGREE_4_MAX_VELOCITY;
-				scaleX = 1.4; scaleY = 1.4;
-			}
-		}
+		
+		_maxVelocity = maxVelocitiesPerDegree[degree];
+		scaleX = scalesPerDegree[degree];
+		scaleY = scalesPerDegree[degree];
 		
 		return _degree;
 	}
@@ -147,18 +133,32 @@ class Player extends MeleeObject
 	
 	private function set_degreeBar(pValue: Int): Int
 	{
+		var lPositiveUpdate: Bool = false;
+		
+		if (pValue > degreeBar)
+			lPositiveUpdate = true;
+		
 		_degreeBar = pValue;
 		
 		if (degreeBar >= DEGREE_BAR_MAX_VALUE)
 		{
-			_degreeBar = 0;
-			degree++;
+			if (degree < DEGREE_MAX_VALUE)
+			{
+				_degreeBar = 0;
+				degree++;
+			}
+			else
+			{
+				_degreeBar = DEGREE_BAR_MAX_VALUE;
+			}
 		}
 		else if (degreeBar < 0)
 		{
 			_degreeBar = DEGREE_BAR_MAX_VALUE + pValue;
 			degree--;
 		}
+		
+		Hud.getInstance().updatePentagram(degreeBar, degree, lPositiveUpdate);
 		
 		return degreeBar;
 	}
@@ -235,6 +235,7 @@ class Player extends MeleeObject
 				lMissed = false;
 				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
 				lSwordsman.die();
+				
 				degreeBar++;
 			}
 			
