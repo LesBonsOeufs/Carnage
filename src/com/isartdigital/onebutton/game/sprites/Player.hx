@@ -22,8 +22,8 @@ class Player extends MeleeObject
 	
 	public inline static var MAX_DEGREE: Float = 4;
 	
-	private inline static var DEGREE_0_MAX_VELOCITY: Float = 8;
-	private inline static var DEGREE_1_MAX_VELOCITY: Float = 9;
+	private inline static var DEGREE_0_MAX_VELOCITY: Float = 8.5;
+	private inline static var DEGREE_1_MAX_VELOCITY: Float = 10;
 	private inline static var DEGREE_2_MAX_VELOCITY: Float = 12;
 	private inline static var DEGREE_3_MAX_VELOCITY: Float = 14;
 	private inline static var DEGREE_4_MAX_VELOCITY: Float = 18;

@@ -93,10 +93,18 @@ class Hud extends Screen
 	
 	public function updatePentagram(pDegreeBar: Int, pDegree: Int, pPositiveUpdate: Bool): Void
 	{
+		var lTweenCoeff: Float;
+		
 		if (pPositiveUpdate)
+		{
+			lTweenCoeff = 1.1;
 			getAvailablePositiveUpdateParticle().emit(0, 0);
+		}
 		else
+		{
+			lTweenCoeff = 0.9;
 			getAvailableNegativeUpdateParticle().emit(0, 0);
+		}
 		
 		var lTop: DisplayObject;
 		
@@ -118,7 +126,7 @@ class Hud extends Screen
 		if (pentagram.scaleX != lScale)
 			Actuate.tween(pentagram, 0.4, {scaleX: lScale, scaleY: lScale}).ease(Back.easeOut);
 		else
-			Actuate.tween(pentagram, 0.3, {scaleX: lScale * 1.1, scaleY: lScale * 1.1}).reverse().ease(Quad.easeOut);
+			Actuate.tween(pentagram, 0.3, {scaleX: lScale * lTweenCoeff, scaleY: lScale * lTweenCoeff}).reverse().ease(Quad.easeOut);
 	}
 	
 	private function getAvailablePositiveUpdateParticle(): ParticleSystem
