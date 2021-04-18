@@ -1,5 +1,6 @@
 package com.isartdigital.onebutton.game.sprites;
 import com.isartdigital.onebutton.game.layers.GameLayer;
+import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.utils.game.CollisionManager;
 import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.stateObjects.StateMovieClip;
@@ -18,7 +19,7 @@ class Swordsman extends MeleeObject
 	private inline static var RETREAT: String = "walkBack";
 	private inline static var WALK: String = "walk";
 	
-	private inline static var BONUS_REACH: Float = 250;
+	private inline static var BONUS_REACH: Float = 0;
 	private inline static var RUN_TRIGGER_VALUE: Float = 3.5;
 	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
 	
@@ -53,7 +54,7 @@ class Swordsman extends MeleeObject
 	}
 	
 	override function get_animStrikingFrame():Int {
-		return 8;
+		return 9;
 	}
 
 	public function new(?pTarget: DisplayObject = null) 
@@ -89,7 +90,7 @@ class Swordsman extends MeleeObject
 	}
 	
 	private function getReach(): Float {
-		return hurtBox.width + BONUS_REACH;
+		return hurtBox.width + BONUS_REACH + cast(target, Player).xVelocity * 26;
 	}
 	
 	/**
@@ -242,7 +243,10 @@ class Swordsman extends MeleeObject
 			if (cast(target, Player).isBlocking())
 				SoundManager.getSound("player_block" + lRandomSoundIndex).start();
 			else
+			{
+				cast(target, Player).degree--;
 				SoundManager.getSound("swordsman_hit" + lRandomSoundIndex).start();
+			}
 		}
 		else
 			SoundManager.getSound("swordsman_miss").start();

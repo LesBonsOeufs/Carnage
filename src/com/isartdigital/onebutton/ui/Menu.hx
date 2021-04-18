@@ -33,8 +33,8 @@ class Menu extends AnimatedScreen
 	
 	private var btnBackOffset: Point = new Point(400, 300);
 	
-	private var titleCardIndicator: DisplayObject;
-	private var creditsIndicator: DisplayObject;
+	private var titleCardPos: Point;
+	private var creditsPos: Point;
 	
 	private function new() 
 	{
@@ -43,11 +43,13 @@ class Menu extends AnimatedScreen
 		if (!SoundManager.getSound("ui").isPlaying)
 			SoundManager.getSound("ui").fadeIn();
 		
-		titleCardIndicator = content.getChildByName("mcTitleCardIndicator");
-		titleCardIndicator.alpha = 0;
+		var lTitleCardIndicator: DisplayObject = content.getChildByName("mcTitleCardIndicator");
+		titleCardPos = new Point(lTitleCardIndicator.x, lTitleCardIndicator.y);
+		content.removeChild(lTitleCardIndicator);
 		
-		creditsIndicator = content.getChildByName("mcCreditsIndicator");
-		creditsIndicator.alpha = 0;
+		var lCreditsIndicator: DisplayObject = content.getChildByName("mcCreditsIndicator");
+		creditsPos = new Point(lCreditsIndicator.x, lCreditsIndicator.y);
+		content.removeChild(lCreditsIndicator);
 		
 		topLeft = cast(content.getChildByName("mcTopLeft"), DisplayObjectContainer);
 		bottomCenter = cast(content.getChildByName("mcBottomCenter"), DisplayObjectContainer);
@@ -155,7 +157,7 @@ class Menu extends AnimatedScreen
 		
 		Actuate.tween(btnBack, 0.6, {x: btnBack.x + btnBackOffset.x + btnBack.width * 1.5}).ease(Cubic.easeOut).onComplete(function(){btnBack.visible = false;});
 		Actuate.timer(0.1).onComplete(function() {
-			Actuate.tween(content, 2, {x: -titleCardIndicator.x, y: -titleCardIndicator.y}).ease(Cubic.easeInOut).onComplete(updatePositionablesForTitleCard, []);
+			Actuate.tween(content, 2, {x: -titleCardPos.x, y: -titleCardPos.y}).ease(Cubic.easeInOut).onComplete(updatePositionablesForTitleCard, []);
 		});
 	}
 	
@@ -179,7 +181,7 @@ class Menu extends AnimatedScreen
 		btnBack.visible = false;
 		positionables = new Array<UIPositionable>();
 		
-		Actuate.tween(content, 2, {x: -creditsIndicator.x, y: -creditsIndicator.y}).ease(Cubic.easeInOut).onComplete(updatePositionablesForCredits, []);
+		Actuate.tween(content, 2, {x: -creditsPos.x, y: -creditsPos.y}).ease(Cubic.easeInOut).onComplete(updatePositionablesForCredits, []);
 	}
 	
 	private function updatePositionablesForCredits(): Void

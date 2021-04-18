@@ -10,7 +10,7 @@ import openfl.events.Event;
 	
 /**
  * ...
- * @author Chadi Husser
+ * @author Gabriel Bernabeu
  */
 class Player extends MeleeObject 
 {
@@ -19,10 +19,34 @@ class Player extends MeleeObject
 	public inline static var INIT_X_VELOCITY: Int = 8;
 	public inline static var INIT_X_OFFSET: Int = 300;
 	
+	public inline static var MAX_DEGREE: Float = 4;
+	
+	private inline static var DEGREE_0_MAX_VELOCITY: UInt = 8;
+	private inline static var DEGREE_1_MAX_VELOCITY: UInt = 9;
+	private inline static var DEGREE_2_MAX_VELOCITY: UInt = 12;
+	private inline static var DEGREE_3_MAX_VELOCITY: UInt = 14;
+	private inline static var DEGREE_4_MAX_VELOCITY: UInt = 18;
+	
+	private inline static var INIT_DEGREE: UInt = 1;
+	private inline static var DEGREE_0_ANIM_SPEED: Float = 0.08;
+	
+	private var NB_KILLS_FOR_DEGREE_UP: Int = 5;
+	private var killsCounter: Int = 0;
+	
 	private var controller: Controller;
 	
+	private var _maxVelocity: Float;
+	
+	private var _degree: Int;
+	public var degree(get, set): Int;
+	
 	override function get_maxVelocity():Float {
-		return 18;
+		return _maxVelocity;
+	}
+	
+	//@:getter(accelerationValue)
+	override function get_accelerationValue():Float {
+		return 4 / GameManager.FPS;
 	}
 	
 	override function get_animStrikingFrame():Int {
@@ -35,9 +59,10 @@ class Player extends MeleeObject
 		controller = pController;
 		
 		xVelocity = INIT_X_VELOCITY;
+		degree = INIT_DEGREE;
 	}
 	
-	override public function start():Void 
+	override public function start(): Void 
 	{
 		super.start();
 		controller.addEventListener(Controller.INPUT_DOWN, onInputDown);
@@ -62,6 +87,56 @@ class Player extends MeleeObject
 		setState(MeleeObject.HEAVY_ATTACK);
 	}
 	
+	private function get_degree(): Int {
+		return _degree;
+	}
+	
+	private function set_degree(pValue: Int): Int
+	{
+		if (pValue < 0 && _degree == 0)
+		{
+			GameManager.pauseGame();
+		}
+		
+		if (pValue > 4 || pValue < 0) return _degree;
+		
+		_degree = pValue;
+		
+		if (degree == 0)
+		{
+			_maxVelocity = DEGREE_0_MAX_VELOCITY;
+			timeBetweenAnimFrame = DEGREE_0_ANIM_SPEED;
+			scaleX = 0.9; scaleY = 0.9;
+		}
+		else
+		{
+			timeBetweenAnimFrame = TimeFlexibleObject.BASE_TIME_BETWEEN_ANIM_FRAME;
+			
+			if (_degree == 1)
+			{
+				_maxVelocity = DEGREE_1_MAX_VELOCITY;
+				scaleX = 1; scaleY = 1;
+			}
+			else if (_degree == 2)
+			{
+				_maxVelocity = DEGREE_2_MAX_VELOCITY;
+				scaleX = 1.1; scaleY = 1.1;
+			}
+			else if (_degree == 3)
+			{
+				_maxVelocity = DEGREE_3_MAX_VELOCITY;
+				scaleX = 1.2; scaleY = 1.2;
+			}
+			else if (_degree == 4)
+			{
+				_maxVelocity = DEGREE_4_MAX_VELOCITY;
+				scaleX = 1.4; scaleY = 1.4;
+			}
+		}
+		
+		return _degree;
+	}
+	
 	public function isBlocking(): Bool {
 		return state == BLOCK;
 	}
@@ -81,6 +156,8 @@ class Player extends MeleeObject
 			strikeDone = true;
 			weaponCollision();
 		}
+		
+		xAcceleration = accelerationValue;
 	}
 	
 	override function weaponCollision():Void
@@ -119,7 +196,12 @@ class Player extends MeleeObject
 				lMissed = false;
 				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
 				lSwordsman.die();
-				xVelocity++;
+				
+				if (++killsCounter >= NB_KILLS_FOR_DEGREE_UP)
+				{
+					killsCounter = 0;
+					degree++;
+				}
 			}
 			
 			i--;
@@ -138,7 +220,7 @@ class Player extends MeleeObject
 		
 		if (state == MeleeObject.HEAVY_ATTACK)
 		{
-			if (lNextCountTime >= TimeFlexibleObject.TIME_BETWEEN_ANIM_FRAME && isAnimEnded)
+			if (lNextCountTime >= timeBetweenAnimFrame && isAnimEnded)
 			{
 				countTime = 0;
 				strikeDone = false;
