@@ -45,7 +45,7 @@ class Swordsman extends MeleeObject
 	
 	public static var list(default, null): Array<Swordsman> = new Array<Swordsman>();
 	
-	private var target: StateMovieClip;
+	private var target: Player;
 	
 	override function get_accelerationValue():Float {
 		return -3 / GameManager.FPS;
@@ -59,7 +59,7 @@ class Swordsman extends MeleeObject
 		return 8;
 	}
 
-	public function new(?pTarget: DisplayObject = null) 
+	public function new(?pTarget: Player = null) 
 	{
 		super();
 		
@@ -92,7 +92,7 @@ class Swordsman extends MeleeObject
 	}
 	
 	private function getReach(): Float {
-		return hurtBox.width + BONUS_REACH + cast(target, Player).xVelocity * 26;
+		return hurtBox.width + BONUS_REACH + target.xVelocity * 26;
 	}
 	
 	/**
@@ -101,7 +101,7 @@ class Swordsman extends MeleeObject
 	 */
 	public function fearChance(): Bool
 	{
-		if (Math.floor(Math.random() * 21) >= 18)
+		if (Math.floor(Math.random() * 21) >= 20 - 8 * target.degree / Player.MAX_DEGREE)
 		{
 			setModeRetreat();
 			return true;
@@ -150,7 +150,7 @@ class Swordsman extends MeleeObject
 		
 		if (targetToX < 0)
 			xAcceleration = -RETREAT_ACCELERATION;
-		else if (targetToX <= 1500)
+		else if (targetToX <= 1250 + getReach())
 			xAcceleration = RETREAT_ACCELERATION;
 		
 		testOutOfBounds();
@@ -242,11 +242,11 @@ class Swordsman extends MeleeObject
 		{
 			var lRandomSoundIndex: Int = Math.floor(Math.random() * 2);
 			
-			if (cast(target, Player).isBlocking())
+			if (target.isBlocking())
 				SoundManager.getSound("player_block" + lRandomSoundIndex).start();
 			else
 			{
-				cast(target, Player).degreeBar -= DAMAGE;
+				target.degreeBar -= DAMAGE;
 				SoundManager.getSound("swordsman_hit" + lRandomSoundIndex).start();
 			}
 		}

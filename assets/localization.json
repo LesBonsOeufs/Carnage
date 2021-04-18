@@ -75,6 +75,10 @@
 		"en": "Credits",
 		"fr": "Credits"
 	},
+	"CREDITS_TEXT": {
+		"en": "UI Music: Engage \nBy Hampus Naeselius\nIn-game Music: Honor the brave\nBy Hampus Naeselius\nEpidemic Sound - www.epidemicsound.com",
+		"fr": "Musique d'UI: Engage \nDe Hampus Naeselius\nMusique in-game: Honor the brave\nDe Hampus Naeselius\nEpidemic Sound - www.epidemicsound.com"
+	},
 	"TOTAL_SCORE": {
 		"en": "TOTAL SCORE",
 		"fr": "SCORE TOTAL"

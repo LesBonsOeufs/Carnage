@@ -48,7 +48,7 @@ class Player extends MeleeObject
 	private var _maxVelocity: Float;
 	
 	private var _degree: Int;
-	private var degree(get, set): Int;
+	public var degree(get, set): Int;
 	
 	override function get_maxVelocity():Float {
 		return _maxVelocity;
