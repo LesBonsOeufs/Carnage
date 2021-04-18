@@ -12,6 +12,11 @@ import openfl.geom.Point;
  * ...
  * @author Gabriel Bernabeu
  */
+typedef Pattern = {
+	var difficulty: UInt;
+	var content: Array<String>;
+}
+
 enum PatternBrick {
     OBSTACLE;
 	HOUSE;
@@ -22,14 +27,18 @@ enum PatternBrick {
 class PatternManager 
 {
 	private static inline var X_BETWEEN_PATTERN: Float = 900;
+	private static inline var PATTERNS_BETWEEN_DIFFICULTY_INCREASE: Float = 6;
 	
 	private static inline var BRICK_X_OFFSET: Int = 200;
 	private static inline var BRICK_Y_OFFSET: Int = 200;
 	
-	private static var file: Array<Array<String>>;
+	private static var file: Array<Pattern>;
 	private static var container: Layer;
 	
+	private static var difficulty: UInt = 0;
+	
 	private static var countXShifting: Float = 0;
+	private static var countPatterns: Float = 0;
 	
 	//Fausse valeur de départ donnée à lastContainerX afin de faire apparaitre + vite le 1er pattern
 	private static var lastContainerX: Float = X_BETWEEN_PATTERN / 2;
@@ -53,6 +62,12 @@ class PatternManager
 		{
 			countXShifting = 0;
 			pickRandomPattern();
+			
+			if (countPatterns++ >= PATTERNS_BETWEEN_DIFFICULTY_INCREASE)
+			{
+				countPatterns = 0;
+				difficulty++;
+			}
 		}
 		
 		lastContainerX = container.x;
@@ -61,7 +76,7 @@ class PatternManager
 	private static function pickRandomPattern(): Void
 	{
 		var lRandomIndex: Int = Math.floor(Math.random() * file.length);
-		var lPattern: Array<String> = file[lRandomIndex];
+		var lPattern: Pattern = file[lRandomIndex];
 		
 		trace(lPattern);
 		
@@ -73,7 +88,7 @@ class PatternManager
 		var i: Int = 0;
 		var j: Int = 0;
 		
-		for (row in lPattern)
+		for (row in lPattern.content)
 		{
 			for (char in row.split(""))
 			{
