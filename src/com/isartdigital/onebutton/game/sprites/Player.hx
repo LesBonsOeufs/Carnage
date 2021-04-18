@@ -108,7 +108,7 @@ class Player extends MeleeObject
 	{
 		if (pValue < 0 && _degree == 0)
 		{
-			GameManager.pauseGame();
+			die();
 		}
 		
 		if (pValue > DEGREE_MAX_VALUE || pValue < 0) return _degree;
@@ -154,8 +154,16 @@ class Player extends MeleeObject
 		}
 		else if (degreeBar < 0)
 		{
-			_degreeBar = DEGREE_BAR_MAX_VALUE + pValue;
-			degree--;
+			if (degree > 0)
+			{
+				_degreeBar = DEGREE_BAR_MAX_VALUE + pValue;
+				degree--;
+			}
+			else
+			{
+				_degreeBar = 0;
+				die();
+			}
 		}
 		
 		Hud.getInstance().updatePentagram(degreeBar, degree, lPositiveUpdate);
@@ -265,6 +273,23 @@ class Player extends MeleeObject
 		}
 		
 		super.timedAnim();
+	}
+	
+	override function die(): Void
+	{
+		controller.removeEventListener(Controller.INPUT_DOWN, onInputDown);
+		controller.removeEventListener(Controller.INPUT_UP, onInputUp);
+		
+		xVelocity = 0;
+		
+		setState("death_back");
+		super.die();
+	}
+	
+	override function doActionDie():Void 
+	{
+		if (!isAnimEnded)
+			super.timedAnim();
 	}
 	
 	/**

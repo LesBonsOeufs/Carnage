@@ -205,30 +205,27 @@ class Swordsman extends MeleeObject
 		testOutOfBounds();
 	}
 	
-	public function die(): Void 
+	override function die(): Void 
 	{
 		var lBloodParticle: ParticleSystem = GameManager.getAvailableBloodParticle();
 		
 		if (lBloodParticle != null)
 			lBloodParticle.emit(x, y - collider.height / 2);
 		
-		setModeDie();
+		super.die();
 	}
 	
-	private function setModeDie(): Void
+	override function setModeDie(): Void
 	{
-		doAction = doActionDie;
-		
 		if (scaleX < 0)
 			setState("death_back");
 		else if (scaleX > 0)
 			setState("death_belly");
 		
-		collider.parent.removeChild(collider);
-		collider = null;
+		super.setModeDie();
 	}
 	
-	private function doActionDie(): Void
+	override function doActionDie(): Void
 	{
 		if (!isAnimEnded)
 			super.timedAnim();
