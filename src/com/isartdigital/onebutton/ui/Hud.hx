@@ -106,7 +106,7 @@ class Hud extends Screen
 	
 	private function onPause(pEvent:MouseEvent) : Void 
 	{
-		if (GameManager.isPaused) return;
+		if (GameManager.isPaused || GameManager.countWinFrames != 0) return;
 		
 		GameManager.pauseScreen();
 		SoundManager.getSound("click").start();

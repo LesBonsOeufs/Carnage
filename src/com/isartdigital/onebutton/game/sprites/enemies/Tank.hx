@@ -1,5 +1,6 @@
 package com.isartdigital.onebutton.game.sprites.enemies;
 import com.isartdigital.onebutton.game.sprites.enemies.Swordsman;
+import motion.Actuate;
 
 /**
  * ...
@@ -33,12 +34,24 @@ class Tank extends Swordsman
 	
 	override public function fearChance():Bool 
 	{
+		if (target.degree != Player.MAX_DEGREE) return false;
+		
+		if (Math.floor(Math.random() * 8) >= 6)
+		{
+			setModeRetreat();
+			return true;
+		}
+		
 		return false;
 	}
 	
 	override function die():Void 
 	{
-		if (--health > 0 && target.degree < Player.MAX_DEGREE) return;
+		if (--health > 0 && target.degree < Player.MAX_DEGREE) 
+		{
+			//Actuate.transform(renderer, 1, false).color(0xFF0000, 0).reverse();// .ease(Quad.easeOut);
+			return;
+		}
 		
 		super.die();
 	}

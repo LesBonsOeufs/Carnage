@@ -25,6 +25,10 @@ class KillableObject extends MovingObject
 		collider = null;
 	}
 	
-	private function doActionDie(): Void {}
+	private function doActionDie(): Void 
+	{
+		if (!isAnimEnded)
+			super.timedAnim();
+	}
 	
 }

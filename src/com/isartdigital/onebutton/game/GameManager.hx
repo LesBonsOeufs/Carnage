@@ -62,7 +62,7 @@ class GameManager
 	private static var bloodParticles: Vector<ParticleSystem>;
 	private static var woodParticles: Vector<ParticleSystem>;
 	
-	private static var countWinFrames: Float = 0;
+	public static var countWinFrames(default, null): Float = 0;
 	
 	private static var controller:Controller;
 	public static var player(default, null):Player;

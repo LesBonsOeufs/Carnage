@@ -13,7 +13,7 @@
 	},
 	"RETRY": {
 		"en": "Retry",
-		"fr": "Réessayer"
+		"fr": "Reessayer"
 	},
 	"BACK": {
 		"en": "Back",
@@ -114,5 +114,9 @@
 	"TEXT_PAUSE_SCREEN": {
 		"en": "Pause",
 		"fr": "Pause"
+	},
+	"TEXT_END_SCREEN": {
+		"en": "One hell of a performance!",
+		"fr": "Une sacrée performance!"
 	}
 }

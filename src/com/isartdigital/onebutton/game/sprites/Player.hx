@@ -84,7 +84,7 @@ class Player extends MeleeObject
 	
 	private function onInputDown(pEvent:Event):Void 
 	{
-		if (state == MeleeObject.HEAVY_ATTACK) return;
+		if (state == MeleeObject.BASIC_ATTACK) return;
 		
 		var lCurrentFrame: UInt = renderer.currentFrame;
 		
@@ -100,7 +100,7 @@ class Player extends MeleeObject
 	{
 		if (state != BLOCK) return;
 		
-		setState(MeleeObject.HEAVY_ATTACK);
+		setState(MeleeObject.BASIC_ATTACK);
 	}
 	
 	private function get_degree(): Int {
@@ -188,7 +188,7 @@ class Player extends MeleeObject
 	{
 		super.doActionNormal();
 		
-		if (state == MeleeObject.HEAVY_ATTACK && renderer.currentFrame == animStrikingFrame && !strikeDone)
+		if (state == MeleeObject.BASIC_ATTACK && renderer.currentFrame == animStrikingFrame && !strikeDone)
 		{
 			strikeDone = true;
 			weaponCollision();
@@ -264,7 +264,7 @@ class Player extends MeleeObject
 	{
 		var lNextCountTime: Float = countTime + TimeFlexibleObject.timer.deltaTime;
 		
-		if (state == MeleeObject.HEAVY_ATTACK)
+		if (state == MeleeObject.BASIC_ATTACK)
 		{
 			if (lNextCountTime >= timeBetweenAnimFrame && isAnimEnded)
 			{
@@ -289,12 +289,6 @@ class Player extends MeleeObject
 		
 		setState("death_back");
 		super.die();
-	}
-	
-	override function doActionDie():Void 
-	{
-		if (!isAnimEnded)
-			super.timedAnim();
 	}
 	
 	/**

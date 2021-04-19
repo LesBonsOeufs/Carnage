@@ -7,7 +7,7 @@ import openfl.display.DisplayObject;
  */
 class MeleeObject extends KillableObject 
 {
-	private inline static var HEAVY_ATTACK: String = "attack1";
+	private inline static var BASIC_ATTACK: String = "attack1";
 	private inline static var RUN: String = "run";
 	
 	/**
