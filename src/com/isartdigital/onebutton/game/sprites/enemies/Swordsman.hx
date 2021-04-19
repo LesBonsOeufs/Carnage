@@ -25,7 +25,7 @@ class Swordsman extends Enemy
 	
 	private inline static var REPOSITION_ACCELERATION: Float = 10 / GameManager.FPS;
 	private inline static var REPOSITION_MAX_VELOCITY_COEFF: Float = 2.65;
-	private inline static var REPOSITION_INSTANT_VELOCITY_FRACTION: Float = 4;
+	private inline static var REPOSITION_INSTANT_VELOCITY_FRACTION: Float = 3;
 	
 	private inline static var MIN_MAX_VELOCITY: Float = 4;
 	private inline static var MAX_MAX_VELOCITY: Float = 7;

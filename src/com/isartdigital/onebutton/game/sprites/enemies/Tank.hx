@@ -15,7 +15,7 @@ class Tank extends Swordsman
 	
 	//@:getter(maxVelocity)
 	override function get_maxVelocity():Float {
-		return 12;
+		return 17;
 	}
 	
 	//@:getter(size)
@@ -38,7 +38,7 @@ class Tank extends Swordsman
 	
 	override function die():Void 
 	{
-		if (--health > 0) return;
+		if (--health > 0 && target.degree < Player.MAX_DEGREE) return;
 		
 		super.die();
 	}

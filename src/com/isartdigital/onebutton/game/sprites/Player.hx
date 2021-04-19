@@ -20,7 +20,7 @@ class Player extends MeleeObject
 	public inline static var INIT_X_VELOCITY: Int = 8;
 	public inline static var INIT_X_OFFSET: Int = 300;
 	
-	public inline static var MAX_DEGREE: Float = 4;
+	public inline static var MAX_DEGREE: Int = 4;
 	
 	private inline static var DEGREE_0_MAX_VELOCITY: Float = 8.5;
 	private inline static var DEGREE_1_MAX_VELOCITY: Float = 10;
@@ -40,7 +40,7 @@ class Player extends MeleeObject
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
 	
-	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.4;
+	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.3;
 	private var blockingTimeCounter: Float = 0;
 	
 	private var controller: Controller;
@@ -89,6 +89,9 @@ class Player extends MeleeObject
 		var lCurrentFrame: UInt = renderer.currentFrame;
 		
 		setState(BLOCK);
+		
+		var lRandom: Int = Math.floor(Math.random() * 2);
+		SoundManager.getSound("player_raise_axe" + lRandom).start();
 		
 		renderer.gotoAndStop(lCurrentFrame);
 	}
