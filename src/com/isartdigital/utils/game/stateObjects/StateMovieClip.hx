@@ -21,9 +21,8 @@ class StateMovieClip extends StateObject<MovieClip>
 
 	private var loop:Bool;
 
-	public function new(pAssetName:String = null)
+	public function new()
 	{
-		assetName = pAssetName;
 		super();
 	}
 

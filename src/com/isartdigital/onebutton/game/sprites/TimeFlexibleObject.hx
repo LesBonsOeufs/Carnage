@@ -20,9 +20,9 @@ class TimeFlexibleObject extends StateMovieClip
 	
 	private var countTime: Float = 0;
 
-	private function new(pAssetName:String=null) 
+	private function new() 
 	{
-		super(pAssetName);
+		super();
 		setState(stateDefault);
 		
 		timeBetweenAnimFrame = BASE_TIME_BETWEEN_ANIM_FRAME;

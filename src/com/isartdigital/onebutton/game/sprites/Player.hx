@@ -159,7 +159,7 @@ class Player extends MeleeObject
 				_degreeBar = DEGREE_BAR_MAX_VALUE + pValue;
 				degree--;
 			}
-			else
+			else if (!lPositiveUpdate)
 			{
 				_degreeBar = 0;
 				die();

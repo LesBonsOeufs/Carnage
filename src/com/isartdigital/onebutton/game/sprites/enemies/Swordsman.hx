@@ -1,4 +1,4 @@
-package com.isartdigital.onebutton.game.sprites;
+package com.isartdigital.onebutton.game.sprites.enemies;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.utils.game.CollisionManager;
@@ -19,8 +19,6 @@ class Swordsman extends Enemy
 	private inline static var RETREAT: String = "walkBack";
 	private inline static var WALK: String = "walk";
 	
-	private inline static var DAMAGE: Int = 2;
-	
 	private inline static var BONUS_REACH: Float = 0;
 	private inline static var RUN_TRIGGER_VALUE: Float = 3.5;
 	private inline static var RETREAT_ACCELERATION: Float = 6 / GameManager.FPS;
@@ -34,6 +32,7 @@ class Swordsman extends Enemy
 	
 	private inline static var MIN_ADDED_REPOSITION: Float = 500;
 	private inline static var MAX_ADDED_REPOSITION: Float = 800;
+	
 	private var minReposition: Float;
 	private var maxReposition: Float;
 	
@@ -56,7 +55,7 @@ class Swordsman extends Enemy
 	}
 
 	public function new() 
-	{
+	{	
 		super();
 		
 		normalMaxVelocity = MIN_MAX_VELOCITY + Math.random() * (MAX_MAX_VELOCITY - MIN_MAX_VELOCITY);
@@ -223,7 +222,7 @@ class Swordsman extends Enemy
 				SoundManager.getSound("player_block" + lRandomSoundIndex).start();
 			else
 			{
-				target.degreeBar -= DAMAGE;
+				target.degreeBar -= damage;
 				SoundManager.getSound("swordsman_hit" + lRandomSoundIndex).start();
 			}
 		}
@@ -243,8 +242,8 @@ class Swordsman extends Enemy
 		{
 			if (absVelocity() < RUN_TRIGGER_VALUE)
 			{
-				if (scaleX != -1)
-					scaleX = -1;
+				if (scaleX != -size)
+					scaleX = -size;
 				
 				if (xVelocity > 0)
 					setState(RETREAT);
@@ -253,8 +252,8 @@ class Swordsman extends Enemy
 			}
 			else 
 			{
-				if (xVelocity > 0 && scaleX != 1)
-					scaleX = 1;
+				if (xVelocity > 0 && scaleX != size)
+					scaleX = size;
 				
 				setState(MeleeObject.RUN);
 			}

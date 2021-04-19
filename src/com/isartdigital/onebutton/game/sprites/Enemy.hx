@@ -9,13 +9,27 @@ class Enemy extends MeleeObject
 	public static var list(default, null): Array<Enemy> = new Array<Enemy>();
 	
 	private var target: Player;
+	
+	private var size(get, never): Float;
+	
+	function get_size():Float {
+		return 1;
+	}
+	
+	private var damage(get, never): Int;
+	
+	function get_damage(): Int {
+		return 5;
+	}
 
 	public function new(?pTarget: Player = null) 
 	{
 		super();
 		
 		list.push(this);
-		scaleX = -1;
+		
+		scaleX = -size;
+		scaleY = size;
 		
 		if (pTarget == null)
 			target = GameManager.player;

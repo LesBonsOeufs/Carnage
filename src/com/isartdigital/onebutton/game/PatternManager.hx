@@ -2,8 +2,9 @@ package com.isartdigital.onebutton.game;
 import com.isartdigital.onebutton.game.layers.Layer;
 import com.isartdigital.onebutton.game.layers.scenes.ScrollingForest;
 import com.isartdigital.onebutton.game.sprites.Obstacle;
-import com.isartdigital.onebutton.game.sprites.Swordsman;
+import com.isartdigital.onebutton.game.sprites.enemies.Swordsman;
 import com.isartdigital.onebutton.game.sprites.TimeFlexibleObject;
+import com.isartdigital.onebutton.game.sprites.enemies.Tank;
 import com.isartdigital.utils.loader.GameLoader;
 import haxe.Json;
 import openfl.geom.Point;
@@ -94,8 +95,8 @@ class PatternManager
 			{
 				switch char {
 					case "#": lCurrentBrick = new Obstacle();
-					case "@": lCurrentBrick = new Swordsman();
-					//case "^": lCurrentBrick = HOUSE;
+					case "/": lCurrentBrick = new Swordsman();
+					case "@": lCurrentBrick = new Tank();
 				}
 				
 				if (lCurrentBrick == null) continue;
