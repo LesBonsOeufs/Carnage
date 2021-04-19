@@ -12,7 +12,9 @@ class SoundManager
 	/**
 	 * Volume principal
 	**/
-	public static var mainVolume(default, set) : Float;
+	public static var initMainVolume(default, null): Float;
+	
+	public static var mainVolume(default, set): Float;
 	
 	private static var soundPath:String = "assets/sounds/";
 	
@@ -49,6 +51,7 @@ class SoundManager
 		var lVolumes : VolumeData = Reflect.field(pJson, "volumes");
 		
 		mainVolume = lVolumes.master;
+		initMainVolume = mainVolume;
 		
 		var lPath:String;
 		var lSoundData:SoundData;

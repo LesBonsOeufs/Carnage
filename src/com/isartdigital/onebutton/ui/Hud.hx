@@ -1,6 +1,7 @@
 package com.isartdigital.onebutton.ui;
 
 import com.isartdigital.onebutton.game.GameManager;
+import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
@@ -10,7 +11,9 @@ import motion.easing.Quad;
 import openfl.Vector;
 import openfl.display.DisplayObject;
 import openfl.display.DisplayObjectContainer;
+import openfl.display.SimpleButton;
 import openfl.events.Event;
+import openfl.events.MouseEvent;
 import org.zamedev.particles.ParticleSystem;
 import org.zamedev.particles.loaders.ParticleLoader;
 import org.zamedev.particles.renderers.DefaultParticleRenderer;
@@ -28,6 +31,7 @@ class Hud extends Screen
 	private static var instance : Hud;
 	
 	private var pentagram: DisplayObjectContainer;
+	private var btnPause: SimpleButton;
 	
 	private var pentaPositiveUpdateParticles: Vector<ParticleSystem>;
 	private var pentaNegativeUpdateParticles: Vector<ParticleSystem>;
@@ -48,6 +52,11 @@ class Hud extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:content.getChildByName("mcTopLeft"), align:AlignType.TOP_LEFT};
 		positionables.push(lPositionnable);
+		lPositionnable = { item:content.getChildByName("mcTopRight"), align:AlignType.TOP_RIGHT};
+		positionables.push(lPositionnable);
+		
+		btnPause = cast(cast(content.getChildByName("mcTopRight"), DisplayObjectContainer).getChildByName("btnPause"), SimpleButton);
+		btnPause.addEventListener(MouseEvent.CLICK, onPause);
 		
 		pentagram = cast(cast(content.getChildByName("mcTopLeft"), DisplayObjectContainer).getChildByName("mcPentagram"), DisplayObjectContainer);
 		pentagram.scaleX *= PENTA_SCALE_COEFF;
@@ -89,6 +98,14 @@ class Hud extends Screen
 			lParticleRenderer.addParticleSystem(lNegativeUpdateParticle);
 			pentaNegativeUpdateParticles[i] = lNegativeUpdateParticle;
 		}
+	}
+	
+	private function onPause(pEvent:MouseEvent) : Void 
+	{
+		if (GameManager.isPaused) return;
+		
+		GameManager.pauseScreen();
+		SoundManager.getSound("click").start();
 	}
 	
 	public function updatePentagram(pDegreeBar: Int, pDegree: Int, pPositiveUpdate: Bool): Void
@@ -151,5 +168,13 @@ class Hud extends Screen
 		}
 		
 		return null;
+	}
+	
+	override public function destroy():Void 
+	{
+		btnPause.removeEventListener(MouseEvent.CLICK, onPause);
+		instance = null;
+		
+		super.destroy();
 	}
 }

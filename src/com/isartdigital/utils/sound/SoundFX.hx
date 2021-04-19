@@ -197,8 +197,6 @@ class SoundFX extends EventDispatcher
 			
 			var lSoundTransform:SoundTransform = new SoundTransform(volume * SoundManager.mainVolume);
 			channel.soundTransform = lSoundTransform;
-			
-			
 		}
 		
 		return pVolume;

@@ -119,4 +119,13 @@ class PatternManager
 		countXShifting -= 113 * lAddedBricks.length;
 		countXShifting -= BRICK_Y_OFFSET * lAddedBricks.length - 1;
 	}
+	
+	public static function reset(): Void
+	{
+		difficulty = 0;
+		countXShifting = 0;
+		countPatterns = 0;
+		file = null;
+		container = null;
+	}
 }

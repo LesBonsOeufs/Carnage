@@ -1,12 +1,15 @@
 package com.isartdigital.onebutton.game;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.game.layers.scenes.ScrollingForest;
+import com.isartdigital.onebutton.game.sprites.Enemy;
 import com.isartdigital.onebutton.game.sprites.Obstacle;
 import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.onebutton.game.sprites.Swordsman;
+import com.isartdigital.onebutton.ui.shackledScreens.PauseScreen;
 import com.isartdigital.onebutton.ui.UIManager;
 import com.isartdigital.utils.Timer;
 import com.isartdigital.utils.debug.Debug;
+import com.isartdigital.onebutton.ui.Hud;
 import com.isartdigital.utils.events.EventType;
 import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.loader.GameLoader;
@@ -49,6 +52,8 @@ class GameManager
 	}
 	
 	public static var timer(default, null): Timer;
+	
+	public static var isPaused(default, null): Bool = true;
 	
 	private static var particleRenderer: ParticleSystemRenderer;
 	private static var bloodParticles: Vector<ParticleSystem>;
@@ -155,23 +160,39 @@ class GameManager
 	}
 	
 	public static function resumeGame() : Void {
-		timer.resume();
+		if (!isPaused) return;
+		
+		isPaused = false;
+		UIManager.closeScreens();
 		
 		if (!SoundManager.getSound("ingame").isPlaying)
 			SoundManager.getSound("ingame").fadeIn();
-		SoundManager.getSound("ui").stop();
+		if (SoundManager.getSound("ui").isPlaying)
+			SoundManager.getSound("ui").stop();
+		
+		timer.resume();
 	}
 	
 	private static function onChange(pValue:Bool) : Void {
 		trace(pValue);
 	}
 	
-	public static function pauseGame() : Void {
+	public static function pauseScreen(): Void 
+	{
+		pauseGame();
+		UIManager.addScreen(PauseScreen.getInstance());
+	}
+	
+	public static function pauseGame() : Void 
+	{	
+		if (isPaused) return;
+		
+		isPaused = true;
 		timer.stop();
 		
-		if (!SoundManager.getSound("ui").isPlaying)
-			SoundManager.getSound("ui").fadeIn();
-		SoundManager.getSound("ingame").stop();
+		//if (!SoundManager.getSound("ui").isPlaying)
+			//SoundManager.getSound("ui").fadeIn();
+		//SoundManager.getSound("ingame").stop();
 	}
 	
 	private static function gameLoop(pEvent:Event) : Void {
@@ -183,15 +204,34 @@ class GameManager
 		
 		player.doAction();
 		Obstacle.doActions();
-		Swordsman.doActions();
+		Enemy.doActions();
+	}
+	
+	public static function restart(): Void
+	{
+		destroy();
+		start();
 	}
 	
 	public static function destroy(): Void
 	{
+		Main.getInstance().removeEventListener(EventType.GAME_LOOP, gameLoop);
+		
+		pauseGame();
+		
 		ScrollingForest.destroy();
 		Obstacle.reset();
+		Hud.getInstance().destroy();
+		UIManager.closeScreens();
+		PatternManager.reset();
+		Enemy.reset();
 		player.destroy();
 		gameLayer.destroy();
 		controller.destroy();
+		
+		if (SoundManager.getSound("ingame").isPlaying)
+			SoundManager.getSound("ingame").stop();
+		if (SoundManager.getSound("ui").isPlaying)
+			SoundManager.getSound("ui").stop();
 	}
 }

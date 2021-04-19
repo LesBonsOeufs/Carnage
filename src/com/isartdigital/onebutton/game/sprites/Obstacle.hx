@@ -43,7 +43,7 @@ class Obstacle extends TimeFlexibleObject
 	
 	static public function reset(): Void
 	{
-		var i: Int = list.length;
+		var i: Int = list.length - 1;
 		
 		while (i > -1)
 		{

@@ -44,8 +44,8 @@
 		"fr": "NIVEAU COMPLÉTÉ!"
 	},
 	"QUIT": {
-		"en": "QUIT",
-		"fr": "QUITTER"
+		"en": "Quit",
+		"fr": "Quitter"
 	},
 	"HELP_TEXT1": {
 		"en": "ALL SPACESHIPS CAN BE PUSHED",
@@ -106,5 +106,13 @@
 	"AUTHOR": {
 		"en": "Gabriel Bernabeu",
 		"fr": "Gabriel Bernabeu"
+	},
+	"RESUME": {
+		"en": "Resume",
+		"fr": "Continuer"
+	},
+	"TEXT_PAUSE_SCREEN": {
+		"en": "Pause",
+		"fr": "Pause"
 	}
 }

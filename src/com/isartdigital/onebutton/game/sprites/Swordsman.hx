@@ -13,7 +13,7 @@ import org.zamedev.particles.ParticleSystem;
  * ...
  * @author Gabriel Bernabeu
  */
-class Swordsman extends MeleeObject 
+class Swordsman extends Enemy 
 {
 	private inline static var LIGHT_ATTACK: String = "attack2";
 	private inline static var RETREAT: String = "walkBack";
@@ -43,10 +43,6 @@ class Swordsman extends MeleeObject
 	
 	private var randomReposition: Float;
 	
-	public static var list(default, null): Array<Swordsman> = new Array<Swordsman>();
-	
-	private var target: Player;
-	
 	override function get_accelerationValue():Float {
 		return -3 / GameManager.FPS;
 	}
@@ -59,15 +55,9 @@ class Swordsman extends MeleeObject
 		return 8;
 	}
 
-	public function new(?pTarget: Player = null) 
+	public function new() 
 	{
 		super();
-		
-		list.push(this);
-		scaleX = -1;
-		
-		if (pTarget == null)
-			target = GameManager.player;
 		
 		normalMaxVelocity = MIN_MAX_VELOCITY + Math.random() * (MAX_MAX_VELOCITY - MIN_MAX_VELOCITY);
 		repositionMaxVelocity = normalMaxVelocity * REPOSITION_MAX_VELOCITY_COEFF;
@@ -79,16 +69,6 @@ class Swordsman extends MeleeObject
 	{
 		super.start();	
 		fearChance();
-	}
-	
-	static public function doActions(): Void
-	{
-		var i: Int = list.length - 1;
-		while (i > -1)
-		{
-			list[i].doAction();
-			i--;
-		}
 	}
 	
 	private function getReach(): Float {
@@ -281,22 +261,5 @@ class Swordsman extends MeleeObject
 		}
 		
 		super.timedAnim();
-	}
-	
-	static public function reset(): Void
-	{
-		var i: Int = list.length;
-		
-		while (i > -1)
-		{
-			list[i].destroy();
-			i--;
-		}
-	}
-	
-	override public function destroy():Void 
-	{
-		list.remove(this);
-		super.destroy();
 	}
 }

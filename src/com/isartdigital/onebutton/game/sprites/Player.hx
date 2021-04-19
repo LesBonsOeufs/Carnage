@@ -210,7 +210,7 @@ class Player extends MeleeObject
 	override function weaponCollision():Void
 	{
 		var lObstacle: Obstacle;
-		var lSwordsman: Swordsman;
+		var lEnemy: Enemy;
 		var lMissed: Bool = true;
 		var lRandomSoundIndex: Int;
 		
@@ -232,17 +232,17 @@ class Player extends MeleeObject
 			i--;
 		}
 		
-		i = Swordsman.list.length - 1;
+		i = Enemy.list.length - 1;
 		while (i > -1)
 		{
-			lSwordsman = Swordsman.list[i];
+			lEnemy = Enemy.list[i];
 			
-			if (CollisionManager.hasCollision(lSwordsman.hitBox, hurtBox, lSwordsman.hitBoxes, hurtBoxes))
+			if (CollisionManager.hasCollision(lEnemy.hitBox, hurtBox, lEnemy.hitBoxes, hurtBoxes))
 			{
 				lRandomSoundIndex = Math.floor(Math.random() * 2);
 				lMissed = false;
 				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
-				lSwordsman.die();
+				lEnemy.die();
 				
 				degreeBar++;
 			}
