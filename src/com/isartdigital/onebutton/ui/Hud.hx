@@ -52,15 +52,17 @@ class Hud extends Screen
 		var lPositionnable:UIPositionable;
 		lPositionnable = { item:content.getChildByName("mcTopCenter"), align:AlignType.TOP};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:content.getChildByName("mcTopLeft"), align:AlignType.TOP_LEFT};
-		positionables.push(lPositionnable);
+		//lPositionnable = { item:content.getChildByName("mcTopLeft"), align:AlignType.TOP_LEFT};
+		//positionables.push(lPositionnable);
 		lPositionnable = { item:content.getChildByName("mcTopRight"), align:AlignType.TOP_RIGHT};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:content.getChildByName("mcBottomCenter"), align:AlignType.BOTTOM};
 		positionables.push(lPositionnable);
 		
 		btnPause = cast(cast(content.getChildByName("mcTopRight"), DisplayObjectContainer).getChildByName("btnPause"), SimpleButton);
 		btnPause.addEventListener(MouseEvent.CLICK, onPause);
 		
-		pentagram = cast(cast(content.getChildByName("mcTopLeft"), DisplayObjectContainer).getChildByName("mcPentagram"), DisplayObjectContainer);
+		pentagram = cast(cast(content.getChildByName("mcTopCenter"), DisplayObjectContainer).getChildByName("mcPentagram"), DisplayObjectContainer);
 		pentagram.scaleX = pentaScalesPerDegree[Player.INIT_DEGREE];
 		pentagram.scaleY = pentaScalesPerDegree[Player.INIT_DEGREE];
 	}

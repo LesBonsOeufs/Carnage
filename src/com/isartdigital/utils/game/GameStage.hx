@@ -80,11 +80,11 @@ class GameStage extends Sprite
 		gameContainer = new Sprite();		
 		addChild(gameContainer);
 		
-		screensSprite = new Sprite();
-		addChild(screensSprite);
-		
 		hudSprite = new Sprite();
 		addChild(hudSprite);
+		
+		screensSprite = new Sprite();
+		addChild(screensSprite);
 		
 		popinsSprite = new Sprite();
 		addChild(popinsSprite);
