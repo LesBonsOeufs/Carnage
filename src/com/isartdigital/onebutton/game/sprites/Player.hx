@@ -28,14 +28,14 @@ class Player extends MeleeObject
 	private inline static var DEGREE_3_MAX_VELOCITY: Float = 14;
 	private inline static var DEGREE_4_MAX_VELOCITY: Float = 18;
 	
-	private inline static var INIT_DEGREE: UInt = 1;
+	public inline static var INIT_DEGREE: UInt = 1;
 	private inline static var DEGREE_0_ANIM_SPEED: Float = 0.08;
 	
 	private inline static var DEGREE_MAX_VALUE: Int = 4;
 	private inline static var DEGREE_BAR_MAX_VALUE: Int = 5;
 	
 	private var maxVelocitiesPerDegree: Array<Float>;
-	public var scalesPerDegree(default, null): Array<Float>;
+	private var scalesPerDegree: Array<Float>;
 	
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
@@ -277,6 +277,8 @@ class Player extends MeleeObject
 	
 	override function die(): Void
 	{
+		GameManager.gameEnd();
+		
 		controller.removeEventListener(Controller.INPUT_DOWN, onInputDown);
 		controller.removeEventListener(Controller.INPUT_UP, onInputUp);
 		

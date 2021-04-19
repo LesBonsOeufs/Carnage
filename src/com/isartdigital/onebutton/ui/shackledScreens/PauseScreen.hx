@@ -23,8 +23,6 @@ class PauseScreen extends ShackledScreen
 	private static var instance: PauseScreen;
 	
 	private var btnResume: SimpleButton;
-	private var btnRetry: SimpleButton;
-	private var btnQuit: SimpleButton;
 	
 	/**
 	 * Retourne l'instance unique de la classe, et la crée si elle n'existait pas au préalable
@@ -42,47 +40,16 @@ class PauseScreen extends ShackledScreen
 	{
 		super(pLibrary);
 		
-		//SoundManager.mainVolume /= 2;
-		
 		btnResume = cast(content.getChildByName("btnResume"), SimpleButton);
-		btnRetry = cast(content.getChildByName("btnRetry"), SimpleButton);
-		btnQuit = cast(content.getChildByName("btnQuit"), SimpleButton);
 		
 		btnResume.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
 		btnResume.addEventListener(MouseEvent.CLICK, onResume);
-		
-		btnRetry.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
-		btnRetry.addEventListener(MouseEvent.CLICK, onRetry);
-		
-		btnQuit.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
-		btnQuit.addEventListener(MouseEvent.CLICK, onQuit);
-	}
-	
-	private function onDown(pEvent:MouseEvent) : Void {
-		SoundManager.getSound("press").start();
 	}
 	
 	private function onResume(pEvent:MouseEvent) : Void 
 	{
 		animatedDestroy();
 		Actuate.timer(ShackledScreen.DESTROY_DURATION).onComplete(GameManager.resumeGame);
-		
-		SoundManager.getSound("press").stop();
-		SoundManager.getSound("click").start();
-	}
-	
-	private function onRetry(pEvent:MouseEvent) : Void 
-	{
-		GameManager.restart();
-		
-		SoundManager.getSound("press").stop();
-		SoundManager.getSound("click").start();
-	}
-	
-	private function onQuit(pEvent:MouseEvent) : Void 
-	{
-		GameManager.destroy();
-		UIManager.addScreen(Menu.getInstance());
 		
 		SoundManager.getSound("press").stop();
 		SoundManager.getSound("click").start();
@@ -95,13 +62,8 @@ class PauseScreen extends ShackledScreen
 	{	
 		btnResume.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
 		btnResume.removeEventListener(MouseEvent.CLICK, onResume);
-		btnRetry.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
-		btnRetry.removeEventListener(MouseEvent.CLICK, onRetry);
-		btnQuit.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
-		btnQuit.removeEventListener(MouseEvent.CLICK, onQuit);
 		
 		instance = null;
-		//SoundManager.mainVolume = SoundManager.initMainVolume;
 		
 		super.destroy();
 	}

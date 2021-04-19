@@ -14,6 +14,7 @@ import com.isartdigital.utils.events.EventType;
 import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.loader.GameLoader;
 import com.isartdigital.utils.sound.SoundManager;
+import com.isartdigital.onebutton.ui.shackledScreens.EndScreen;
 import com.isartdigital.utils.system.DeviceCapabilities;
 import com.isartdigital.utils.system.Monitor;
 import com.isartdigital.utils.system.MonitorField;
@@ -41,6 +42,8 @@ class GameManager
 	private static inline var PARTICLE_DURATION: Float = 0.15;
 	private static inline var PARTICLES_VECTORS_LENGTH: Int = 5;
 	
+	private static inline var WIN_DELAY_IN_SECONDS: Float = 1.3;
+	
 	/**
 	 * A multiplier avec des valeurs pensées par frame pour les utiliser
 	 * par seconde
@@ -58,6 +61,8 @@ class GameManager
 	private static var particleRenderer: ParticleSystemRenderer;
 	private static var bloodParticles: Vector<ParticleSystem>;
 	private static var woodParticles: Vector<ParticleSystem>;
+	
+	private static var countWinFrames: Float = 0;
 	
 	private static var controller:Controller;
 	public static var player(default, null):Player;
@@ -195,7 +200,13 @@ class GameManager
 		//SoundManager.getSound("ingame").stop();
 	}
 	
-	private static function gameLoop(pEvent:Event) : Void {
+	public static function gameEnd(): Void
+	{
+		Main.getInstance().addEventListener(EventType.GAME_LOOP, winLoop);
+	}
+	
+	private static function gameLoop(pEvent:Event) : Void 
+	{
 		timer.update();
 		
 		gameLayer.doAction();
@@ -205,6 +216,19 @@ class GameManager
 		player.doAction();
 		Obstacle.doActions();
 		Enemy.doActions();
+	}
+	
+	private static function winLoop(pEvent: Event): Void 
+	{
+		countWinFrames += timer.deltaTime;
+		
+		if (countWinFrames >= WIN_DELAY_IN_SECONDS)
+		{
+			countWinFrames = 0;
+			pauseGame();
+			UIManager.addScreen(EndScreen.getInstance());
+			Main.getInstance().removeEventListener(EventType.GAME_LOOP, winLoop);
+		}
 	}
 	
 	public static function restart(): Void

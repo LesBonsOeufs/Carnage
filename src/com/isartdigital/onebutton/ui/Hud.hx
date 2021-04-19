@@ -1,6 +1,7 @@
 package com.isartdigital.onebutton.ui;
 
 import com.isartdigital.onebutton.game.GameManager;
+import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -25,7 +26,6 @@ import org.zamedev.particles.renderers.ParticleSystemRenderer;
  */
 class Hud extends Screen 
 {
-	private static inline var PENTA_SCALE_COEFF: Float = 1.3;
 	private static inline var UPDATE_PARTICLE_DURATION: Float = 0.1;
 	
 	private static var instance : Hud;
@@ -37,6 +37,8 @@ class Hud extends Screen
 	private var pentaNegativeUpdateParticles: Vector<ParticleSystem>;
 	private var pentaSignParticles: Vector<ParticleSystem>;
 	private var pentaSummits: Vector<DisplayObject>;
+	
+	private var pentaScalesPerDegree(default, null): Array<Float> = [0.8, 1, 1.3, 1.7, 2];
 	
 	public static function getInstance() : Hud {
 		if (instance == null) instance = new Hud();
@@ -59,8 +61,8 @@ class Hud extends Screen
 		btnPause.addEventListener(MouseEvent.CLICK, onPause);
 		
 		pentagram = cast(cast(content.getChildByName("mcTopLeft"), DisplayObjectContainer).getChildByName("mcPentagram"), DisplayObjectContainer);
-		pentagram.scaleX *= PENTA_SCALE_COEFF;
-		pentagram.scaleY *= PENTA_SCALE_COEFF;
+		pentagram.scaleX = pentaScalesPerDegree[Player.INIT_DEGREE];
+		pentagram.scaleY = pentaScalesPerDegree[Player.INIT_DEGREE];
 	}
 	
 	override function init(pEvent:Event):Void 
@@ -139,7 +141,7 @@ class Hud extends Screen
 			pentaSignParticles[i].emit(lTop.x, lTop.y);
 		}
 		
-		var lScale: Float = GameManager.player.scalesPerDegree[pDegree] * PENTA_SCALE_COEFF;
+		var lScale: Float = pentaScalesPerDegree[pDegree];
 		if (pentagram.scaleX != lScale)
 			Actuate.tween(pentagram, 0.4, {scaleX: lScale, scaleY: lScale}).ease(Back.easeOut);
 		else

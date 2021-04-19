@@ -25,14 +25,14 @@ class SoundManager
 	public static var mute: Bool = false;
 	
 	private static function set_mainVolume(pVolume:Float) :Float {
-		for (sound in sounds) {
-			sound.volume = pVolume;
-		}
-		
-		mainVolume = pVolume;
-		return pVolume;
-	}
-	
+        mainVolume = pVolume;
+        
+        for (sound in sounds) {
+            sound.volume = sound.volume;
+        }
+        
+        return pVolume;
+    }
 	
 	/**
 	   Initialise la liste des sfx et musics
