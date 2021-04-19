@@ -2,6 +2,7 @@ package com.isartdigital.onebutton.game;
 import com.isartdigital.onebutton.game.layers.Layer;
 import com.isartdigital.onebutton.game.layers.scenes.ScrollingForest;
 import com.isartdigital.onebutton.game.sprites.Obstacle;
+import com.isartdigital.onebutton.game.sprites.enemies.Bowman;
 import com.isartdigital.onebutton.game.sprites.enemies.Swordsman;
 import com.isartdigital.onebutton.game.sprites.TimeFlexibleObject;
 import com.isartdigital.onebutton.game.sprites.enemies.Tank;
@@ -97,6 +98,7 @@ class PatternManager
 					case "#": lCurrentBrick = new Obstacle();
 					case "/": lCurrentBrick = new Swordsman();
 					case "@": lCurrentBrick = new Tank();
+					case"(": lCurrentBrick = new Bowman();
 				}
 				
 				if (lCurrentBrick == null) continue;
