@@ -40,7 +40,7 @@ class Player extends MeleeObject
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
 	
-	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.3;
+	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.27;
 	private var blockingTimeCounter: Float = 0;
 	
 	private var controller: Controller;
