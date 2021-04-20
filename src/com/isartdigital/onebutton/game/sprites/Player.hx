@@ -8,10 +8,15 @@ import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.stateObjects.StateObject;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.onebutton.ui.Hud;
+import openfl.display.DisplayObject;
 import openfl.geom.Point;
 import motion.Actuate;
 import motion.easing.Quad;
 import openfl.events.Event;
+import org.zamedev.particles.ParticleSystem;
+import org.zamedev.particles.loaders.ParticleLoader;
+import org.zamedev.particles.renderers.DefaultParticleRenderer;
+import org.zamedev.particles.renderers.ParticleSystemRenderer;
 
 	
 /**
@@ -21,6 +26,8 @@ import openfl.events.Event;
 class Player extends MeleeObject 
 {
 	private inline static var BLOCK: String = "block";
+	
+	private inline static var DEGREE_0_PARTICLE_DURATION: Float = 0.15;
 	
 	public inline static var INIT_X_VELOCITY: Int = 8;
 	public inline static var INIT_X_OFFSET: Int = 300;
@@ -67,6 +74,13 @@ class Player extends MeleeObject
 		return 3;
 	}
 	
+	private var particleRenderer: ParticleSystemRenderer;
+	
+	private var degreeUpParticle: ParticleSystem;
+	private var degreeDownParticle: ParticleSystem;
+	private var degreeUpSoundInitVolume: Float;
+	private var degreeDownSoundInitVolume: Float;
+	
 	public function new(pController: Controller) 
 	{
 		super();
@@ -77,6 +91,23 @@ class Player extends MeleeObject
 		
 		xVelocity = INIT_X_VELOCITY;
 		degree = INIT_DEGREE;
+		
+		degreeUpSoundInitVolume = SoundManager.getSound("player_degree_up").volume;
+		degreeDownSoundInitVolume = SoundManager.getSound("player_degree_down").volume;
+		
+		initParticles();
+	}
+	
+	private function initParticles(): Void 
+	{
+		particleRenderer = DefaultParticleRenderer.createInstance();
+		addChild(cast particleRenderer);
+		
+		degreeUpParticle = ParticleLoader.load("assets/particles/playerDegreeUp.pex");
+		degreeDownParticle = ParticleLoader.load("assets/particles/playerDegreeDown.pex");
+		
+		particleRenderer.addParticleSystem(degreeUpParticle);
+		particleRenderer.addParticleSystem(degreeDownParticle);
 	}
 	
 	override public function start(): Void 
@@ -142,7 +173,12 @@ class Player extends MeleeObject
 			if (degree < DEGREE_MAX_VALUE)
 			{
 				_degreeBar = 0;
+				
 				degree++;
+				getDegreeUpParticle().emit(0, 0);
+				
+				SoundManager.getSound("player_degree_up").volume = 0.5 * degreeUpSoundInitVolume + (0.5 * degreeUpSoundInitVolume * degree / MAX_DEGREE);
+				SoundManager.getSound("player_degree_up").start();
 			}
 			else
 			{
@@ -154,7 +190,12 @@ class Player extends MeleeObject
 			if (degree > 0)
 			{
 				_degreeBar = DEGREE_BAR_MAX_VALUE + pValue;
+				
 				degree--;
+				getDegreeDownParticle().emit(0, 0);
+				
+				SoundManager.getSound("player_degree_down").volume = 0.5 * degreeDownSoundInitVolume + (0.5 * degreeDownSoundInitVolume * degree / MAX_DEGREE);
+				SoundManager.getSound("player_degree_down").start();
 			}
 			else if (!lPositiveUpdate)
 			{
@@ -170,6 +211,22 @@ class Player extends MeleeObject
 		Hud.getInstance().updatePentagram(degreeBar, degree, lPositiveUpdate);
 		
 		return degreeBar;
+	}
+	
+	private function getDegreeUpParticle(): ParticleSystem {
+		updateParticles();
+		return degreeUpParticle;
+	}
+	
+	private function getDegreeDownParticle(): ParticleSystem {
+		updateParticles();
+		return degreeDownParticle;
+	}
+	
+	private function updateParticles(): Void {
+		cast(particleRenderer, DisplayObject).parent.addChild(cast particleRenderer);
+		degreeUpParticle.duration = DEGREE_0_PARTICLE_DURATION * degree;
+		degreeDownParticle.duration = DEGREE_0_PARTICLE_DURATION * degree;
 	}
 	
 	private function isBlocking(): Bool {
@@ -250,7 +307,7 @@ class Player extends MeleeObject
 				lRandomSoundIndex = Math.floor(Math.random() * 2);
 				lMissed = false;
 				SoundManager.getSound("player_hit_wood" + lRandomSoundIndex).start();
-				lObstacle.destroy();
+				lObstacle.smash();
 			}
 			
 			i--;

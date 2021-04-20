@@ -24,7 +24,7 @@
 	<library preload="true" path="assets/libraries/loader.swf"/> 
 
 	<library preload="false" path="assets/libraries/ui.swf"/> 
-	<library preload="false" path="assets/libraries/assets.swf"/> 
+	<library preload="false" path="assets/libraries/assets.swf"/>
 	
 	<section if="html5">
 		<dependency path="assets/lib/dat.gui.min.js"/>
@@ -34,5 +34,6 @@
 	<window orientation="landscape" background="#90908e" fps="60"/>
 	<window hardware="true" resizable="true" anti-aliasing="0" vsync="false" stencil-buffer="true" allow-shaders="true" require-shaders="true" depth-buffer="false"/>
 	<window if="android" fullscreen="true" resizable="false"/>
+	<window if="windows" width="1200" height="700" resizable="false"/>
 	
 </project>

@@ -1,7 +1,10 @@
 package com.isartdigital.onebutton.game.sprites;
 import com.isartdigital.onebutton.game.layers.GameLayer;
+import com.isartdigital.utils.effects.Shake;
 import com.isartdigital.utils.game.CollisionManager;
+import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.stateObjects.StateMovieClip;
+import openfl.geom.Point;
 import org.zamedev.particles.ParticleSystem;
 
 /**
@@ -58,13 +61,20 @@ class Obstacle extends StateMovieClip
 		}
 	}
 	
-	override public function destroy():Void 
+	public function smash(): Void
 	{
+		Shake.operate(GameStage.getInstance(), 5, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
+		
 		var lWoodParticle: ParticleSystem = GameManager.getAvailableWoodParticle();
 		
 		if (lWoodParticle != null)
 			lWoodParticle.emit(x, y - collider.height / 2);
 		
+		destroy();
+	}
+	
+	override public function destroy():Void 
+	{	
 		list.remove(this);
 		super.destroy();
 	}

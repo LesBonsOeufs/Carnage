@@ -83,6 +83,8 @@ class Main extends Sprite
 		lGameLoader.addText("assets/particles/pentaPositiveUpdateParticle.pex");
 		lGameLoader.addText("assets/particles/pentaNegativeUpdateParticle.pex");
 		lGameLoader.addText("assets/particles/pentaSignParticle.pex");
+		lGameLoader.addText("assets/particles/playerDegreeUp.pex");
+		lGameLoader.addText("assets/particles/playerDegreeDown.pex");
         lGameLoader.addBitmapData("assets/particles/texture.png");
 		
 		//Chargement des swf

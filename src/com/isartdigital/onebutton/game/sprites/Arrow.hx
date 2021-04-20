@@ -6,7 +6,6 @@ import com.isartdigital.utils.effects.Trail;
 import com.isartdigital.utils.game.CollisionManager;
 import com.isartdigital.utils.game.stateObjects.StateMovieClip;
 import com.isartdigital.utils.sound.SoundManager;
-import js.html.svg.Point;
 import openfl.display.DisplayObject;
 
 /**

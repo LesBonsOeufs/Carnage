@@ -124,12 +124,12 @@ class Hud extends Screen
 		
 		if (pPositiveUpdate)
 		{
-			lTweenCoeff = 1.1;
+			lTweenCoeff = 1.15;
 			getAvailablePositiveUpdateParticle().emit(0, 0);
 		}
 		else
 		{
-			lTweenCoeff = 0.9;
+			lTweenCoeff = 0.85;
 			getAvailableNegativeUpdateParticle().emit(0, 0);
 		}
 		
