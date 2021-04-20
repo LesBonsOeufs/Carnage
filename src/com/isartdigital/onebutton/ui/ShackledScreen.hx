@@ -30,7 +30,7 @@ class ShackledScreen extends Screen
 	{
 		super(pLibrary);
 		
-		SoundManager.mainVolume /= 1.5;
+		SoundManager.mainVolume /= 2;
 		
 		btnRetry = cast(content.getChildByName("btnRetry"), SimpleButton);
 		btnQuit = cast(content.getChildByName("btnQuit"), SimpleButton);

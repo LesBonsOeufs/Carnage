@@ -27,7 +27,8 @@ class PatternManager
 	private static inline var TANK: String = "@";
 	private static inline var BOWMAN: String = "(";
 	
-	private static inline var MAX_DIFFICULTY: Int = 1;
+	private static inline var MAX_DIFFICULTY: Int = 2;
+	private static inline var PATTERNS_BOX_LENGTH: Int = 3;
 	
 	private static inline var X_BETWEEN_PATTERN: Float = 900;
 	private static inline var PATTERNS_BETWEEN_DIFFICULTY_INCREASE: Float = 6;
@@ -139,10 +140,20 @@ class PatternManager
 	
 	private static function fillPatternsBox(): Void
 	{
+		var lAvailablePatterns: Array<Pattern> = new Array<Pattern>();
+		var lRandomIndex: Int;
+		
 		for (pattern in file)
 		{
 			if (pattern.difficulty == difficulty)
-				patternsBox.push(pattern);
+				lAvailablePatterns.push(pattern);
+		}
+		
+		for (i in 0...PATTERNS_BOX_LENGTH)
+		{
+			lRandomIndex = Math.floor(Math.random() * lAvailablePatterns.length);
+			patternsBox.push(lAvailablePatterns[lRandomIndex]);
+			lAvailablePatterns.remove(lAvailablePatterns[lRandomIndex]);
 		}
 	}
 	

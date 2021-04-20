@@ -3,7 +3,7 @@
 		{
 			"difficulty": 0,
 			"content": [
-				"# // #"
+				"#  //"
 			]
 		},
 		{
@@ -21,7 +21,7 @@
 		{
 			"difficulty": 0,
 			"content": [
-				"//"
+				"/"
 			]
 		},
 		{
@@ -33,19 +33,49 @@
 		{
 			"difficulty": 1,
 			"content": [
-				"/ / /"
+				"/ /#/"
 			]
 		},
 		{
 			"difficulty": 1,
 			"content": [
-				"//  /  /"
+				"// #/  /"
 			]
 		},
 		{
 			"difficulty": 1,
 			"content": [
-				"("
+				"@#@ / /"
+			]
+		},
+		{
+			"difficulty": 1,
+			"content": [
+				"@@@"
+			]
+		},
+		{
+			"difficulty": 2,
+			"content": [
+				"@@      ("
+			]
+		},
+		{
+			"difficulty": 2,
+			"content": [
+				"/ /          (("
+			]
+		},
+		{
+			"difficulty": 2,
+			"content": [
+				"@         (("
+			]
+		},
+		{
+			"difficulty": 2,
+			"content": [
+				"@ @ /// ("
 			]
 		}
 	]
