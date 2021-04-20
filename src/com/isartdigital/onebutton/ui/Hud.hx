@@ -70,7 +70,7 @@ class Hud extends Screen
 		pentagram.scaleY = pentaScalesPerDegree[Player.INIT_DEGREE];
 		
 		pentaText = cast(pentagram.getChildByName("txtText"), TextField);
-		pentaText.text = toRomanNumerals(Player.INIT_DEGREE);
+		pentaText.text = toRomanNumerals(Player.INIT_DEGREE + 1);
 	}
 	
 	override function init(pEvent:Event):Void 
@@ -155,7 +155,7 @@ class Hud extends Screen
 		else
 			Actuate.tween(pentagram, 0.3, {scaleX: lScale * lTweenCoeff, scaleY: lScale * lTweenCoeff}).reverse().ease(Quad.easeOut);
 		
-		pentaText.text = toRomanNumerals(pDegree);
+		pentaText.text = toRomanNumerals(pDegree + 1);
 	}
 	
 	private function getAvailablePositiveUpdateParticle(): ParticleSystem
@@ -184,20 +184,20 @@ class Hud extends Screen
 	
 	private function toRomanNumerals(pNumber: Int): String {
 		switch pNumber {
-			case 0: return "|";
-			case 1: return "||";
-			case 2: return "|||";
-			case 3: return "|V";
-			case 4: return "V";
-			//case 5: return "V";
-			//case 6: return "VI";
-			//case 7: return "VII";
-			//case 8: return "IIX";
-			//case 9: return "IX";
-			//case 10: return "X";
+			case 1: return "|";
+			case 2: return "||";
+			case 3: return "|||";
+			case 4: return "|V";
+			case 5: return "V";
 		}
 		
 		return "";
+	}
+	
+	public function pentaDeath(): Void
+	{
+		pentaText.text = "";
+		Actuate.tween(pentagram, GameManager.WIN_DELAY_IN_SECONDS, {scaleX: 0, scaleY: 0}).ease(Quad.easeIn);
 	}
 	
 	override public function destroy():Void 

@@ -173,13 +173,10 @@ class Swordsman extends Enemy
 		{
 			var lRandomSoundIndex: Int = Math.floor(Math.random() * 2);
 			
-			if (target.isBlocking())
-				SoundManager.getSound("player_block" + lRandomSoundIndex).start();
-			else
-			{
-				target.takeDamage(damage);
+			if (target.takeDamage(damage))
 				SoundManager.getSound("swordsman_hit" + lRandomSoundIndex).start();
-			}
+			else
+				SoundManager.getSound("player_block" + lRandomSoundIndex).start();
 		}
 		else
 			SoundManager.getSound("swordsman_miss").start();

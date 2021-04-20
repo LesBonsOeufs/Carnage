@@ -51,7 +51,8 @@ class Tank extends Swordsman
 	{
 		if (--health > 0 && target.degree < Player.MAX_DEGREE) 
 		{
-			Actuate.transform(this, 0.3, false).color(0x8a0303, 0.7).reverse().ease(Quad.easeOut);
+			Actuate.transform(this, 0.0001, false).color(0x8a0303, 0.7)
+										      .onComplete(function () {Actuate.transform(this, 0.3).color(0x8a0303, 0).ease(Quad.easeOut); });
 			return;
 		}
 		

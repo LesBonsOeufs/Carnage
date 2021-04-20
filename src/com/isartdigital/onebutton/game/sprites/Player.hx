@@ -113,12 +113,7 @@ class Player extends MeleeObject
 	}
 	
 	private function set_degree(pValue: Int): Int
-	{
-		if (pValue < 0 && _degree == 0)
-		{
-			die();
-		}
-		
+	{	
 		if (pValue > DEGREE_MAX_VALUE || pValue < 0) return _degree;
 		
 		_degree = pValue;
@@ -170,7 +165,11 @@ class Player extends MeleeObject
 			else if (!lPositiveUpdate)
 			{
 				_degreeBar = 0;
+				Hud.getInstance().updatePentagram(degreeBar, degree, lPositiveUpdate);
+				Hud.getInstance().pentaDeath();
 				die();
+				
+				return degreeBar;
 			}
 		}
 		
@@ -179,14 +178,24 @@ class Player extends MeleeObject
 		return degreeBar;
 	}
 	
-	public function isBlocking(): Bool {
+	private function isBlocking(): Bool {
 		return state == BLOCK;
 	}
 	
-	public function takeDamage(pDamage: Int): Void
-	{
-		Actuate.transform(this, 0.3, false).color(0x8a0303, 0.7).reverse().ease(Quad.easeOut);
+	public function takeDamage(pDamage: Int): Bool
+	{	
+		if (isBlocking())
+		{
+			Actuate.transform(this, 0.0001, false).color(0xffffff, 0.4)
+												  .onComplete(function () {Actuate.transform(this, 0.35).color(0xffffff, 0).ease(Quad.easeOut); });
+			
+			return false;
+		}
+		
+		Actuate.transform(this, 0.0001, false).color(0x8a0303, 0.7)
+										      .onComplete(function () {Actuate.transform(this, 0.35).color(0x8a0303, 0).ease(Quad.easeOut); });
 		degreeBar -= pDamage;
+		return true;
 	}
 	
 	override function setModeNormal():Void 

@@ -91,13 +91,10 @@ class Arrow extends StateMovieClip
 	{
 		var lRandomSoundIndex: Int = Math.floor(Math.random() * 2);
 			
-		if (target.isBlocking())
-			SoundManager.getSound("player_block" + lRandomSoundIndex).start();
-		else
-		{
-			target.takeDamage(DAMAGE);
+		if (target.takeDamage(DAMAGE))
 			SoundManager.getSound("swordsman_hit" + lRandomSoundIndex).start();
-		}
+		else
+			SoundManager.getSound("player_block" + lRandomSoundIndex).start();
 		
 		destroy();
 	}

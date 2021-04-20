@@ -43,7 +43,7 @@ class GameManager
 	private static inline var PARTICLE_DURATION: Float = 0.15;
 	private static inline var PARTICLES_VECTORS_LENGTH: Int = 5;
 	
-	private static inline var WIN_DELAY_IN_SECONDS: Float = 1.3;
+	public static inline var WIN_DELAY_IN_SECONDS: Float = 1.3;
 	
 	/**
 	 * A multiplier avec des valeurs pensées par frame pour les utiliser
