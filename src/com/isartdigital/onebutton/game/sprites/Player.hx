@@ -34,7 +34,6 @@ class Player extends MeleeObject
 	private inline static var DEGREE_4_MAX_VELOCITY: Float = 18;
 	
 	public inline static var INIT_DEGREE: UInt = 1;
-	private inline static var DEGREE_0_ANIM_SPEED: Float = 0.08;
 	
 	private inline static var DEGREE_MAX_VALUE: Int = 4;
 	private inline static var DEGREE_BAR_MAX_VALUE: Int = 5;
@@ -118,11 +117,6 @@ class Player extends MeleeObject
 		
 		_degree = pValue;
 		
-		if (degree == 0)
-			timeBetweenAnimFrame = DEGREE_0_ANIM_SPEED;
-		else
-			timeBetweenAnimFrame = TimeFlexibleObject.BASE_TIME_BETWEEN_ANIM_FRAME;
-		
 		_maxVelocity = maxVelocitiesPerDegree[degree];
 		scaleX = scalesPerDegree[degree];
 		scaleY = scalesPerDegree[degree];
@@ -182,9 +176,16 @@ class Player extends MeleeObject
 		return state == BLOCK;
 	}
 	
-	public function takeDamage(pDamage: Int): Bool
-	{	
-		if (isBlocking())
+	public function takeDamage(pDamage: Int, pDodgeByAttacking: Bool = false): Bool
+	{
+		var lAttackDodge: Bool;
+		
+		if (pDodgeByAttacking)
+			lAttackDodge = state == MeleeObject.BASIC_ATTACK;
+		else
+			lAttackDodge = false;
+		
+		if (isBlocking() || pDodgeByAttacking)
 		{
 			Actuate.transform(this, 0.0001, false).color(0xffffff, 0.4)
 												  .onComplete(function () {Actuate.transform(this, 0.35).color(0xffffff, 0).ease(Quad.easeOut); });
@@ -266,7 +267,6 @@ class Player extends MeleeObject
 				lMissed = false;
 				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
 				lEnemy.die();
-				//Shake.operate(GameStage.getInstance(), 50, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
 				
 				degreeBar++;
 			}
@@ -310,6 +310,10 @@ class Player extends MeleeObject
 		
 		setState("death_back");
 		super.die();
+	}
+	
+	override function deathShake(): Void {
+		Shake.operate(GameStage.getInstance(), 20, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
 	}
 	
 	/**

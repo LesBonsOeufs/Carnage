@@ -1,5 +1,8 @@
 package com.isartdigital.onebutton.game.sprites;
 import com.isartdigital.onebutton.game.layers.GameLayer;
+import com.isartdigital.utils.effects.Shake;
+import com.isartdigital.utils.game.GameStage;
+import openfl.geom.Point;
 import org.zamedev.particles.ParticleSystem;
 
 /**
@@ -86,6 +89,10 @@ class Enemy extends MeleeObject
 			lBloodParticle.emit(x, y - collider.height / 2);
 		
 		super.die();
+	}
+	
+	override function deathShake(): Void {
+		Shake.operate(GameStage.getInstance(), 5, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
 	}
 	
 	override function setModeDie(): Void

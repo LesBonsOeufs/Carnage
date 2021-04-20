@@ -1,8 +1,11 @@
 package com.isartdigital.onebutton.game.sprites.enemies;
 import com.isartdigital.onebutton.game.sprites.enemies.Swordsman;
+import com.isartdigital.utils.effects.Shake;
+import com.isartdigital.utils.game.GameStage;
 import motion.Actuate;
 import motion.easing.Quad;
 import openfl.geom.ColorTransform;
+import openfl.geom.Point;
 
 /**
  * ...
@@ -57,6 +60,10 @@ class Tank extends Swordsman
 		}
 		
 		super.die();
+	}
+	
+	override function deathShake(): Void {
+		Shake.operate(GameStage.getInstance(), 15, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
 	}
 	
 }

@@ -150,6 +150,7 @@ class Hud extends Screen
 		}
 		
 		var lScale: Float = pentaScalesPerDegree[pDegree];
+
 		if (pentagram.scaleX != lScale)
 			Actuate.tween(pentagram, 0.4, {scaleX: lScale, scaleY: lScale}).ease(Back.easeOut);
 		else

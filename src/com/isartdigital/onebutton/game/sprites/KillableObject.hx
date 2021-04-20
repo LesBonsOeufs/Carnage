@@ -14,8 +14,11 @@ class KillableObject extends MovingObject
 	}
 	
 	public function die(): Void {
+		deathShake();
 		setModeDie();
 	}
+	
+	private function deathShake(): Void {}
 	
 	private function setModeDie(): Void
 	{
