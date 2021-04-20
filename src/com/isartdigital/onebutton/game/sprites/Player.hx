@@ -250,6 +250,7 @@ class Player extends MeleeObject
 			return false;
 		}
 		
+		Shake.operate(GameStage.getInstance(), 5, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
 		Actuate.transform(this, 0.0001, false).color(0x8a0303, 0.7)
 										      .onComplete(function () {Actuate.transform(this, 0.35).color(0x8a0303, 0).ease(Quad.easeOut); });
 		degreeBar -= pDamage;

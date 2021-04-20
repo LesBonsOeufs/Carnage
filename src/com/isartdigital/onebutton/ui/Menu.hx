@@ -212,7 +212,7 @@ class Menu extends AnimatedScreen
 	private function onPlay(pEvent:MouseEvent) : Void 
 	{
 		mcMask.visible = true;
-		Actuate.tween(mcMask, 1, {alpha: 0}).ease(Cubic.easeIn).reverse().onComplete(function () {GameManager.start(); });
+		Actuate.tween(mcMask, 0.7, {alpha: 0}).ease(Cubic.easeIn).reverse().onComplete(function () {GameManager.start(); });
 		SoundManager.getSound("press").stop();
 		SoundManager.getSound("click").start();
 	}
