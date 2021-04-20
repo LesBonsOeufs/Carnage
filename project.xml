@@ -32,6 +32,7 @@
 	
 	
 	<window orientation="landscape" background="#90908e" fps="60"/>
-	<window hardware="true" resizable="true" anti-aliasing="0" vsync="false" stencil-buffer="true" allow-shaders="true" require-shaders="true" depth-buffer="false"/> 
+	<window hardware="true" resizable="true" anti-aliasing="0" vsync="false" stencil-buffer="true" allow-shaders="true" require-shaders="true" depth-buffer="false"/>
+	<window if="android" fullscreen="true" resizable="false"/>
 	
 </project>

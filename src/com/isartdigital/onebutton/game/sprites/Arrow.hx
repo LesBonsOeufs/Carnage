@@ -66,7 +66,7 @@ class Arrow extends StateMovieClip
 	
 	override function doActionNormal():Void 
 	{
-		trail.draw();
+		//trail.draw();
 		
 		super.doActionNormal();
 		

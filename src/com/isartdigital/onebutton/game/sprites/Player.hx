@@ -2,10 +2,13 @@ package com.isartdigital.onebutton.game.sprites;
 
 import com.isartdigital.onebutton.game.Controller;
 import com.isartdigital.onebutton.game.layers.GameLayer;
+import com.isartdigital.utils.effects.Shake;
 import com.isartdigital.utils.game.CollisionManager;
+import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.stateObjects.StateObject;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.onebutton.ui.Hud;
+import openfl.geom.Point;
 import motion.Actuate;
 import motion.easing.Quad;
 import openfl.events.Event;
@@ -254,6 +257,7 @@ class Player extends MeleeObject
 				lMissed = false;
 				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
 				lEnemy.die();
+				//Shake.operate(GameStage.getInstance(), 50, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
 				
 				degreeBar++;
 			}

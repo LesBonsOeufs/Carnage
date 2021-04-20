@@ -15,6 +15,7 @@ import openfl.display.DisplayObjectContainer;
 import openfl.display.SimpleButton;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
+import openfl.text.TextField;
 import org.zamedev.particles.ParticleSystem;
 import org.zamedev.particles.loaders.ParticleLoader;
 import org.zamedev.particles.renderers.DefaultParticleRenderer;
@@ -31,6 +32,8 @@ class Hud extends Screen
 	private static var instance : Hud;
 	
 	private var pentagram: DisplayObjectContainer;
+	private var pentaText: TextField;
+	
 	private var btnPause: SimpleButton;
 	
 	private var pentaPositiveUpdateParticles: Vector<ParticleSystem>;
@@ -65,6 +68,9 @@ class Hud extends Screen
 		pentagram = cast(cast(content.getChildByName("mcTopCenter"), DisplayObjectContainer).getChildByName("mcPentagram"), DisplayObjectContainer);
 		pentagram.scaleX = pentaScalesPerDegree[Player.INIT_DEGREE];
 		pentagram.scaleY = pentaScalesPerDegree[Player.INIT_DEGREE];
+		
+		pentaText = cast(pentagram.getChildByName("txtText"), TextField);
+		pentaText.text = toRomanNumerals(Player.INIT_DEGREE);
 	}
 	
 	override function init(pEvent:Event):Void 
@@ -148,6 +154,8 @@ class Hud extends Screen
 			Actuate.tween(pentagram, 0.4, {scaleX: lScale, scaleY: lScale}).ease(Back.easeOut);
 		else
 			Actuate.tween(pentagram, 0.3, {scaleX: lScale * lTweenCoeff, scaleY: lScale * lTweenCoeff}).reverse().ease(Quad.easeOut);
+		
+		pentaText.text = toRomanNumerals(pDegree);
 	}
 	
 	private function getAvailablePositiveUpdateParticle(): ParticleSystem
@@ -172,6 +180,24 @@ class Hud extends Screen
 		}
 		
 		return null;
+	}
+	
+	private function toRomanNumerals(pNumber: Int): String {
+		switch pNumber {
+			case 0: return "|";
+			case 1: return "||";
+			case 2: return "|||";
+			case 3: return "|V";
+			case 4: return "V";
+			//case 5: return "V";
+			//case 6: return "VI";
+			//case 7: return "VII";
+			//case 8: return "IIX";
+			//case 9: return "IX";
+			//case 10: return "X";
+		}
+		
+		return "";
 	}
 	
 	override public function destroy():Void 
