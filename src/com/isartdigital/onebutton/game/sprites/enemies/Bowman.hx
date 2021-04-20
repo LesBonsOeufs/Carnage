@@ -1,7 +1,10 @@
 package com.isartdigital.onebutton.game.sprites.enemies;
 
+import com.isartdigital.onebutton.game.sprites.Arrow;
 import com.isartdigital.onebutton.game.sprites.Enemy;
 import com.isartdigital.onebutton.game.sprites.Player;
+import openfl.display.DisplayObject;
+import openfl.geom.Point;
 
 /**
  * ...
@@ -11,29 +14,44 @@ class Bowman extends Enemy
 {
 	private inline static var LOW_ATTACK: String = "attack2";
 	
-	private inline static var MIN_MAX_VELOCITY: Float = 6;
-	private inline static var MAX_MAX_VELOCITY: Float = 9;
+	private inline static var MIN_MAX_VELOCITY: Float = 8;
+	private inline static var MAX_MAX_VELOCITY: Float = 10;
 	
 	private inline static var REPOSITION_INSTANT_VELOCITY_FRACTION: Float = 1;
 	
-	private inline static var ATTACK_SPEED: Float = 1;
+	private inline static var ATTACK_SPEED: Float = 1.3;
 	
 	private inline static var MIN_RANGE: Int = 1200;
 	private inline static var MAX_RANGE: Int = 1800;
+	
+	private var straightArrowPos: Point;
 	
 	private var range: Int;
 	private var countTimeAttack: Float;
 	
 	override function get_animStrikingFrame():Int {
-		return 6;
+		return 7;
 	}
 
 	public function new() 
 	{
 		super();
 		
+		initArrowsPos();
+		
 		_maxVelocity = MIN_MAX_VELOCITY + Math.random() * (MAX_MAX_VELOCITY - MIN_MAX_VELOCITY);
 		range = Math.floor(MIN_RANGE + Math.random() * (MAX_RANGE - MIN_RANGE));
+	}
+	
+	private function initArrowsPos(): Void
+	{
+		setState(MeleeObject.BASIC_ATTACK);
+		renderer.gotoAndStop(animStrikingFrame);
+		var lStraightIndicator: DisplayObject = renderer.getChildByName("mcIndicator");
+		straightArrowPos = new Point(lStraightIndicator.x, lStraightIndicator.y);
+		renderer.removeChild(lStraightIndicator);
+		
+		setState(stateDefault);
 	}
 	
 	override function doActionNormal():Void 
@@ -53,7 +71,7 @@ class Bowman extends Enemy
 				return;
 			}
 			else
-				xVelocity = maxVelocity;
+				xVelocity = maxVelocity * REPOSITION_INSTANT_VELOCITY_FRACTION;
 		}
 		
 		xAcceleration = accelerationValue;
@@ -90,7 +108,14 @@ class Bowman extends Enemy
 	
 	private function shoot(): Void
 	{
-		trace("fiouuu");
+		var lArrow: Arrow = new Arrow();
+		var lArrowPosOnGameLayer: Point = parent.globalToLocal(localToGlobal(straightArrowPos));
+		
+		lArrow.x = lArrowPosOnGameLayer.x;
+		lArrow.y = lArrowPosOnGameLayer.y;
+		
+		parent.addChild(lArrow);
+		lArrow.start();
 	}
 	
 }

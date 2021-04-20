@@ -1,6 +1,7 @@
 package com.isartdigital.onebutton.game;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.game.layers.scenes.ScrollingForest;
+import com.isartdigital.onebutton.game.sprites.Arrow;
 import com.isartdigital.onebutton.game.sprites.Enemy;
 import com.isartdigital.onebutton.game.sprites.Obstacle;
 import com.isartdigital.onebutton.game.sprites.Player;
@@ -216,6 +217,7 @@ class GameManager
 		player.doAction();
 		Obstacle.doActions();
 		Enemy.doActions();
+		Arrow.doActions();
 	}
 	
 	private static function winLoop(pEvent: Event): Void 
@@ -249,6 +251,7 @@ class GameManager
 		UIManager.closeScreens();
 		PatternManager.reset();
 		Enemy.reset();
+		Arrow.reset();
 		player.destroy();
 		gameLayer.destroy();
 		controller.destroy();

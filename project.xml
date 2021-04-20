@@ -3,6 +3,8 @@
 	
 	<meta version="2.0.0" package="com.bernabeugabriel.onebutton" title="BERNABEU Gabriel OneButton" company="Isart Digital"/>
 	<app file="OneButton" path="bin" main="com.isartdigital.onebutton.Main"/>
+	
+	<icon path="icon.png" />
 
 	<source path="src"/>
 	<haxelib name="openfl"/>
@@ -30,6 +32,6 @@
 	
 	
 	<window orientation="landscape" background="#90908e" fps="60"/>
-	<window hardware="true" anti-aliasing="0" vsync="false" stencil-buffer="true" allow-shaders="true" require-shaders="true" depth-buffer="false"/> 
+	<window hardware="true" resizable="true" anti-aliasing="0" vsync="false" stencil-buffer="true" allow-shaders="true" require-shaders="true" depth-buffer="false"/> 
 	
 </project>

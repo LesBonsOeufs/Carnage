@@ -6,6 +6,8 @@ import com.isartdigital.utils.game.CollisionManager;
 import com.isartdigital.utils.game.stateObjects.StateObject;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.onebutton.ui.Hud;
+import motion.Actuate;
+import motion.easing.Quad;
 import openfl.events.Event;
 
 	
@@ -176,6 +178,12 @@ class Player extends MeleeObject
 	
 	public function isBlocking(): Bool {
 		return state == BLOCK;
+	}
+	
+	public function takeDamage(pDamage: Int): Void
+	{
+		Actuate.transform(this, 0.3, false).color(0x8a0303, 0.7).reverse().ease(Quad.easeOut);
+		degreeBar -= pDamage;
 	}
 	
 	override function setModeNormal():Void 

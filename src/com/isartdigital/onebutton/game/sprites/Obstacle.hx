@@ -1,13 +1,14 @@
 package com.isartdigital.onebutton.game.sprites;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.utils.game.CollisionManager;
+import com.isartdigital.utils.game.stateObjects.StateMovieClip;
 import org.zamedev.particles.ParticleSystem;
 
 /**
  * ...
  * @author Gabriel Bernabeu
  */
-class Obstacle extends TimeFlexibleObject 
+class Obstacle extends StateMovieClip 
 {
 	public static var list(default, null): Array<Obstacle> = new Array<Obstacle>();
 
@@ -37,6 +38,11 @@ class Obstacle extends TimeFlexibleObject
 		//if (CollisionManager.hasCollision(hitBox, lPlayer.hitBox, hitBoxes, lPlayer.getGlobalHitPoints()))
 			//trace("ok");
 		
+		testOutOfBounds();
+	}
+	
+	private function testOutOfBounds(): Void
+	{
 		if (x + width / 2 < cast(parent, GameLayer).screenLimits.left)
 			destroy();
 	}

@@ -1,6 +1,8 @@
 package com.isartdigital.onebutton.game.sprites.enemies;
 import com.isartdigital.onebutton.game.sprites.enemies.Swordsman;
 import motion.Actuate;
+import motion.easing.Quad;
+import openfl.geom.ColorTransform;
 
 /**
  * ...
@@ -49,7 +51,7 @@ class Tank extends Swordsman
 	{
 		if (--health > 0 && target.degree < Player.MAX_DEGREE) 
 		{
-			//Actuate.transform(renderer, 1, false).color(0xFF0000, 0).reverse();// .ease(Quad.easeOut);
+			Actuate.transform(this, 0.3, false).color(0x8a0303, 0.7).reverse().ease(Quad.easeOut);
 			return;
 		}
 		

@@ -177,7 +177,7 @@ class Swordsman extends Enemy
 				SoundManager.getSound("player_block" + lRandomSoundIndex).start();
 			else
 			{
-				target.degreeBar -= damage;
+				target.takeDamage(damage);
 				SoundManager.getSound("swordsman_hit" + lRandomSoundIndex).start();
 			}
 		}

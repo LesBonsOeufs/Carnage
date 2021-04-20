@@ -6,6 +6,7 @@ import com.isartdigital.onebutton.game.sprites.enemies.Bowman;
 import com.isartdigital.onebutton.game.sprites.enemies.Swordsman;
 import com.isartdigital.onebutton.game.sprites.TimeFlexibleObject;
 import com.isartdigital.onebutton.game.sprites.enemies.Tank;
+import com.isartdigital.utils.game.stateObjects.StateMovieClip;
 import com.isartdigital.utils.loader.GameLoader;
 import haxe.Json;
 import openfl.geom.Point;
@@ -84,8 +85,8 @@ class PatternManager
 		
 		var lInitPos: Point = new Point(container.screenLimits.right, ScrollingForest.groundY);
 		
-		var lAddedBricks: Array<TimeFlexibleObject> = new Array<TimeFlexibleObject>();
-		var lCurrentBrick: TimeFlexibleObject = null;
+		var lAddedBricks: Array<StateMovieClip> = new Array<StateMovieClip>();
+		var lCurrentBrick: StateMovieClip = null;
 		
 		var i: Int = 0;
 		var j: Int = 0;
