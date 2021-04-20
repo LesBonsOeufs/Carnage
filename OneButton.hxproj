@@ -24,7 +24,7 @@
     <class path="C:\HaxeToolkit\haxe\lib\format\3,5,0" />
     <class path="C:\HaxeToolkit\haxe\lib\dat,GUI\1,1,0\src" />
     <class path="C:\HaxeToolkit\haxe\lib\OpenFl-Animate-Atlas-Player\1,9,3\src" />
-    <class path="C:\Users\gabri\OneDrive\Bureau\ISART DIGITAL\PROJET OBG\bin\html5\haxe\_generated" />
+    <class path="C:\Users\gabri\OneDrive\Bureau\ISART DIGITAL\PROJET OBG\bin\android\haxe\_generated" />
     <class path="src" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\9,0,2\packages\application\src" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\9,0,2\packages\assets\src" />
@@ -64,16 +64,16 @@
     <class path="C:\HaxeToolkit\haxe\lib\openfl\9,0,2\packages\urlstream\src" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\9,0,2\packages\utils\src" />
     <class path="C:\HaxeToolkit\haxe\lib\openfl\9,0,2\packages\video\src" />
-    <class path="bin\html5\haxe" />
+    <class path="bin\android\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="swf=3.0.2&#xA;openfl=9.0.2&#xA;lime=7.8.0&#xA;actuate=1.8.9&#xA;zame-particles=1.1.0&#xA;format=3.5.0&#xA;dat.GUI=1.1.0&#xA;OpenFl-Animate-Atlas-Player=1.9.3&#xA;ANDROID_SETUP=true&#xA;ANDROID_NDK_ROOT=C:/Users/gabri/AppData/Local/Android/sdk/ndk-bundle&#xA;howlerjs&#xA;lime-webgl&#xA;lime-dom&#xA;lime-howlerjs&#xA;lime-html5&#xA;openfl-disable-handle-error&#xA;tools=7.8.0&#xA;gl_stats&#xA;ANDROID_SDK=C:/Users/gabri/AppData/Local/Android/sdk&#xA;lime-canvas&#xA;no-compilation&#xA;openfl-html5&#xA;JAVA_HOME=C:/Program Files/Java/jdk1.8.0_171&#xA;fdb&#xA;html5&#xA;web&#xA;html5" />
+    <option directives="swf=3.0.2&#xA;openfl=9.0.2&#xA;lime=7.8.0&#xA;actuate=1.8.9&#xA;zame-particles=1.1.0&#xA;format=3.5.0&#xA;dat.GUI=1.1.0&#xA;OpenFl-Animate-Atlas-Player=1.9.3&#xA;lime-openal&#xA;ANDROID_SETUP=true&#xA;ANDROID_NDK_ROOT=C:/Users/gabri/AppData/Local/Android/sdk/ndk-bundle&#xA;native&#xA;lime-opengles&#xA;lime-curl&#xA;openfl-native&#xA;lime-harfbuzz&#xA;tools=7.8.0&#xA;gl_stats&#xA;ANDROID_SDK=C:/Users/gabri/AppData/Local/Android/sdk&#xA;lime-cairo&#xA;no-compilation&#xA;lime-native&#xA;lime-vorbis&#xA;JAVA_HOME=C:/Program Files/Java/jdk1.8.0_171&#xA;lime-cffi&#xA;fdb&#xA;android&#xA;mobile&#xA;android&#xA;android-9" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="False" />
-    <option additional="--macro openfl._internal.ExtraParams.include()&#xA;--macro lime._internal.macros.DefineMacro.run()&#xA;--remap flash:openfl&#xA;-debug " />
+    <option additional="--macro openfl._internal.ExtraParams.include()&#xA;--macro lime._internal.macros.DefineMacro.run()&#xA;--remap flash:openfl" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

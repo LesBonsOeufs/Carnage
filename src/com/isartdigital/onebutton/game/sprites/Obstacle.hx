@@ -11,7 +11,7 @@ import org.zamedev.particles.ParticleSystem;
  * ...
  * @author Gabriel Bernabeu
  */
-class Obstacle extends StateMovieClip 
+class Obstacle extends StateMovieClip
 {
 	public static var list(default, null): Array<Obstacle> = new Array<Obstacle>();
 
@@ -20,6 +20,8 @@ class Obstacle extends StateMovieClip
 		super();
 		
 		list.push(this);
+		
+		renderer.cacheAsBitmap = true;
 	}
 	
 	static public function doActions(): Void

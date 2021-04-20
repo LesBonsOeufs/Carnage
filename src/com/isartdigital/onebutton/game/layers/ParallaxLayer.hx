@@ -30,6 +30,8 @@ class ParallaxLayer extends Layer
 		content = Assets.getMovieClip(pLibrary + ":" + pID);
 		addChild(content);
 		
+		content.cacheAsBitmap = true;
+		
 		offsetCoef = pOffsetCoef;
 		target = pTarget;
 	}

@@ -5,6 +5,7 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import motion.easing.Quad;
 import openfl.geom.Point;
 import motion.Actuate;
 import motion.easing.Cubic;
@@ -30,6 +31,8 @@ class Menu extends AnimatedScreen
 	private var btnSound: SimpleButton;
 	private var btnLanguage: SimpleButton;
 	private var btnBack: SimpleButton;
+	
+	private var mcMask: DisplayObject;
 	
 	private var btnBackOffset: Point = new Point(400, 300);
 	
@@ -59,6 +62,12 @@ class Menu extends AnimatedScreen
 		btnSound = cast(topLeft.getChildByName("btnSound"), SimpleButton);
 		btnLanguage = cast(topLeft.getChildByName("btnLanguage"), SimpleButton);
 		btnBack = cast(content.getChildByName("btnBack"), SimpleButton);
+		
+		mcMask = content.getChildByName("mcMask");
+		mcMask.visible = false;
+		
+		var lPositionnable:UIPositionable = {item:mcMask, align:AlignType.FIT_SCREEN};
+		positionables.push(lPositionnable);
 		
 		updatePositionablesForTitleCard();
 		goToTitleCard(true);
@@ -200,8 +209,10 @@ class Menu extends AnimatedScreen
 		SoundManager.getSound("press").start();
 	}
 	
-	private function onPlay(pEvent:MouseEvent) : Void {
-		GameManager.start();
+	private function onPlay(pEvent:MouseEvent) : Void 
+	{
+		mcMask.visible = true;
+		Actuate.tween(mcMask, 1, {alpha: 0}).ease(Cubic.easeIn).reverse().onComplete(function () {GameManager.start(); });
 		SoundManager.getSound("press").stop();
 		SoundManager.getSound("click").start();
 	}
