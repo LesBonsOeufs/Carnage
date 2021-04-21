@@ -25,6 +25,8 @@ class FontAndLoca
 	static private inline var FRANCAIS: UInt = 1;
 	
 	static private var currentTranslation: UInt;
+	static public var currentFont: TextFormat;
+	
 	static private var file: Dynamic;
 
 	private function new() { }
@@ -48,11 +50,11 @@ class FontAndLoca
 		var lTextFields: Array<TextField> = findTextFields(pParent);
 		var lContent: String;
 		
-		var lTextFormat: TextFormat = new TextFormat(GameLoader.getFont("assets/fonts/alagard_by_pix3m.ttf").fontName);
+		currentFont = new TextFormat(GameLoader.getFont("assets/fonts/alagard_by_pix3m.ttf").fontName);
 		
 		for (textField in lTextFields)
 		{
-			textField.setTextFormat(lTextFormat);
+			textField.setTextFormat(currentFont);
 			lContent = textField.text;
 			
 			if (lContent.charAt(0) == "*") lContent = lContent.substr(1);

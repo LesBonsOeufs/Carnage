@@ -15,7 +15,7 @@ class Enemy extends MeleeObject
 	private inline static var RETREAT: String = "walkBack";
 	private inline static var WALK: String = "walk";
 	
-	private inline static var RUN_TRIGGER_VALUE: Float = 3.5;
+	private inline static var RUN_TRIGGER_VALUE: Float = 3.7;
 	
 	public static var list(default, null): Array<Enemy> = new Array<Enemy>();
 	
@@ -99,7 +99,8 @@ class Enemy extends MeleeObject
 		if (lBloodParticle != null)
 			lBloodParticle.emit(x, y - collider.height / 2);
 		
-		Hud.getInstance().score += scoreValue;
+		Hud.getInstance().flyingScore(this, scoreValue);
+		
 		super.die();
 	}
 	

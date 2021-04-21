@@ -2,6 +2,8 @@ package com.isartdigital.onebutton.ui;
 
 import com.isartdigital.onebutton.game.GameManager;
 import com.isartdigital.onebutton.game.sprites.Player;
+import com.isartdigital.utils.game.stateObjects.StateMovieClip;
+import com.isartdigital.utils.game.stateObjects.StateObject;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -9,14 +11,18 @@ import com.isartdigital.utils.ui.UIPositionable;
 import lime.text.UTF8String;
 import motion.Actuate;
 import motion.easing.Back;
+import motion.easing.Cubic;
 import motion.easing.Quad;
+import motion.easing.Sine;
 import openfl.Vector;
 import openfl.display.DisplayObject;
 import openfl.display.DisplayObjectContainer;
 import openfl.display.SimpleButton;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
+import openfl.geom.Point;
 import openfl.text.TextField;
+import openfl.text.TextFieldAutoSize;
 import org.zamedev.particles.ParticleSystem;
 import org.zamedev.particles.loaders.ParticleLoader;
 import org.zamedev.particles.renderers.DefaultParticleRenderer;
@@ -28,7 +34,16 @@ import org.zamedev.particles.renderers.ParticleSystemRenderer;
  */
 class Hud extends Screen 
 {
+	private inline static var FLYING_SCORE_INIT_Y_OFFSET: Float = 20;
+	private inline static var FLYING_SCORE_INIT_SIZE_COEFF: Float = 2;
+	private inline static var FLYING_SCORE_SIZE: Float = 5;
+	private inline static var FLYING_SCORE_INIT_COLOR = 0xFF0000;
+	private inline static var FLYING_SCORE_END_COLOR: Int = 0x8F0000;
+	private inline static var FLYING_SCORE_ANIM_DURATION: Float = 1.2;
+	
 	private static inline var UPDATE_PARTICLE_DURATION: Float = 0.1;
+	
+	private static inline var SCORE_ANIM_SCALE: Float = 1.5;
 	
 	private static var instance : Hud;
 	
@@ -37,9 +52,10 @@ class Hud extends Screen
 	
 	private var btnPause: SimpleButton;
 	
+	public var scoreContainer: DisplayObjectContainer;
 	private var txtScore: TextField;
 	public var score(get, set): Int;
-	private var _score: Int;
+	private var _score: Int = 0;
 	
 	private var pentaPositiveUpdateParticles: Vector<ParticleSystem>;
 	private var pentaNegativeUpdateParticles: Vector<ParticleSystem>;
@@ -51,10 +67,17 @@ class Hud extends Screen
 	private function get_score(): Int {
 		return _score;
 	}
-	private function set_score(pValue: Int): Int {
+	
+	private function set_score(pValue: Int): Int 
+	{
 		_score = pValue;
-		//Actuate.tween(txtScore, 0.5, {text: _score});
 		txtScore.text = '$_score';
+		//Actuate.tween(this, 0.5, {_score: pValue}, false).ease(Cubic.easeIn).onUpdate(function () {txtScore.text = '$_score'; }).snapping();
+		
+		scoreContainer.scaleX = SCORE_ANIM_SCALE;
+		scoreContainer.scaleY = SCORE_ANIM_SCALE;
+		Actuate.tween(scoreContainer, 0.5, {scaleX: 1, scaleY: 1});
+		
 		return _score;
 	}
 	
@@ -91,8 +114,10 @@ class Hud extends Screen
 		pentaText = cast(pentagram.getChildByName("txtText"), TextField);
 		pentaText.text = toRomanNumerals(Player.INIT_DEGREE + 1);
 		
-		txtScore = cast(lBottomCenter.getChildByName("txtScore"), TextField);
-		score = 0;
+		scoreContainer = cast(lBottomCenter.getChildByName("mcTextContainer"), DisplayObjectContainer);
+		txtScore = cast(scoreContainer.getChildByName("txtScore"), TextField);
+		
+		txtScore.text = '$_score';
 	}
 	
 	override function init(pEvent:Event):Void 
@@ -221,6 +246,34 @@ class Hud extends Screen
 	{
 		pentaText.text = "";
 		Actuate.tween(pentagram, GameManager.WIN_DELAY_IN_SECONDS, {scaleX: 0, scaleY: 0}).ease(Quad.easeIn);
+	}
+	
+	public function flyingScore(pGameObject: StateMovieClip, pScore: Int): Void
+	{
+		var lScoreContainerLocalPosOnHud: Point = globalToLocal(scoreContainer.parent.localToGlobal(new Point(scoreContainer.x, scoreContainer.y)));
+		var lLocalPosOnHud: Point = globalToLocal(pGameObject.parent.localToGlobal(new Point(pGameObject.x, pGameObject.y)));
+		
+		var lFlyingScore: TextField = new TextField();
+		var lFlyingScoreContainer: DisplayObjectContainer = new DisplayObjectContainer();
+		lFlyingScore.setTextFormat(FontAndLoca.currentFont);
+		lFlyingScore.textColor = FLYING_SCORE_INIT_COLOR;
+		lFlyingScore.text = '+ $pScore';
+		lFlyingScore.autoSize = TextFieldAutoSize.CENTER;
+		lFlyingScoreContainer.addChild(lFlyingScore);
+		lFlyingScore.y = - lFlyingScore.height / 2;
+		lFlyingScore.x = - lFlyingScore.width / 2;
+		
+		lFlyingScoreContainer.scaleX = FLYING_SCORE_SIZE * FLYING_SCORE_INIT_SIZE_COEFF;
+		lFlyingScoreContainer.scaleY = FLYING_SCORE_SIZE * FLYING_SCORE_INIT_SIZE_COEFF;
+		lFlyingScoreContainer.x = lLocalPosOnHud.x;
+		lFlyingScoreContainer.y = lLocalPosOnHud.y - pGameObject.collider.height - FLYING_SCORE_INIT_Y_OFFSET;
+		
+		addChild(lFlyingScoreContainer);
+		
+		Actuate.tween(lFlyingScoreContainer, FLYING_SCORE_ANIM_DURATION * 0.5, {scaleX: FLYING_SCORE_SIZE, scaleY: FLYING_SCORE_SIZE});
+		Actuate.transform(lFlyingScore, FLYING_SCORE_ANIM_DURATION * 0.5, false).color(FLYING_SCORE_END_COLOR)
+			   .onComplete(function () {Actuate.tween(lFlyingScoreContainer, FLYING_SCORE_ANIM_DURATION * 0.5, {x: lScoreContainerLocalPosOnHud.x, y: lScoreContainerLocalPosOnHud.y})
+											   .ease(Sine.easeOut).onComplete(function() {score += pScore; removeChild(lFlyingScoreContainer); }); } );
 	}
 	
 	override public function destroy():Void 

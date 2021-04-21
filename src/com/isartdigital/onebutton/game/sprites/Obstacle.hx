@@ -83,7 +83,7 @@ class Obstacle extends StateMovieClip
 		if (lWoodParticle != null)
 			lWoodParticle.emit(x, y - collider.height / 2);
 		
-		Hud.getInstance().score += scoreValue;
+		Hud.getInstance().flyingScore(this, scoreValue);
 		destroy();
 	}
 	

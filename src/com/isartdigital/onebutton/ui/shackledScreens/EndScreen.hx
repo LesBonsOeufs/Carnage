@@ -1,6 +1,8 @@
 package com.isartdigital.onebutton.ui.shackledScreens;
 
+import com.isartdigital.onebutton.ui.Hud;
 import com.isartdigital.onebutton.ui.ShackledScreen;
+import openfl.text.TextField;
 
 	
 /**
@@ -30,6 +32,7 @@ class EndScreen extends ShackledScreen
 	{
 		super(pLibrary);
 		
+		cast(content.getChildByName("txtScore"), TextField).text = "Score : " + Hud.getInstance().score;
 	}
 	
 	/**

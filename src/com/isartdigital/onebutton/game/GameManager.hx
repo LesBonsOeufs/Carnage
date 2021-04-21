@@ -228,6 +228,7 @@ class GameManager
 		{
 			countWinFrames = 0;
 			pauseGame();
+			//UIManager.closeHud();
 			UIManager.addScreen(EndScreen.getInstance());
 			Main.getInstance().removeEventListener(EventType.GAME_LOOP, winLoop);
 		}
