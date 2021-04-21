@@ -13,7 +13,7 @@ import openfl.display.MovieClip;
 class ScrollingForest 
 {
 	private static inline var NB_OF_FOREGROUNDS: Int = 2;
-	public static inline var NB_OF_BACKGROUNDS: Int = 7;
+	public static inline var NB_OF_BACKGROUNDS: Int = 4;
 	
 	private static inline var ID: String = 'ScrollingForest';
 	private static inline var GROUND_ID: String = 'ground';
@@ -30,7 +30,7 @@ class ScrollingForest
 		foregrounds = new Array<ParallaxLayer>();
 		backgrounds = new Array<ParallaxLayer>();
 		
-		var lCoeffs: Array<Float> = [1.4, 1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.2];
+		var lCoeffs: Array<Float> = [1.4, 1, 0.8, 0.7, 0.6, 0.5];// , 0.4, 0.2];
 		
 		for (i in 0...NB_OF_FOREGROUNDS)
 		{
