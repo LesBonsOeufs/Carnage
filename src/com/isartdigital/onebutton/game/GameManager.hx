@@ -6,6 +6,7 @@ import com.isartdigital.onebutton.game.sprites.Enemy;
 import com.isartdigital.onebutton.game.sprites.Obstacle;
 import com.isartdigital.onebutton.game.sprites.Player;
 import com.isartdigital.onebutton.game.sprites.enemies.Swordsman;
+import com.isartdigital.onebutton.ui.shackledScreens.HelpScreen;
 import com.isartdigital.onebutton.ui.shackledScreens.PauseScreen;
 import com.isartdigital.onebutton.ui.UIManager;
 import com.isartdigital.utils.Timer;
@@ -69,7 +70,7 @@ class GameManager
 	public static var player(default, null):Player;
 	private static var gameLayer:GameLayer;
 	
-	public static function start() : Void 
+	public static function start(?pStartedFromTitleCard: Bool = false) : Void 
 	{
 		var lRect: Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		
@@ -108,12 +109,22 @@ class GameManager
 		ScrollingForest.addForegrounds(lGameContainer);
 		gameLayer.addChild(player);
 		
-		player.start();
-		
 		player.x = GameStage.getInstance().getLocalSafeZone(gameLayer).x + Player.INIT_X_OFFSET;
 		player.y = ScrollingForest.groundY;
 		
-		resumeGame();
+		player.start();
+		
+		if (pStartedFromTitleCard)
+		{
+			if (!SoundManager.getSound("ingame").isPlaying)
+				SoundManager.getSound("ingame").fadeIn();
+			if (SoundManager.getSound("ui").isPlaying)
+				SoundManager.getSound("ui").stop();
+			
+			UIManager.addScreen(HelpScreen.getInstance());
+		}
+		else
+			resumeGame();
 	}
 	
 	private static function initParticles(): Void

@@ -35,17 +35,27 @@ class ShackledScreen extends Screen
 		btnRetry = cast(content.getChildByName("btnRetry"), SimpleButton);
 		btnQuit = cast(content.getChildByName("btnQuit"), SimpleButton);
 		
-		btnRetry.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
-		btnRetry.addEventListener(MouseEvent.CLICK, onRetry);
+		if (btnRetry != null)
+		{
+			btnRetry.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			btnRetry.addEventListener(MouseEvent.CLICK, onRetry);
+		}
 		
-		btnQuit.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
-		btnQuit.addEventListener(MouseEvent.CLICK, onQuit);
+		if (btnQuit != null)
+		{
+			btnQuit.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			btnQuit.addEventListener(MouseEvent.CLICK, onQuit);
+		}
 	}
 	
 	override function init(pEvent:Event):Void 
 	{
 		super.init(pEvent);
-		
+		animatedInit();
+	}
+	
+	private function animatedInit(): Void
+	{
 		var lBottom: DisplayObject = content.getChildByName("mcBottom");
 		var lGlobalBottomCoordinates: Point = content.localToGlobal(new Point(lBottom.x, lBottom.y));
 		var lLocalTopCoordinates: Point = content.parent.globalToLocal(new Point(lGlobalBottomCoordinates.x, -lGlobalBottomCoordinates.y));
@@ -90,10 +100,17 @@ class ShackledScreen extends Screen
 	{
 		SoundManager.mainVolume = SoundManager.initMainVolume;
 		
-		btnRetry.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
-		btnRetry.removeEventListener(MouseEvent.CLICK, onRetry);
-		btnQuit.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
-		btnQuit.removeEventListener(MouseEvent.CLICK, onQuit);
+		if (btnRetry != null)
+		{
+			btnRetry.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			btnRetry.removeEventListener(MouseEvent.CLICK, onRetry);
+		}
+		
+		if (btnQuit != null)
+		{
+			btnQuit.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			btnQuit.removeEventListener(MouseEvent.CLICK, onQuit);
+		}
 		
 		super.destroy();
 	}

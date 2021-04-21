@@ -116,17 +116,19 @@ class PatternManager
 					case BOWMAN: lCurrentBrick = new Bowman();
 				}
 				
-				if (lCurrentBrick == null) continue;
+				if (lCurrentBrick != null) 
+				{
+					lCurrentBrick.x = lInitPos.x + lCurrentBrick.width / 2 +  BRICK_X_OFFSET * j;
+					lCurrentBrick.y = lInitPos.y + BRICK_Y_OFFSET * i;
+					
+					container.addChild(lCurrentBrick);
+					lCurrentBrick.start();
+					
+					lAddedBricks.push(lCurrentBrick);
+					
+					lCurrentBrick = null;
+				}
 				
-				lCurrentBrick.x = lInitPos.x + lCurrentBrick.width / 2 +  BRICK_X_OFFSET * j;
-				lCurrentBrick.y = lInitPos.y + BRICK_Y_OFFSET * i;
-				
-				container.addChild(lCurrentBrick);
-				lCurrentBrick.start();
-				
-				lAddedBricks.push(lCurrentBrick);
-				
-				lCurrentBrick = null;
 				j++;
 			}
 			

@@ -87,7 +87,7 @@ class Player extends MeleeObject
 		controller = pController;
 		
 		maxVelocitiesPerDegree = [DEGREE_0_MAX_VELOCITY, DEGREE_1_MAX_VELOCITY, DEGREE_2_MAX_VELOCITY, DEGREE_3_MAX_VELOCITY, DEGREE_4_MAX_VELOCITY];
-		scalesPerDegree = [0.9, 1, 1.1, 1.2, 1.4];
+		scalesPerDegree = [0.85, 0.95, 1.05, 1.2, 1.4];
 		
 		xVelocity = INIT_X_VELOCITY;
 		degree = INIT_DEGREE;
@@ -119,7 +119,7 @@ class Player extends MeleeObject
 	
 	private function onInputDown(pEvent:Event):Void 
 	{
-		if (state == MeleeObject.BASIC_ATTACK) return;
+		if (state == MeleeObject.BASIC_ATTACK || GameManager.isPaused) return;
 		
 		var lCurrentFrame: UInt = renderer.currentFrame;
 		
@@ -133,7 +133,7 @@ class Player extends MeleeObject
 	
 	private function onInputUp(pEvent:Event):Void 
 	{
-		if (state != BLOCK) return;
+		if (state != BLOCK || GameManager.isPaused) return;
 		
 		setState(MeleeObject.BASIC_ATTACK);
 	}

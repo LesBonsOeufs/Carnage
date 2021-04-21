@@ -64,7 +64,6 @@ class PauseScreen extends ShackledScreen
 		btnResume.removeEventListener(MouseEvent.CLICK, onResume);
 		
 		instance = null;
-		
 		super.destroy();
 	}
 

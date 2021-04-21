@@ -20,56 +20,28 @@
 		"fr": "Retour"
 	},
 	"NEXT": {
-		"en": "NEXT",
-		"fr": "SUIVANT"
+		"en": "Next",
+		"fr": "Suivant"
 	},
-	"HELP": {
+	"HELP_SCREEN": {
 		"en": "HELP",
 		"fr": "AIDE"
-	},
-	"HIGHSCORES": {
-		"en": "HIGHSCORES",
-		"fr": "CLASSEMENT"
 	},
 	"LANGUAGE": {
 		"en": "Eng",
 		"fr": "Fr"
-	},
-	"LOGIN_TITLE": {
-		"en": "LOGIN",
-		"fr": "CONNEXION"
-	},
-	"WINSCREEN_TITLE": {
-		"en": "LEVEL COMPLETED!",
-		"fr": "NIVEAU COMPLÉTÉ!"
 	},
 	"QUIT": {
 		"en": "Quit",
 		"fr": "Quitter"
 	},
 	"HELP_TEXT1": {
-		"en": "ALL SPACESHIPS CAN BE PUSHED",
-		"fr": "TOUS LES VAISSEAUX PEUVENT ÊTRE POUSSÉS"
+		"en": "The roman numeral at\nthe top of the pentagram is\nyour remaining health.\nKill enemies to get stronger!",
+		"fr": "Le chiffre romain au sommet\ndu pentagramme correspond\na votre sante restante.\nTuez des ennemis pour gagner\nen puissance!"
 	},
 	"HELP_TEXT2": {
-		"en": "SPECIAL SHIPS RETAIN ALL THESE PROPERTIES, BUT CAN ALSO BE ACTIVATED BY THE PLAYER (SPACE OR ENTER), FROM BEHIND, AND ONCE ONLY PER SPECIAL SHIP",
-		"fr": "LES VAISSEAUX SPÉCIAUX GARDENT TOUTES CES PROPRIÉTÉS, MAIS PEUVENT AUSSI ÊTRE ACTIVÉS PAR LE JOUEUR (ESPACE OU ENTRÉE), PAR DERRIÈRE, ET UNE SEULE FOIS PAR VAISSEAU SPÉCIAL"
-	},
-	"HELP_TEXT3": {
-		"en": "EVERY SPACESHIP IS ACTIVATED WHEN IT COLLIDES WITH ANOTHER SHIP",
-		"fr": "TOUT VAISSEAU S' ACTIVE LORS DE LA COLLISION AVEC UN AUTRE VAISSEAU"
-	},
-	"HELP_TEXT4": {
-		"en": "HIT THE TARGET WITH A SPACESHIP TO FINISH THE LEVEL!",
-		"fr": "FRAPPEZ L' OBJECTIF AVEC UN VAISSEAU POUR GAGNER!"
-	},
-	"WINSCREEN_FINAL_TEXT": {
-		"en": "YOUR SCORE HAS BEEN ADDED TO THE HIGHSCORES LIST",
-		"fr": "VOTRE SCORE EST AJOUTÉ AU CLASSEMENT"
-	},
-	"LOGIN_TEXT": {
-		"en": "ENTER YOUR USERNAME HERE",
-		"fr": "ENTREZ VOTRE IDENTIFIANT ICI"
+		"en": "Maintaining the button down will\nmake you immuned to enemy attacks,\nbut consumes health if kept\nfor too long.",
+		"fr": "Maintenir le bouton presse\nvous rendra insensible aux\nattaques ennemies,mais consomme\nde la sante si tenu trop longtemps."
 	},
 	"CREDITS": {
 		"en": "Credits",
@@ -78,26 +50,6 @@
 	"CREDITS_TEXT": {
 		"en": "UI Music: Engage \nBy Hampus Naeselius\nIn-game Music: Honor the brave\nBy Hampus Naeselius\nEpidemic Sound - \nwww.epidemicsound.com",
 		"fr": "Musique d'UI: Engage \nDe Hampus Naeselius\nMusique in-game: Honor the brave\nDe Hampus Naeselius\nEpidemic Sound - \nwww.epidemicsound.com"
-	},
-	"TOTAL_SCORE": {
-		"en": "TOTAL SCORE",
-		"fr": "SCORE TOTAL"
-	},
-	"HIGHSCORE": {
-		"en": "HIGHSCORE",
-		"fr": "RECORD"
-	},
-	"LEGEND": {
-		"en": "LEGEND",
-		"fr": "LÉGENDE"
-	},
-	"LEGEND_CONTENT": {
-		"en": "USERNAME \n:\nSTARS\n:\nTOTAL SCORE",
-		"fr": "IDENTIFIANT \n:\nÉTOILES\n:\nSCORE TOTAL"
-	},
-	"CONTROLS": {
-		"en": "CONTROLS",
-		"fr": "CONTRÔLES"
 	},
 	"SOUND": {
 		"en": "Sound",
