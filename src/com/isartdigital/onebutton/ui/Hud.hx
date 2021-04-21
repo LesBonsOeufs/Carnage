@@ -168,16 +168,21 @@ class Hud extends Screen
 	public function updatePentagram(pDegreeBar: Int, pDegree: Int, pPositiveUpdate: Bool): Void
 	{
 		var lTweenCoeff: Float;
+		var lParticle: ParticleSystem;
 		
 		if (pPositiveUpdate)
 		{
 			lTweenCoeff = 1.15;
-			getAvailablePositiveUpdateParticle().emit(0, 0);
+			lParticle = getAvailablePositiveUpdateParticle();
+			if (lParticle != null)
+				lParticle.emit(0, 0);
 		}
 		else
 		{
 			lTweenCoeff = 0.85;
-			getAvailableNegativeUpdateParticle().emit(0, 0);
+			lParticle = getAvailableNegativeUpdateParticle();
+			if (lParticle != null)
+				lParticle.emit(0, 0);
 		}
 		
 		var lTop: DisplayObject;

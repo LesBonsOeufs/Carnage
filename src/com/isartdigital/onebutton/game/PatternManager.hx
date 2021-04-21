@@ -27,11 +27,11 @@ class PatternManager
 	private static inline var TANK: String = "@";
 	private static inline var BOWMAN: String = "(";
 	
-	private static inline var MAX_DIFFICULTY: Int = 3;
+	private static inline var MAX_DIFFICULTY: Int = 4;
 	private static inline var PATTERNS_BOX_LENGTH: Int = 3;
 	
 	private static inline var X_BETWEEN_PATTERN: Float = 900;
-	private static inline var PATTERNS_BETWEEN_DIFFICULTY_INCREASE: Float = 6;
+	private static inline var PATTERNS_BETWEEN_DIFFICULTY_INCREASE: Float = 8;
 	
 	private static inline var BRICK_X_OFFSET: Int = 200;
 	private static inline var BRICK_Y_OFFSET: Int = 200;

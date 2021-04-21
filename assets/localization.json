@@ -36,8 +36,8 @@
 		"fr": "Quitter"
 	},
 	"HELP_TEXT1": {
-		"en": "The roman numeral at\nthe top of the pentagram is\nyour remaining health.\nKill enemies to get stronger!",
-		"fr": "Le chiffre romain au sommet\ndu pentagramme correspond\na votre sante restante.\nTuez des ennemis pour gagner\nen puissance!"
+		"en": "The roman number at\nthe top of the pentagram is\nyour remaining health.\nKill enemies to get stronger!",
+		"fr": "Le nombre romain au sommet\ndu pentagramme correspond\na votre sante restante.\nTuez des ennemis pour gagner\nen puissance!"
 	},
 	"HELP_TEXT2": {
 		"en": "Maintaining the button down will\nmake you immuned to enemy attacks,\nbut consumes health if kept\nfor too long.",

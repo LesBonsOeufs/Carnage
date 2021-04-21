@@ -34,15 +34,13 @@ class Player extends MeleeObject
 	
 	public inline static var MAX_DEGREE: Int = 4;
 	
-	private inline static var DEGREE_0_MAX_VELOCITY: Float = 8.5;
-	private inline static var DEGREE_1_MAX_VELOCITY: Float = 10;
+	private inline static var DEGREE_0_MAX_VELOCITY: Float = 10;
+	private inline static var DEGREE_1_MAX_VELOCITY: Float = 11;
 	private inline static var DEGREE_2_MAX_VELOCITY: Float = 12;
 	private inline static var DEGREE_3_MAX_VELOCITY: Float = 14;
 	private inline static var DEGREE_4_MAX_VELOCITY: Float = 18;
 	
 	public inline static var INIT_DEGREE: UInt = 1;
-	
-	private inline static var DEGREE_MAX_VALUE: Int = 4;
 	public inline static var DEGREE_BAR_MAX_VALUE: Int = 5;
 	
 	private var maxVelocitiesPerDegree: Array<Float>;
@@ -87,7 +85,7 @@ class Player extends MeleeObject
 		controller = pController;
 		
 		maxVelocitiesPerDegree = [DEGREE_0_MAX_VELOCITY, DEGREE_1_MAX_VELOCITY, DEGREE_2_MAX_VELOCITY, DEGREE_3_MAX_VELOCITY, DEGREE_4_MAX_VELOCITY];
-		scalesPerDegree = [0.85, 0.95, 1.05, 1.2, 1.4];
+		scalesPerDegree = [0.8, 0.9, 1.05, 1.2, 1.4];
 		
 		xVelocity = INIT_X_VELOCITY;
 		degree = INIT_DEGREE;
@@ -144,7 +142,7 @@ class Player extends MeleeObject
 	
 	private function set_degree(pValue: Int): Int
 	{	
-		if (pValue > DEGREE_MAX_VALUE || pValue < 0) return _degree;
+		if (pValue > MAX_DEGREE || pValue < 0) return _degree;
 		
 		_degree = pValue;
 		
@@ -170,7 +168,7 @@ class Player extends MeleeObject
 		
 		if (degreeBar >= DEGREE_BAR_MAX_VALUE)
 		{
-			if (degree < DEGREE_MAX_VALUE)
+			if (degree < MAX_DEGREE)
 			{
 				_degreeBar = 0;
 				
@@ -267,13 +265,17 @@ class Player extends MeleeObject
 	{
 		super.doActionNormal();
 		
-		if (state == MeleeObject.BASIC_ATTACK && renderer.currentFrame == animStrikingFrame && !strikeDone)
+		xAcceleration = accelerationValue;
+		
+		if (state == MeleeObject.RUN && controller.maintained)
+		{
+			onInputDown(null);
+		}
+		else if (state == MeleeObject.BASIC_ATTACK && renderer.currentFrame == animStrikingFrame && !strikeDone)
 		{
 			strikeDone = true;
 			weaponCollision();
 		}
-		
-		xAcceleration = accelerationValue;
 		
 		if (state == BLOCK)
 		{
