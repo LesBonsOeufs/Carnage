@@ -28,6 +28,10 @@ class Tank extends Swordsman
 	override function get_size():Float {
 		return 1.2;
 	}
+	
+	override function get_scoreValue():Int {
+		return 120;
+	}
 
 	public function new() 
 	{

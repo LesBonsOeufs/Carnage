@@ -32,6 +32,10 @@ class Bowman extends Enemy
 	override function get_animStrikingFrame():Int {
 		return 7;
 	}
+	
+	override function get_scoreValue():Int {
+		return 120;
+	}
 
 	public function new() 
 	{
@@ -40,7 +44,7 @@ class Bowman extends Enemy
 		initArrowsPos();
 		
 		_maxVelocity = MIN_MAX_VELOCITY + Math.random() * (MAX_MAX_VELOCITY - MIN_MAX_VELOCITY);
-		range = Math.floor(MIN_RANGE + Math.random() * (MAX_RANGE - MIN_RANGE));
+		range = Math.floor(MIN_RANGE + Math.random() * (MAX_RANGE - MIN_RANGE) + target.xVelocity * 20);
 	}
 	
 	private function initArrowsPos(): Void

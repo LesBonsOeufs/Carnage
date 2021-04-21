@@ -6,6 +6,7 @@ import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.stateObjects.StateMovieClip;
 import openfl.geom.Point;
 import org.zamedev.particles.ParticleSystem;
+import com.isartdigital.onebutton.ui.Hud;
 
 /**
  * ...
@@ -14,6 +15,16 @@ import org.zamedev.particles.ParticleSystem;
 class Obstacle extends StateMovieClip
 {
 	public static var list(default, null): Array<Obstacle> = new Array<Obstacle>();
+	
+	private var scoreValue(get, never): Int;
+	
+	/**
+	 * A override avec les bonnes values.
+	 * @return
+	 */
+	private function get_scoreValue(): Int {
+		return 20;
+	}
 
 	public function new() 
 	{
@@ -72,6 +83,7 @@ class Obstacle extends StateMovieClip
 		if (lWoodParticle != null)
 			lWoodParticle.emit(x, y - collider.height / 2);
 		
+		Hud.getInstance().score += scoreValue;
 		destroy();
 	}
 	

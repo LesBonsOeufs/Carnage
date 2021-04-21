@@ -43,7 +43,7 @@ class Player extends MeleeObject
 	public inline static var INIT_DEGREE: UInt = 1;
 	
 	private inline static var DEGREE_MAX_VALUE: Int = 4;
-	private inline static var DEGREE_BAR_MAX_VALUE: Int = 5;
+	public inline static var DEGREE_BAR_MAX_VALUE: Int = 5;
 	
 	private var maxVelocitiesPerDegree: Array<Float>;
 	private var scalesPerDegree: Array<Float>;

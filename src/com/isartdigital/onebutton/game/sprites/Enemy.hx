@@ -4,6 +4,7 @@ import com.isartdigital.utils.effects.Shake;
 import com.isartdigital.utils.game.GameStage;
 import openfl.geom.Point;
 import org.zamedev.particles.ParticleSystem;
+import com.isartdigital.onebutton.ui.Hud;
 
 /**
  * ...
@@ -19,6 +20,16 @@ class Enemy extends MeleeObject
 	public static var list(default, null): Array<Enemy> = new Array<Enemy>();
 	
 	private var target: Player;
+	
+	private var scoreValue(get, never): Int;
+	
+	/**
+	 * A override avec les bonnes values.
+	 * @return
+	 */
+	private function get_scoreValue(): Int {
+		return 0;
+	}
 	
 	private var _maxVelocity: Float;
 	
@@ -36,10 +47,10 @@ class Enemy extends MeleeObject
 		return 1;
 	}
 	
-	private var damage(get, never): Int;
+	public var damage(get, never): Int;
 	
 	function get_damage(): Int {
-		return 5;
+		return Player.DEGREE_BAR_MAX_VALUE;
 	}
 
 	public function new(?pTarget: Player = null) 
@@ -88,6 +99,7 @@ class Enemy extends MeleeObject
 		if (lBloodParticle != null)
 			lBloodParticle.emit(x, y - collider.height / 2);
 		
+		Hud.getInstance().score += scoreValue;
 		super.die();
 	}
 	

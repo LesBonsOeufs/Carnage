@@ -15,7 +15,7 @@ import openfl.display.DisplayObject;
 class Arrow extends StateMovieClip 
 {
 	private inline static var SPEED: Int = 35;
-	private inline static var DAMAGE: Int = 4;
+	private inline static var DAMAGE: Int = Player.DEGREE_BAR_MAX_VALUE;
 	
 	private static var list(default, null): Array<Arrow> = new Array<Arrow>();
 	

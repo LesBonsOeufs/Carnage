@@ -6,6 +6,7 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import lime.text.UTF8String;
 import motion.Actuate;
 import motion.easing.Back;
 import motion.easing.Quad;
@@ -36,12 +37,26 @@ class Hud extends Screen
 	
 	private var btnPause: SimpleButton;
 	
+	private var txtScore: TextField;
+	public var score(get, set): Int;
+	private var _score: Int;
+	
 	private var pentaPositiveUpdateParticles: Vector<ParticleSystem>;
 	private var pentaNegativeUpdateParticles: Vector<ParticleSystem>;
 	private var pentaSignParticles: Vector<ParticleSystem>;
 	private var pentaSummits: Vector<DisplayObject>;
 	
 	private var pentaScalesPerDegree(default, null): Array<Float> = [0.8, 1, 1.3, 1.7, 2];
+	
+	private function get_score(): Int {
+		return _score;
+	}
+	private function set_score(pValue: Int): Int {
+		_score = pValue;
+		//Actuate.tween(txtScore, 0.5, {text: _score});
+		txtScore.text = '$_score';
+		return _score;
+	}
 	
 	public static function getInstance() : Hud {
 		if (instance == null) instance = new Hud();
@@ -52,25 +67,32 @@ class Hud extends Screen
 	{
 		super();
 		
+		var lTopCenter: DisplayObjectContainer = cast(content.getChildByName("mcTopCenter"), DisplayObjectContainer);
+		var lTopRight: DisplayObjectContainer = cast(content.getChildByName("mcTopRight"), DisplayObjectContainer);
+		var lBottomCenter: DisplayObjectContainer = cast(content.getChildByName("mcBottomCenter"), DisplayObjectContainer);
+		
 		var lPositionnable:UIPositionable;
-		lPositionnable = { item:content.getChildByName("mcTopCenter"), align:AlignType.TOP};
+		lPositionnable = { item:lTopCenter, align:AlignType.TOP};
 		positionables.push(lPositionnable);
 		//lPositionnable = { item:content.getChildByName("mcTopLeft"), align:AlignType.TOP_LEFT};
 		//positionables.push(lPositionnable);
-		lPositionnable = { item:content.getChildByName("mcTopRight"), align:AlignType.TOP_RIGHT};
+		lPositionnable = { item:lTopRight, align:AlignType.TOP_RIGHT};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:content.getChildByName("mcBottomCenter"), align:AlignType.BOTTOM};
+		lPositionnable = { item:lBottomCenter, align:AlignType.BOTTOM};
 		positionables.push(lPositionnable);
 		
-		btnPause = cast(cast(content.getChildByName("mcTopRight"), DisplayObjectContainer).getChildByName("btnPause"), SimpleButton);
+		btnPause = cast(lTopRight.getChildByName("btnPause"), SimpleButton);
 		btnPause.addEventListener(MouseEvent.CLICK, onPause);
 		
-		pentagram = cast(cast(content.getChildByName("mcTopCenter"), DisplayObjectContainer).getChildByName("mcPentagram"), DisplayObjectContainer);
+		pentagram = cast(lTopCenter.getChildByName("mcPentagram"), DisplayObjectContainer);
 		pentagram.scaleX = pentaScalesPerDegree[Player.INIT_DEGREE];
 		pentagram.scaleY = pentaScalesPerDegree[Player.INIT_DEGREE];
 		
 		pentaText = cast(pentagram.getChildByName("txtText"), TextField);
 		pentaText.text = toRomanNumerals(Player.INIT_DEGREE + 1);
+		
+		txtScore = cast(lBottomCenter.getChildByName("txtScore"), TextField);
+		score = 0;
 	}
 	
 	override function init(pEvent:Event):Void 

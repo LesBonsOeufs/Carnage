@@ -39,6 +39,10 @@ class Swordsman extends Enemy
 	override function get_animStrikingFrame():Int {
 		return 8;
 	}
+	
+	override function get_scoreValue():Int {
+		return 50;
+	}
 
 	public function new() 
 	{	
