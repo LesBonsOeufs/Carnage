@@ -27,7 +27,7 @@ class PatternManager
 	private static inline var TANK: String = "@";
 	private static inline var BOWMAN: String = "(";
 	
-	private static inline var MAX_DIFFICULTY: Int = 2;
+	private static inline var MAX_DIFFICULTY: Int = 3;
 	private static inline var PATTERNS_BOX_LENGTH: Int = 3;
 	
 	private static inline var X_BETWEEN_PATTERN: Float = 900;
@@ -145,7 +145,7 @@ class PatternManager
 		
 		for (pattern in file)
 		{
-			if (pattern.difficulty == difficulty)
+			if (pattern.difficulty == difficulty || (difficulty > 2 && pattern.difficulty >= 2))
 				lAvailablePatterns.push(pattern);
 		}
 		
