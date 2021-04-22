@@ -93,13 +93,19 @@
 		{
 			"difficulty": 4,
 			"content": [
-				"( @@#// ("
+				"@@#// ("
 			]
 		},
 		{
 			"difficulty": 4,
 			"content": [
 				"## ///@///"
+			]
+		},
+		{
+			"difficulty": 4,
+			"content": [
+				"@#(#   ( ("
 			]
 		}
 	]

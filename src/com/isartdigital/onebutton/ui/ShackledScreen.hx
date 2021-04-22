@@ -1,6 +1,7 @@
 package com.isartdigital.onebutton.ui;
 
 import com.isartdigital.onebutton.game.GameManager;
+import com.isartdigital.onebutton.game.MusicManager;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.Screen;
 import motion.Actuate;
@@ -26,11 +27,11 @@ class ShackledScreen extends Screen
 	private var btnRetry: SimpleButton;
 	private var btnQuit: SimpleButton;
 
-	private function new(?pLibrary:String="ui") 
+	private function new() 
 	{
-		super(pLibrary);
+		super();
 		
-		SoundManager.mainVolume /= 2;
+		MusicManager.inGameVolumeToLow();
 		
 		btnRetry = cast(content.getChildByName("btnRetry"), SimpleButton);
 		btnQuit = cast(content.getChildByName("btnQuit"), SimpleButton);
@@ -98,7 +99,7 @@ class ShackledScreen extends Screen
 	
 	override public function destroy():Void 
 	{
-		SoundManager.mainVolume = SoundManager.initMainVolume;
+		MusicManager.inGameVolumeToNormal();
 		
 		if (btnRetry != null)
 		{

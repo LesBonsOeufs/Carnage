@@ -116,10 +116,7 @@ class GameManager
 		
 		if (pStartedFromTitleCard)
 		{
-			if (!SoundManager.getSound("ingame").isPlaying)
-				SoundManager.getSound("ingame").fadeIn();
-			if (SoundManager.getSound("ui").isPlaying)
-				SoundManager.getSound("ui").stop();
+			MusicManager.initInGame();
 			
 			UIManager.addScreen(HelpScreen.getInstance());
 		}
@@ -182,10 +179,7 @@ class GameManager
 		isPaused = false;
 		UIManager.closeScreens();
 		
-		if (!SoundManager.getSound("ingame").isPlaying)
-			SoundManager.getSound("ingame").fadeIn();
-		if (SoundManager.getSound("ui").isPlaying)
-			SoundManager.getSound("ui").stop();
+		MusicManager.initInGame();
 		
 		timer.resume();
 	}
@@ -268,9 +262,6 @@ class GameManager
 		gameLayer.destroy();
 		controller.destroy();
 		
-		if (SoundManager.getSound("ingame").isPlaying)
-			SoundManager.getSound("ingame").stop();
-		if (SoundManager.getSound("ui").isPlaying)
-			SoundManager.getSound("ui").stop();
+		MusicManager.stop();
 	}
 }

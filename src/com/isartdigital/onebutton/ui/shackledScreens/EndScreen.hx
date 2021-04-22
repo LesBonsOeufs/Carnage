@@ -28,9 +28,9 @@ class EndScreen extends ShackledScreen
 	/**
 	 * constructeur privé pour éviter qu'une instance soit créée directement
 	 */
-	private function new(?pLibrary:String="ui") 
+	private function new() 
 	{
-		super(pLibrary);
+		super();
 		
 		cast(content.getChildByName("txtScore"), TextField).text = "Score : " + Hud.getInstance().score;
 	}

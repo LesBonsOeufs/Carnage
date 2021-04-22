@@ -1,5 +1,6 @@
 package com.isartdigital.onebutton;
 
+import com.isartdigital.onebutton.game.MusicManager;
 import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.ui.GraphicLoader;
 import com.isartdigital.onebutton.ui.Menu;
@@ -119,6 +120,8 @@ class Main extends Sprite
 		lGameLoader.removeEventListener(AssetsLoaderEvent.COMPLETE, onLoadComplete);		
 		
 		SoundManager.initSounds();
+		MusicManager.init();
+		
 		FontAndLoca.initTranslationFile();
 	
 		//Ajout des colliders des stateObjects

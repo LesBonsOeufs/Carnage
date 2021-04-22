@@ -1,8 +1,8 @@
 {
 	"files" : {
 		"fxs" :{
-			"press" : {"asset":"es_impact_wood_1-sfx_producer_highered", "volume":0.3},
-			"click"	: {"asset":"es_impact_wood_2-sfx_producer", "volume":0.5},
+			"press" : {"asset":"es_impact_wood_1-sfx_producer_highered", "volume":0.2},
+			"click"	: {"asset":"es_impact_wood_2-sfx_producer", "volume":0.44},
 			"swordsman_miss" : {"asset":"es_sword_whip_court_sword_3-sfx_producer", "volume":0.75},
 			"swordsman_hit0" : {"asset":"es_flesh_stab_2-sfx_producer", "volume":0.75},
 			"swordsman_hit1" : {"asset":"es_flesh_stab_2-sfx_producer_lowered", "volume":0.75},

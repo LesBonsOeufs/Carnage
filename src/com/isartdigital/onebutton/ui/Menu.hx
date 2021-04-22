@@ -1,6 +1,7 @@
 package com.isartdigital.onebutton.ui;
 
 import com.isartdigital.onebutton.game.GameManager;
+import com.isartdigital.onebutton.game.MusicManager;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -43,8 +44,7 @@ class Menu extends AnimatedScreen
 	{
 		super();
 		
-		if (!SoundManager.getSound("ui").isPlaying)
-			SoundManager.getSound("ui").fadeIn();
+		MusicManager.initUI();
 		
 		var lTitleCardIndicator: DisplayObject = content.getChildByName("mcTitleCardIndicator");
 		titleCardPos = new Point(lTitleCardIndicator.x, lTitleCardIndicator.y);
