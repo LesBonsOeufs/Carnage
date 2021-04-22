@@ -34,7 +34,7 @@ class Bowman extends Enemy
 	}
 	
 	override function get_scoreValue():Int {
-		return 120;
+		return 150;
 	}
 
 	public function new() 
