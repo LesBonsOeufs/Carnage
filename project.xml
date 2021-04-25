@@ -36,4 +36,4 @@
 	<window if="android" fullscreen="true" resizable="false"/>
 	<window if="windows" width="1200" height="700" resizable="false"/>
 	
-</project> 
+</project>
