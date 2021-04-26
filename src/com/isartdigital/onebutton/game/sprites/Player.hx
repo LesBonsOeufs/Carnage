@@ -49,10 +49,7 @@ class Player extends MeleeObject
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
 	
-	//private inline static var ATTACK_COOLDOWN: Float = 0.3;
-	//private var attackTimeCounter: Float = 0;
-	
-	private inline static var PERFECT_BLOCK_WINDOW: Float = 0.10;
+	private inline static var PERFECT_BLOCK_WINDOW: Float = 0.07;
 	private inline static var PERFECT_BLOCK_SCORE_VALUE: Int = 30;
 	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.27;
 	private var blockingTimeCounter: Float = 0;
@@ -249,18 +246,24 @@ class Player extends MeleeObject
 		if (isBlocking() || pDodgeByAttacking)
 		{
 			var lAnimDuration: Float;
+			var lAnimAlpha: Float;
 			
 			if (perfectBlock)
 			{
-				lAnimDuration = 0.65;
+				lAnimDuration = 0.50;
+				lAnimAlpha = 0.4;
 				
 				var lRandom: Int = Math.floor(Math.random() * 2);
 				SoundManager.getSound("player_perfect_block" + lRandom).start();
 				Hud.getInstance().flyingScore(this, PERFECT_BLOCK_SCORE_VALUE, true);
 			}
-			else lAnimDuration = 0.35;
+			else
+			{
+				lAnimDuration = 0.20;
+				lAnimAlpha = 0.25;
+			}
 			
-			Actuate.transform(this, 0.0001, false).color(0xffffff, 0.4)
+			Actuate.transform(this, 0.0001, false).color(0xffffff, lAnimAlpha)
 												  .onComplete(function () {Actuate.transform(this, lAnimDuration).color(0xffffff, 0).ease(Quad.easeOut); });
 			
 			return false;
