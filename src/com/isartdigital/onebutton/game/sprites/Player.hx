@@ -49,8 +49,14 @@ class Player extends MeleeObject
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
 	
+	//private inline static var ATTACK_COOLDOWN: Float = 0.3;
+	//private var attackTimeCounter: Float = 0;
+	
+	private inline static var PERFECT_BLOCK_WINDOW: Float = 0.10;
+	private inline static var PERFECT_BLOCK_SCORE_VALUE: Int = 30;
 	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.27;
 	private var blockingTimeCounter: Float = 0;
+	private var perfectBlock: Bool = true;
 	
 	private var controller: Controller;
 	
@@ -123,9 +129,6 @@ class Player extends MeleeObject
 		
 		setState(BLOCK);
 		
-		var lRandom: Int = Math.floor(Math.random() * 2);
-		SoundManager.getSound("player_raise_axe" + lRandom).start();
-		
 		renderer.gotoAndStop(lCurrentFrame);
 	}
 	
@@ -134,6 +137,9 @@ class Player extends MeleeObject
 		if (state != BLOCK || GameManager.isPaused) return;
 		
 		setState(MeleeObject.BASIC_ATTACK);
+		
+		perfectBlock = true;
+		blockingTimeCounter = 0;
 	}
 	
 	private function get_degree(): Int {
@@ -242,8 +248,20 @@ class Player extends MeleeObject
 		
 		if (isBlocking() || pDodgeByAttacking)
 		{
+			var lAnimDuration: Float;
+			
+			if (perfectBlock)
+			{
+				lAnimDuration = 0.65;
+				
+				var lRandom: Int = Math.floor(Math.random() * 2);
+				SoundManager.getSound("player_perfect_block" + lRandom).start();
+				Hud.getInstance().flyingScore(this, PERFECT_BLOCK_SCORE_VALUE, true);
+			}
+			else lAnimDuration = 0.35;
+			
 			Actuate.transform(this, 0.0001, false).color(0xffffff, 0.4)
-												  .onComplete(function () {Actuate.transform(this, 0.35).color(0xffffff, 0).ease(Quad.easeOut); });
+												  .onComplete(function () {Actuate.transform(this, lAnimDuration).color(0xffffff, 0).ease(Quad.easeOut); });
 			
 			return false;
 		}
@@ -281,14 +299,19 @@ class Player extends MeleeObject
 		{
 			blockingTimeCounter += GameManager.timer.deltaTime;
 			
-			if (blockingTimeCounter >= BLOCKING_PENALTY_TIME_TRIGGER)
+			if (blockingTimeCounter >= PERFECT_BLOCK_WINDOW && perfectBlock)
 			{
+				perfectBlock = false;
+				var lRandom: Int = Math.floor(Math.random() * 2);
+				SoundManager.getSound("player_raise_axe" + lRandom).start();
+			}
+			
+			if (blockingTimeCounter >= BLOCKING_PENALTY_TIME_TRIGGER)
+			{	
 				blockingTimeCounter = 0;
 				degreeBar--;
 			}
 		}
-		else
-			blockingTimeCounter = 0;
 	}
 	
 	override function weaponCollision():Void

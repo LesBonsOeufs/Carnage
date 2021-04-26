@@ -253,15 +253,21 @@ class Hud extends Screen
 		Actuate.tween(pentagram, GameManager.WIN_DELAY_IN_SECONDS, {scaleX: 0, scaleY: 0}).ease(Quad.easeIn);
 	}
 	
-	public function flyingScore(pGameObject: StateMovieClip, pScore: Int): Void
+	public function flyingScore(pGameObject: StateMovieClip, pScore: Int, pInitIsWhite: Bool = false): Void
 	{
 		var lScoreContainerLocalPosOnHud: Point = globalToLocal(scoreContainer.parent.localToGlobal(new Point(scoreContainer.x, scoreContainer.y)));
 		var lLocalPosOnHud: Point = globalToLocal(pGameObject.parent.localToGlobal(new Point(pGameObject.x, pGameObject.y)));
+		var lInitColor: Int;
+		
+		if (!pInitIsWhite)
+			lInitColor = FLYING_SCORE_INIT_COLOR;
+		else
+			lInitColor = 0xffffff;
 		
 		var lFlyingScore: TextField = new TextField();
 		var lFlyingScoreContainer: DisplayObjectContainer = new DisplayObjectContainer();
 		lFlyingScore.setTextFormat(FontAndLoca.currentFont);
-		lFlyingScore.textColor = FLYING_SCORE_INIT_COLOR;
+		lFlyingScore.textColor = lInitColor;
 		lFlyingScore.text = '+ $pScore';
 		lFlyingScore.autoSize = TextFieldAutoSize.CENTER;
 		lFlyingScoreContainer.addChild(lFlyingScore);
