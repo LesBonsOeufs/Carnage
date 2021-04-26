@@ -14,6 +14,7 @@
 			"player_hit_wood1" : {"asset":"es_impact_axe_hit_wood_5-sfx_producer", "volume":0.8},
 			"player_block0" : {"asset":"es_sword_strike_2-sfx_producer", "volume":0.8},
 			"player_block1" : {"asset":"es_sword_strike_3-sfx_producer", "volume":0.8},
+			"player_perfect_block" : {"asset":"es_sword_strike_7-sfx_producer_highered", "volume"0.8},
 			"player_raise_axe0" : {"asset":"es_bass_drum_2-sfx_producer", "volume":0.9},
 			"player_raise_axe1" : {"asset":"es_bass_drum_2-sfx_producer_highered", "volume":0.9},
 			"player_degree_up" : {"asset":"es_vision_transition_5-epidemic_sound_inspiration", "volume":3.5},
