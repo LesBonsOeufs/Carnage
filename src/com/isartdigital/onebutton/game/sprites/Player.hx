@@ -49,6 +49,9 @@ class Player extends MeleeObject
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
 	
+	private inline static var ATTACK_COOLDOWN: Float = 0.07;
+	private var attackTimeCounter: Float = 0;
+	
 	private inline static var PERFECT_BLOCK_WINDOW: Float = 0.07;
 	private inline static var PERFECT_BLOCK_SCORE_VALUE: Int = 30;
 	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.27;
@@ -120,7 +123,9 @@ class Player extends MeleeObject
 	
 	private function onInputDown(pEvent:Event):Void 
 	{
-		if (state == MeleeObject.BASIC_ATTACK || GameManager.isPaused) return;
+		if (state == MeleeObject.BASIC_ATTACK || attackTimeCounter < ATTACK_COOLDOWN ||GameManager.isPaused) return;
+		
+		attackTimeCounter = 0;
 		
 		var lCurrentFrame: UInt = renderer.currentFrame;
 		
@@ -288,9 +293,12 @@ class Player extends MeleeObject
 		
 		xAcceleration = accelerationValue;
 		
-		if (state == MeleeObject.RUN && controller.maintained)
+		if (state == MeleeObject.RUN)
 		{
-			onInputDown(null);
+			attackTimeCounter += GameManager.timer.deltaTime;
+			
+			if (controller.maintained)
+				onInputDown(null);
 		}
 		else if (state == MeleeObject.BASIC_ATTACK && renderer.currentFrame == animStrikingFrame && !strikeDone)
 		{
