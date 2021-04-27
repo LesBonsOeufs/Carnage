@@ -50,7 +50,7 @@ class Enemy extends MeleeObject
 	public var damage(get, never): Int;
 	
 	function get_damage(): Int {
-		return Player.DEGREE_BAR_MAX_VALUE;
+		return 4;
 	}
 
 	public function new(?pTarget: Player = null) 

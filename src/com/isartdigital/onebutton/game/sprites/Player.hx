@@ -56,8 +56,8 @@ class Player extends MeleeObject
 	private var attackTimeCounter: Float = 0;
 	
 	private static inline var PERFECT_BLOCK_PARTICLE_DURATION: Float = 0.05;
-	private inline static var PERFECT_BLOCK_TIME_SLOW: Float = 0.4;
-	private inline static var PERFECT_BLOCK_TIME_SLOW_DURATION: Float = 0.45;
+	private inline static var PERFECT_BLOCK_TIME_SLOW: Float = 0.65;
+	private inline static var PERFECT_BLOCK_TIME_SLOW_DURATION: Float = 0.3;
 	private inline static var PERFECT_BLOCK_WINDOW: Float = 0.08;
 	private inline static var PERFECT_BLOCK_SCORE_VALUE: Int = 30;
 	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.27;
@@ -75,7 +75,6 @@ class Player extends MeleeObject
 		return _maxVelocity;
 	}
 	
-	//@:getter(accelerationValue)
 	override function get_accelerationValue():Float {
 		return 4 / GameManager.FPS;
 	}

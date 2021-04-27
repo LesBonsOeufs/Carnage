@@ -19,14 +19,12 @@ class Tank extends Swordsman
 		return -4 / GameManager.FPS;
 	}
 	
-	//@:getter(maxVelocity)
 	override function get_maxVelocity():Float {
 		return 17;
 	}
 	
-	//@:getter(size)
 	override function get_size():Float {
-		return 1.2;
+		return 1.3;
 	}
 	
 	override function get_scoreValue():Int {
@@ -39,6 +37,10 @@ class Tank extends Swordsman
 		assetName = lClassName.split(".").pop();
 		
 		super();
+	}
+	
+	override function getReach():Float {
+		return super.getReach() * 1 + (size - 1) * 0.7;
 	}
 	
 	override public function fearChance():Bool 
