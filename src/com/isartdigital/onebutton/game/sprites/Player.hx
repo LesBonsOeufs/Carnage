@@ -34,6 +34,9 @@ class Player extends MeleeObject
 	
 	public inline static var MAX_DEGREE: Int = 4;
 	
+	private static inline var BLOCKING_AXE_X: Float = 95;
+	private static inline var BLOCKING_AXE_Y: Float = -225;
+	
 	private inline static var DEGREE_0_MAX_VELOCITY: Float = 10;
 	private inline static var DEGREE_1_MAX_VELOCITY: Float = 11;
 	private inline static var DEGREE_2_MAX_VELOCITY: Float = 12;
@@ -49,10 +52,13 @@ class Player extends MeleeObject
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
 	
-	private inline static var ATTACK_COOLDOWN: Float = 0.07;
+	private inline static var ATTACK_COOLDOWN: Float = 0.09;
 	private var attackTimeCounter: Float = 0;
 	
-	private inline static var PERFECT_BLOCK_WINDOW: Float = 0.07;
+	private static inline var PERFECT_BLOCK_PARTICLE_DURATION: Float = 0.05;
+	private inline static var PERFECT_BLOCK_TIME_SLOW: Float = 0.4;
+	private inline static var PERFECT_BLOCK_TIME_SLOW_DURATION: Float = 0.45;
+	private inline static var PERFECT_BLOCK_WINDOW: Float = 0.08;
 	private inline static var PERFECT_BLOCK_SCORE_VALUE: Int = 30;
 	private inline static var BLOCKING_PENALTY_TIME_TRIGGER: Float = 0.27;
 	private var blockingTimeCounter: Float = 0;
@@ -80,8 +86,10 @@ class Player extends MeleeObject
 	
 	private var particleRenderer: ParticleSystemRenderer;
 	
+	private var perfectBlockParticle: ParticleSystem;
 	private var degreeUpParticle: ParticleSystem;
 	private var degreeDownParticle: ParticleSystem;
+	
 	private var degreeUpSoundInitVolume: Float;
 	private var degreeDownSoundInitVolume: Float;
 	
@@ -109,9 +117,13 @@ class Player extends MeleeObject
 		
 		degreeUpParticle = ParticleLoader.load("assets/particles/playerDegreeUp.pex");
 		degreeDownParticle = ParticleLoader.load("assets/particles/playerDegreeDown.pex");
+		perfectBlockParticle = ParticleLoader.load("assets/particles/perfectBlock.pex");
+		
+		perfectBlockParticle.duration = PERFECT_BLOCK_PARTICLE_DURATION;
 		
 		particleRenderer.addParticleSystem(degreeUpParticle);
 		particleRenderer.addParticleSystem(degreeDownParticle);
+		particleRenderer.addParticleSystem(perfectBlockParticle);
 	}
 	
 	override public function start(): Void 
@@ -261,6 +273,8 @@ class Player extends MeleeObject
 				var lRandom: Int = Math.floor(Math.random() * 2);
 				SoundManager.getSound("player_perfect_block" + lRandom).start();
 				Hud.getInstance().flyingScore(this, PERFECT_BLOCK_SCORE_VALUE, true);
+				GameManager.timer.timeSlow(PERFECT_BLOCK_TIME_SLOW, PERFECT_BLOCK_TIME_SLOW_DURATION);
+				perfectBlockParticle.emit(BLOCKING_AXE_X, BLOCKING_AXE_Y);
 			}
 			else
 			{

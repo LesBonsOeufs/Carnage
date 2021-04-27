@@ -1,9 +1,14 @@
 package com.isartdigital.utils;
+import motion.Actuate;
+import motion.easing.Quad;
+import motion.easing.Sine;
 import openfl.Lib;
 
 /**
  * Classe utilitaire de chronomètre
  * @author Chadi Husser
+ * 
+ * @author Gabriel Bernabeu (timeSlow)
  */
 class Timer 
 {
@@ -26,7 +31,6 @@ class Timer
 	 * Temps écoulé depuis le lancement du timer
 	 */
 	public var elapsedTime(default, null):Float;
-	
 	
 	/**
 	 * Facteur de vitesse d'écoulement du temps
@@ -54,6 +58,12 @@ class Timer
 		
 		lastDateInSecond = Lib.getTimer();
 		elapsedTime += deltaTime;
+	}
+	
+	public function timeSlow(pTimeScale: Float, pDuration: Float) 
+	{
+		timeScale = pTimeScale;
+		Actuate.tween(this, pDuration, {timeScale: 1}).ease(Sine.easeIn).onComplete(function () {timeScale = 1;});
 	}
 	
 	/**
