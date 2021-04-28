@@ -114,12 +114,10 @@ class GameManager
 		
 		player.start();
 		
-		if (pStartedFromTitleCard)
-		{
-			MusicManager.initInGame();
-			
+		MusicManager.initInGame();
+		
+		if (pStartedFromTitleCard)	
 			UIManager.addScreen(HelpScreen.getInstance());
-		}
 		else
 			resumeGame();
 	}
@@ -173,13 +171,13 @@ class GameManager
 		return null;
 	}
 	
-	public static function resumeGame() : Void {
+	public static function resumeGame() : Void 
+	{
 		if (!isPaused) return;
 		
 		isPaused = false;
+		Main.getInstance().addEventListener(Event.DEACTIVATE, onDeactivate);
 		UIManager.closeScreens();
-		
-		MusicManager.initInGame();
 		
 		timer.resume();
 	}
@@ -199,6 +197,8 @@ class GameManager
 		if (isPaused) return;
 		
 		isPaused = true;
+		Main.getInstance().removeEventListener(Event.DEACTIVATE, onDeactivate);
+		
 		timer.stop();
 		
 		//if (!SoundManager.getSound("ui").isPlaying)
@@ -223,6 +223,10 @@ class GameManager
 		Obstacle.doActions();
 		Enemy.doActions();
 		Arrow.doActions();
+	}
+	
+	private static function onDeactivate(pEvent: Event): Void {
+		pauseScreen();
 	}
 	
 	private static function winLoop(pEvent: Event): Void 
