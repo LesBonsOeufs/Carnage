@@ -33,13 +33,18 @@ class EndScreen extends ShackledScreen
 		super();
 		
 		cast(content.getChildByName("txtScore"), TextField).text = "Score : " + Hud.getInstance().score;
+		
+		if (Session.highscore < Hud.getInstance().score)
+			Session.highscore = Hud.getInstance().score;
+		
+		Session.save();
 	}
 	
 	/**
 	 * détruit l'instance unique et met sa référence interne à null
 	 */
 	override function destroy():Void 
-	{
+	{	
 		instance = null;
 		super.destroy();
 	}

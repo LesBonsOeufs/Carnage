@@ -98,12 +98,6 @@ class GameManager
 		
 		Main.getInstance().addEventListener(EventType.GAME_LOOP, gameLoop);
 		
-		var lJson:Dynamic = Json.parse(GameLoader.getText("assets/settings/player.json"));
-		Monitor.setSettings(lJson, player);
-		
-		var fields : Array<MonitorField> = [{name:"smoothing", onChange:onChange}, {name:"x", step:1}, {name:"y", step:100}, {name:"xVelocity", step:1}];
-		Monitor.start(player, fields, lJson);
-		
 		ScrollingForest.addBackgrounds(lGameContainer);
 		lGameContainer.addChild(gameLayer);
 		ScrollingForest.addForegrounds(lGameContainer);

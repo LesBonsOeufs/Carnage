@@ -5,6 +5,7 @@ import com.isartdigital.onebutton.game.layers.GameLayer;
 import com.isartdigital.onebutton.ui.GraphicLoader;
 import com.isartdigital.onebutton.ui.Menu;
 import com.isartdigital.onebutton.ui.UIManager;
+import com.isartdigital.onebutton.Session;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.debug.Debug;
 import com.isartdigital.utils.events.AssetsLoaderEvent;
@@ -124,7 +125,8 @@ class Main extends Sprite
 		MusicManager.init();
 		
 		FontAndLoca.initTranslationFile();
-	
+		Session.init();
+		
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
 		
