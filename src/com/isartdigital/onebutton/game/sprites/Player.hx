@@ -52,7 +52,7 @@ class Player extends MeleeObject
 	private var _degreeBar: Int = 0;
 	public var degreeBar(get, set): Int;
 	
-	private inline static var ATTACK_COOLDOWN: Float = 0.09;
+	private inline static var ATTACK_COOLDOWN: Float = 0.12;
 	private var attackTimeCounter: Float = 0;
 	
 	private static inline var PERFECT_BLOCK_PARTICLE_DURATION: Float = 0.05;

@@ -33,9 +33,14 @@ class EndScreen extends ShackledScreen
 		super();
 		
 		cast(content.getChildByName("txtScore"), TextField).text = "Score : " + Hud.getInstance().score;
+		var lHighscoreField: TextField = cast(content.getChildByName("txtHighscore"), TextField);
 		
 		if (Session.highscore < Hud.getInstance().score)
+		{
 			Session.highscore = Hud.getInstance().score;
+			lHighscoreField.text = "New highscore!";
+		}
+		else lHighscoreField.text = "Highscore : " + Session.highscore;
 		
 		Session.save();
 	}

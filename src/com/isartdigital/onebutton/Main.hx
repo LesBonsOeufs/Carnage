@@ -21,6 +21,7 @@ import haxe.Json;
 import openfl.Assets;
 import openfl.display.Sprite;
 import openfl.display.StageAlign;
+import openfl.display.StageQuality;
 import openfl.display.StageScaleMode;
 import openfl.events.Event;
 import com.isartdigital.utils.game.stateObjects.colliders.ColliderType;
@@ -28,7 +29,7 @@ import com.isartdigital.utils.game.stateObjects.colliders.ColliderType;
 class Main extends Sprite
 {
 	
-	private static var instance:Main;
+	private static var instance: Main;
 	
 	public static function getInstance():Main {
 		return instance;
@@ -127,6 +128,14 @@ class Main extends Sprite
 		FontAndLoca.initTranslationFile();
 		Session.init();
 		
+		#if windows
+			stage.quality = StageQuality.BEST;
+		#elseif html5
+			stage.quality = StageQuality.HIGH;
+		#elseif android
+			stage.quality = StageQuality.LOW;
+		#end
+		
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
 		
@@ -136,7 +145,7 @@ class Main extends Sprite
 	}
 
 	private static function importClasses() : Void {
-
+		
 	}
 	
 	private function gameLoop(pEvent:Event) : Void {
