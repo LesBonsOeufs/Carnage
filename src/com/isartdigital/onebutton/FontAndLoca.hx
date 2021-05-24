@@ -21,11 +21,11 @@ typedef Translation =
  */
 class FontAndLoca 
 {
-	static private inline var ENGLISH: UInt = 0;
-	static private inline var FRANCAIS: UInt = 1;
+	static public inline var ENGLISH: UInt = 0;
+	static public inline var FRANCAIS: UInt = 1;
 	
-	static private var currentTranslation: UInt;
-	static public var currentFont: TextFormat;
+	static public var currentTranslation(default, null): UInt;
+	static public var currentFont(default, null): TextFormat;
 	
 	static private var file: Dynamic;
 

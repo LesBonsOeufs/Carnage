@@ -57,6 +57,11 @@ class Hud extends Screen
 	public var score(get, set): Int;
 	private var _score: Int = 0;
 	
+	private var txtHighscoreMessage: TextField;
+	private var highscoreAnimAntiOverride: Bool = false;
+	private var highscorePassed: Bool = false;
+	private var highscoreAnimParticle: ParticleSystem;
+	
 	private var pentaPositiveUpdateParticles: Vector<ParticleSystem>;
 	private var pentaNegativeUpdateParticles: Vector<ParticleSystem>;
 	private var pentaSignParticles: Vector<ParticleSystem>;
@@ -74,9 +79,33 @@ class Hud extends Screen
 		txtScore.text = '$_score';
 		//Actuate.tween(this, 0.5, {_score: pValue}, false).ease(Cubic.easeIn).onUpdate(function () {txtScore.text = '$_score'; }).snapping();
 		
-		scoreContainer.scaleX = SCORE_ANIM_SCALE;
-		scoreContainer.scaleY = SCORE_ANIM_SCALE;
-		Actuate.tween(scoreContainer, 0.5, {scaleX: 1, scaleY: 1});
+		if (!highscoreAnimAntiOverride)
+		{
+			scoreContainer.scaleX = SCORE_ANIM_SCALE;
+			scoreContainer.scaleY = SCORE_ANIM_SCALE;
+			
+			if (_score > Session.highscore && !highscorePassed)
+			{
+				highscoreAnimParticle.emit(0, 0);
+				
+				txtHighscoreMessage.visible = true;
+				highscoreAnimAntiOverride = true;
+				highscorePassed = true;
+				
+				Actuate.tween(scoreContainer, 1.2, {scaleX: 1, scaleY: 1}).onComplete(function () {
+					
+					Actuate.tween(txtHighscoreMessage, 0.8, {alpha: 0}).ease(Quad.easeIn).onComplete(function () {
+						
+						highscoreAnimAntiOverride = false;
+						txtHighscoreMessage.visible = false;
+						txtHighscoreMessage.alpha = 1;
+					});
+				});
+			}
+			else {
+				Actuate.tween(scoreContainer, 0.5, {scaleX: 1, scaleY: 1});
+			}
+		}
 		
 		return _score;
 	}
@@ -117,6 +146,9 @@ class Hud extends Screen
 		scoreContainer = cast(lBottomCenter.getChildByName("mcTextContainer"), DisplayObjectContainer);
 		txtScore = cast(scoreContainer.getChildByName("txtScore"), TextField);
 		
+		txtHighscoreMessage = cast(scoreContainer.getChildByName("txtMessage"), TextField);
+		txtHighscoreMessage.visible = false;
+		
 		txtScore.text = '$_score';
 	}
 	
@@ -155,6 +187,13 @@ class Hud extends Screen
 			lParticleRenderer.addParticleSystem(lNegativeUpdateParticle);
 			pentaNegativeUpdateParticles[i] = lNegativeUpdateParticle;
 		}
+		
+		lParticleRenderer = DefaultParticleRenderer.createInstance();
+		scoreContainer.addChild(cast lParticleRenderer);
+		
+		highscoreAnimParticle = ParticleLoader.load("assets/particles/pentaNegativeUpdateParticle.pex");
+		highscoreAnimParticle.duration = UPDATE_PARTICLE_DURATION;
+		lParticleRenderer.addParticleSystem(highscoreAnimParticle);
 	}
 	
 	private function onPause(pEvent:MouseEvent) : Void 

@@ -9,7 +9,7 @@
 	<source path="src"/>
 	<haxelib name="openfl"/>
 	<haxelib name="actuate"/>
-	<haxelib name="zame-particles"/>
+	<haxelib name="zame-particles"/> 
 	<haxelib name="dat.GUI"/>
 	<haxelib name="OpenFl-Animate-Atlas-Player"/>
 	

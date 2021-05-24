@@ -11,6 +11,9 @@ import openfl.text.TextField;
  */
 class EndScreen extends ShackledScreen 
 {
+	private static var ENGLISH_NEW_HIGHSCORE_MESSAGE: String = "New highscore!";
+	private static var FRENCH_NEW_HIGHSCORE_MESSAGE: String = "Nouveau meilleur score!";
+	
 	/**
 	 * instance unique de la classe EndScreen
 	 */
@@ -38,9 +41,13 @@ class EndScreen extends ShackledScreen
 		if (Session.highscore < Hud.getInstance().score)
 		{
 			Session.highscore = Hud.getInstance().score;
-			lHighscoreField.text = "New highscore!";
+			
+			if (FontAndLoca.currentTranslation == FontAndLoca.ENGLISH)
+				lHighscoreField.text = ENGLISH_NEW_HIGHSCORE_MESSAGE;
+			else if (FontAndLoca.currentTranslation == FontAndLoca.FRANCAIS)
+				lHighscoreField.text = FRENCH_NEW_HIGHSCORE_MESSAGE;
 		}
-		else lHighscoreField.text = "Highscore : " + Session.highscore;
+		else lHighscoreField.text += Session.highscore;
 		
 		Session.save();
 	}

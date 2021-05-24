@@ -15,6 +15,7 @@ import openfl.display.DisplayObject;
 import openfl.display.DisplayObjectContainer;
 import openfl.display.SimpleButton;
 import openfl.events.MouseEvent;
+import openfl.text.TextField;
 
 /**
  * ...
@@ -24,6 +25,7 @@ class Menu extends AnimatedScreen
 {
 	private static var instance : Menu;
 	
+	private var topRight: DisplayObjectContainer;
 	private var topLeft: DisplayObjectContainer;
 	private var bottomCenter: DisplayObjectContainer;
 	
@@ -53,6 +55,10 @@ class Menu extends AnimatedScreen
 		var lCreditsIndicator: DisplayObject = content.getChildByName("mcCreditsIndicator");
 		creditsPos = new Point(lCreditsIndicator.x, lCreditsIndicator.y);
 		content.removeChild(lCreditsIndicator);
+		
+		topRight = cast(content.getChildByName("mcTopRightNoAnim"), DisplayObjectContainer);
+		var lHighscoreTextContainer: DisplayObjectContainer = cast(topRight.getChildAt(0), DisplayObjectContainer);
+		cast(lHighscoreTextContainer.getChildAt(0), TextField).text += Session.highscore;
 		
 		topLeft = cast(content.getChildByName("mcTopLeft"), DisplayObjectContainer);
 		bottomCenter = cast(content.getChildByName("mcBottomCenter"), DisplayObjectContainer);
@@ -175,6 +181,8 @@ class Menu extends AnimatedScreen
 		var lPositionnable:UIPositionable = {item:bottomCenter, align:AlignType.BOTTOM};
 		positionables.push(lPositionnable);
 		lPositionnable = {item:topLeft, align:AlignType.TOP_LEFT};
+		positionables.push(lPositionnable);
+		lPositionnable = {item:topRight, align:AlignType.TOP_RIGHT};
 		positionables.push(lPositionnable);
 		onResize();
 	}
