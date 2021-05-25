@@ -131,7 +131,7 @@ class Main extends Sprite
 		#if windows
 			stage.quality = StageQuality.BEST;
 		#elseif html5
-			stage.quality = StageQuality.HIGH;
+			stage.quality = StageQuality.MEDIUM;
 		#elseif android
 			stage.quality = StageQuality.LOW;
 		#end
