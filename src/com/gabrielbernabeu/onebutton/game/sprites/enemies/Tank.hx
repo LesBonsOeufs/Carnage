@@ -1,0 +1,76 @@
+package com.gabrielbernabeu.onebutton.game.sprites.enemies;
+import com.gabrielbernabeu.onebutton.game.GameManager;
+import com.gabrielbernabeu.onebutton.game.sprites.enemies.Swordsman;
+import com.gabrielbernabeu.utils.effects.Shake;
+import com.gabrielbernabeu.utils.game.GameStage;
+import motion.Actuate;
+import motion.easing.Quad;
+import openfl.geom.ColorTransform;
+import openfl.geom.Point;
+
+/**
+ * ...
+ * @author Gabriel Bernabeu
+ */
+class Tank extends Swordsman 
+{
+	private var health: Int = 2;
+	
+	override function get_accelerationValue():Float {
+		return -4 / GameManager.FPS;
+	}
+	
+	override function get_maxVelocity():Float {
+		return 17;
+	}
+	
+	override function get_size():Float {
+		return 1.3;
+	}
+	
+	override function get_scoreValue():Int {
+		return 120;
+	}
+
+	public function new() 
+	{
+		var lClassName:String = Type.getClassName(Swordsman);
+		assetName = lClassName.split(".").pop();
+		
+		super();
+	}
+	
+	override function getReach():Float {
+		return super.getReach() * 1 + (size - 1) * 0.7;
+	}
+	
+	override public function fearChance():Bool 
+	{
+		if (target.degree != Player.MAX_DEGREE) return false;
+		
+		if (Math.floor(Math.random() * 8) >= 6)
+		{
+			setModeRetreat();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	override function die():Void 
+	{
+		if (--health > 0 && target.degree < Player.MAX_DEGREE) 
+		{
+			Actuate.transform(this, 0.0001, false).color(0x8a0303, 0.7)
+										      .onComplete(function () {Actuate.transform(this, 0.3).color(0x8a0303, 0).ease(Quad.easeOut); });
+			return;
+		}
+		
+		super.die();
+	}
+	
+	override function deathShake(): Void {
+		Shake.operate(GameStage.getInstance(), 15, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
+	}
+	
+}

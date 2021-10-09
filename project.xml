@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta version="2.0.0" package="com.bernabeugabriel.onebutton" title="BERNABEU Gabriel OneButton" company="Isart Digital"/>
-	<app file="OneButton" path="bin" main="com.isartdigital.onebutton.Main"/>
+	<meta version="2.0.0" package="com.gabrielbernabeu.onebutton" title="BERNABEU Gabriel OneButton" company="Isart Digital"/>
+	<app file="OneButton" path="bin" main="com.gabrielbernabeu.onebutton.Main"/>
 	
 	<icon path="icon.png" />
 
@@ -18,11 +18,11 @@
 	<assets embed="false" path="assets"/>
 	<assets embed="true" path="assets/config.json"/>
 	<assets embed="true" path="assets/settings/player.json"/>
-	<assets embed="true" path="assets/sounds/sounds.json"/> 
+	<assets embed="true" path="assets/sounds/sounds.json"/>
 
 	<library preload="true" path="assets/libraries/loader.swf"/>
 
-	<library preload="false" path="assets/libraries/ui.swf"/> 
+	<library preload="false" path="assets/libraries/ui.swf"/>
 	<library preload="false" path="assets/libraries/assets.swf"/>
 	
 	<section if="html5">

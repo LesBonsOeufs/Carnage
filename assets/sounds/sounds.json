@@ -23,7 +23,7 @@
 		},
 		"musics" :{
 			"ui": {"asset": "es_engage-hampus-naeselius", "volume":0.70},
-			"ingame" : {"asset":"es_honor_the_brave-hampus-naeselius", "volume":0.40}
+			"ingame" : {"asset":"es_honor_the_brave-hampus-naeselius", "volume":0.55}
 		}
 	},
 	"volumes" : {
