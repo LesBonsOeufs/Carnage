@@ -3,6 +3,7 @@ package com.gabrielbernabeu.onebutton.game;
 import com.gabrielbernabeu.onebutton.Main;
 import com.gabrielbernabeu.onebutton.game.layers.GameLayer;
 import com.gabrielbernabeu.onebutton.game.sprites.Arrow;
+import com.gabrielbernabeu.onebutton.game.sprites.Chicken;
 import com.gabrielbernabeu.onebutton.game.sprites.Enemy;
 import com.gabrielbernabeu.onebutton.game.sprites.Obstacle;
 import com.gabrielbernabeu.onebutton.game.sprites.Player;
@@ -214,6 +215,7 @@ class GameManager
 		player.doAction();
 		Obstacle.doActions();
 		Enemy.doActions();
+		Chicken.doActions();
 		Arrow.doActions();
 	}
 	
@@ -254,6 +256,7 @@ class GameManager
 		PatternManager.reset();
 		Enemy.reset();
 		Arrow.reset();
+		Chicken.reset();
 		player.destroy();
 		gameLayer.destroy();
 		controller.destroy();

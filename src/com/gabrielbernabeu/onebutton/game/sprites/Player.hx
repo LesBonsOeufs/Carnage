@@ -341,6 +341,7 @@ class Player extends MeleeObject
 	override function weaponCollision():Void
 	{
 		var lObstacle: Obstacle;
+		var lChicken: Chicken;
 		var lEnemy: Enemy;
 		var lMissed: Bool = true;
 		var lRandomSoundIndex: Int;
@@ -358,6 +359,24 @@ class Player extends MeleeObject
 				lMissed = false;
 				SoundManager.getSound("player_hit_wood" + lRandomSoundIndex).start();
 				lObstacle.smash();
+			}
+			
+			i--;
+		}
+		
+		i = Chicken.list.length - 1;
+		while (i > -1)
+		{
+			lChicken = Chicken.list[i];
+			
+			if (CollisionManager.hasCollision(lChicken.hitBox, hurtBox, lChicken.hitBoxes, hurtBoxes))
+			{
+				lRandomSoundIndex = Math.floor(Math.random() * 2);
+				lMissed = false;
+				SoundManager.getSound("player_hit_armor" + lRandomSoundIndex).start();
+				lChicken.die();
+				
+				degreeBar += Chicken.DEGREE_VALUE;
 			}
 			
 			i--;

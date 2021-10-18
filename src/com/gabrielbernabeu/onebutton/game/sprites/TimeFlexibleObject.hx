@@ -25,7 +25,6 @@ class TimeFlexibleObject extends StateMovieClip
 	{
 		super();
 		setState(stateDefault);
-		
 		timeBetweenAnimFrame = BASE_TIME_BETWEEN_ANIM_FRAME;
 	}
 	

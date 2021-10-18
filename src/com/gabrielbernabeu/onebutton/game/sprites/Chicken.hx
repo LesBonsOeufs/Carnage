@@ -1,40 +1,42 @@
 package com.gabrielbernabeu.onebutton.game.sprites;
 
-import com.gabrielbernabeu.onebutton.game.GameManager;
+import com.gabrielbernabeu.onebutton.ui.Hud;
 import com.gabrielbernabeu.onebutton.game.layers.GameLayer;
 import com.gabrielbernabeu.utils.effects.Shake;
-import com.gabrielbernabeu.utils.game.CollisionManager;
 import com.gabrielbernabeu.utils.game.GameStage;
-import com.gabrielbernabeu.utils.game.stateObjects.StateMovieClip;
 import openfl.geom.Point;
 import org.zamedev.particles.ParticleSystem;
-import com.gabrielbernabeu.onebutton.ui.Hud;
 
 /**
  * ...
  * @author Gabriel Bernabeu
  */
-class Obstacle extends StateMovieClip
+class Chicken extends MovingObject 
 {
-	public static var list(default, null): Array<Obstacle> = new Array<Obstacle>();
+	public static inline var DEGREE_VALUE: Int = 5;
+	
+	public static var list(default, null): Array<Chicken> = new Array<Chicken>();
 	
 	private var scoreValue(get, never): Int;
+	private var speed: Int = 25;
 	
 	/**
 	 * A override avec les bonnes values.
 	 * @return
 	 */
 	private function get_scoreValue(): Int {
-		return 20;
+		return 300;
+	}
+	
+	override function get_maxVelocity():Float {
+		return -speed;
 	}
 
 	public function new() 
 	{
 		super();
-		
+		loop = false;
 		list.push(this);
-		
-		renderer.cacheAsBitmap = true;
 	}
 	
 	static public function doActions(): Void
@@ -50,13 +52,13 @@ class Obstacle extends StateMovieClip
 	override function doActionNormal():Void 
 	{
 		super.doActionNormal();
-		
-		//var lPlayer: Player = GameManager.player;
-		
-		//if (CollisionManager.hasCollision(hitBox, lPlayer.hitBox, hitBoxes, lPlayer.getGlobalHitPoints()))
-			//trace("ok");
-		
+		trace(renderer.currentFrame);
 		testOutOfBounds();
+	}
+	
+	override function move():Void 
+	{
+		x += maxVelocity * GameManager.timeBasedCoeff;
 	}
 	
 	private function testOutOfBounds(): Void
@@ -76,14 +78,14 @@ class Obstacle extends StateMovieClip
 		}
 	}
 	
-	public function smash(): Void
+	public function die(): Void
 	{
 		Shake.operate(GameStage.getInstance(), 5, 10, new Point(GameStage.getInstance().x, GameStage.getInstance().y));
 		
-		var lWoodParticle: ParticleSystem = GameManager.getAvailableWoodParticle();
+		var lBloodExplosionParticle: ParticleSystem = GameManager.getAvailableBloodParticle();
 		
-		if (lWoodParticle != null)
-			lWoodParticle.emit(x, y - collider.height / 2);
+		if (lBloodExplosionParticle != null)
+			lBloodExplosionParticle.emit(x, y - collider.height / 2);
 		
 		Hud.getInstance().flyingScore(this, scoreValue);
 		destroy();

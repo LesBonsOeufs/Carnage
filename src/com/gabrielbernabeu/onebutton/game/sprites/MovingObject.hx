@@ -38,6 +38,11 @@ class MovingObject extends TimeFlexibleObject
 	{
 		super.doActionNormal();
 		
+		move();
+	}
+	
+	private function move(): Void
+	{
 		xVelocity += xAcceleration * GameManager.timeBasedCoeff;
 		
 		if (!unlimitVelocity)

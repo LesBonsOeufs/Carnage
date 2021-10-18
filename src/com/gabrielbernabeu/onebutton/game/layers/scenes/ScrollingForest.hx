@@ -43,7 +43,7 @@ class ScrollingForest
 			backgrounds.push(new ParallaxLayer(lCoeffs[i], pTarget, ID + '_' + i));
 		}
 		
-		var lGround: MovieClip = Assets.getMovieClip('assets:' + ID + '_' + GROUND_ID);
+		var lGround: MovieClip = Assets.getMovieClip('assets:' + GROUND_ID);
 		
 		groundY = lGround.getChildAt(0).y;
 	}

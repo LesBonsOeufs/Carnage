@@ -27,7 +27,7 @@
 	
 	<section if="html5">
 		<dependency path="assets/lib/dat.gui.min.js"/>
-	</section>
+	</section> 
 	
 	
 	<window orientation="landscape" background="#90908e" fps="90"/>

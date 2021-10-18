@@ -2,6 +2,7 @@ package com.gabrielbernabeu.onebutton.game;
 
 import com.gabrielbernabeu.onebutton.game.layers.Layer;
 import com.gabrielbernabeu.onebutton.game.layers.scenes.ScrollingForest;
+import com.gabrielbernabeu.onebutton.game.sprites.Chicken;
 import com.gabrielbernabeu.onebutton.game.sprites.Obstacle;
 import com.gabrielbernabeu.onebutton.game.sprites.enemies.Bowman;
 import com.gabrielbernabeu.onebutton.game.sprites.enemies.Swordsman;
@@ -27,6 +28,9 @@ class PatternManager
 	private static inline var SWORDSMAN: String = "/";
 	private static inline var TANK: String = "@";
 	private static inline var BOWMAN: String = "(";
+	
+	private static inline var PERCENTAGE_CHANCE_OF_CHICKEN_SPAWN: Float = 1;
+	private static inline var MIN_DIFFICULTY_FOR_CHICKEN: Int = 0;
 	
 	private static inline var MAX_DIFFICULTY: Int = 4;
 	private static inline var PATTERNS_BOX_LENGTH: Int = 3;
@@ -137,6 +141,8 @@ class PatternManager
 			i++;
 		}
 		
+		tryChickenSpawn(lInitPos);
+		
 		countXShifting -= 113 * lAddedBricks.length;
 		countXShifting -= BRICK_Y_OFFSET * lAddedBricks.length - 1;
 	}
@@ -231,6 +237,17 @@ class PatternManager
 		}
 		
 		return pPattern;
+	}
+	
+	private static function tryChickenSpawn(pPos: Point): Void
+	{
+		if (Math.random() > PERCENTAGE_CHANCE_OF_CHICKEN_SPAWN || difficulty < MIN_DIFFICULTY_FOR_CHICKEN) return;
+		
+		var lChicken: Chicken = new Chicken();
+		lChicken.x = pPos.x + lChicken.width / 2 +  BRICK_X_OFFSET;
+		lChicken.y = pPos.y;
+		container.addChild(lChicken);
+		lChicken.start();
 	}
 	
 	public static function reset(): Void
